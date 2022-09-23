@@ -27,4 +27,4 @@ more efficient and accountable with it.
 - As a user, I want to be able to see the list of all items in storage
 - As a user, I want to be able to see the list of items in their sub-categories
 - As a user I want to be able to have multiple items of the same type in storage
-- As a user I want to be able to remove an item from storage, but not have to take all of one item 
+- As a user I want to be able to remove multiple items from storage on one page, but not have to take all of one item 
