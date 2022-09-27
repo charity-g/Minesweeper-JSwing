@@ -1,30 +1,25 @@
 # My Personal Project
 
 ### **Task 1** - Project Idea
-A club equipment storage tracker
 
 ### **Task 2** - Project proposal
 **What will the application do?** <br>
-It will be able to track equipment type, categorize them in general subgroups, track who takes them
-out and who adds them(by who I mean which working group and what purposes).
+It will be able to simulate, track and allow a user to play a game of minesweeper. 
 
 **Who will use it?** <br>
-The club's internal organization.
+Anyone who wants to play minesweeper.
  
 **Why is this project of interest to you?** <br>
-I personally have become frustrated at obe of the club's organization strategies for equipment handling- 
-ie: the solution is to shove it in a box in the storage closet and leave it there.
-So when I found that we were re-buying stuff we technically already had in store, 
-I wished we had a way of easily knowing what was already taken. Because we are also using club money, I wanted to be
-more efficient and accountable with it.
+Minesweeper was a game my mom really liked to play when I was a kid- she called it a "smart" game where it would force 
+your brian into being strategetic and smart about your moves so it has a lot of cool memories for me.
 
 
 ### **Task 3** - User Stories
 
-- As a user, I want to be able to add an item in storage
-- As a user, I want to be able to search for an item in storage, whether we have it or not
-- As a user, I want to be able to remove an item from storage
-- As a user, I want to be able to see the list of all items in storage
-- As a user, I want to be able to see the list of items in their sub-categories
-- As a user I want to be able to have multiple items of the same type in storage
-- As a user I want to be able to remove multiple items from storage on one page, but not have to take all of one item 
+- As a user, I want to be able to start a new blank game
+- As a user, I want to be able to flag a tile
+- As a user, I want to be able to unearth a tile(multiple) and see what state it is below
+- As a user, I want to be able to unearth a whole bunch of tiles if the tile I have pressed is blank
+- As a user, I want to be able to have the ability to click on a bomb and end game
+- As a user, I want to be able to load game, or start new game in the middle
+- As a user, I want to be able to win the game once I have unearthed all the non-bomb tiles
