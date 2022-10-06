@@ -4,32 +4,40 @@ public class Square {
 
     static final int SQUARE_LENGTH = 2;
 
-    private final Identity identity;
-    private boolean identityHidden;
+    private final int gridLength;
     private final int rowPosition;
     private final int columnPosition;
-    private final int positioninGrid;
-    private final int gridLength;
+    private final int positionInGrid;
+
+    private final Identity identity;
+    private boolean identityHidden;
+    private boolean isFlagged;
 
     //CONSTRUCTOR
     //REQUIRES: rowPos columnPos >= 0; maximum rowPos/columnPos needs to be < gridLength
     //EFFECTS : hides Identity, sets identity and position to one given, and sets position
     public Square(Identity identity, int rowPos, int columnPos, int gridLength) {
         this.identityHidden = true;
+        this.isFlagged = false;
         this.identity = identity;
         this.rowPosition = rowPos;
         this.columnPosition = columnPos;
         this.gridLength = gridLength;
-        this.positioninGrid = rowPos + (gridLength * columnPos);
+        this.positionInGrid = rowPos + (gridLength * columnPos);
     }
 
     //GETTERS
-    //returns whether this square is supposed to be visible or not
+    //EFFECTS: returns whether this square is supposed to be visible or not
     public boolean isIdentityHidden() {
         return this.identityHidden;
     }
 
-    //returns identity of the square
+    //EFFECTS: returns whether this square has been flagged or not
+    public boolean isFlagged() {
+        return this.isFlagged;
+    }
+
+    //EFFECTS: returns identity of the square
     public Identity getIdentity() {
         return this.identity;
     }
@@ -44,13 +52,25 @@ public class Square {
         return columnPosition;
     }
 
-    public int getPosition(){
-        return this.positioninGrid;
+    public int getPosition() {
+        return this.positionInGrid;
     }
 
+    //MODIFIES: this for all setters
     //SETTERS
-    //changes visibility of this square to
-    public void setIsIdentityHiddenTo(boolean isHidden) {
-        this.identityHidden = isHidden;
+
+
+    //EFFECTS: shows square, returns false if already shown
+    public boolean showSquare() {
+        if (this.isIdentityHidden()) {
+            this.identityHidden = false;
+            return true;
+        }
+        return false;
+    }
+
+    //EFFECTS: flags the square if it is not, or takes away flag if it is
+    public void changeFlag() {
+        this.isFlagged = !this.isFlagged;
     }
 }

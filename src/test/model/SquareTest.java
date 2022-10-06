@@ -23,6 +23,10 @@ class SquareTest {
         assertTrue(testSquare.isIdentityHidden());
         assertTrue(testLastSquare.isIdentityHidden());
 
+        assertFalse(testBlankSquare.isFlagged());
+        assertFalse(testSquare.isFlagged());
+        assertFalse(testLastSquare.isFlagged());
+
         assertEquals(testBlankSquare.getIdentity(), Identity.BLANK);
         assertEquals(testSquare.getIdentity(), Identity.BOMB);
         assertEquals(testLastSquare.getIdentity(), Identity.EIGHT);
@@ -37,5 +41,35 @@ class SquareTest {
         assertEquals(testBlankSquare.getPosition(), 0);
         assertEquals(testSquare.getPosition(), 42);
         assertEquals(testLastSquare.getPosition(), 63);
+    }
+
+    @Test
+    public void showHiddenSquareTest(){
+        assertTrue(testSquare.isIdentityHidden());
+        assertTrue(testSquare.showSquare());
+        assertFalse(testSquare.isIdentityHidden());
+    }
+
+    @Test
+    public void showShownSquareTest(){
+        assertTrue(testSquare.showSquare());
+        assertFalse(testSquare.isIdentityHidden());
+        assertFalse(testSquare.showSquare());
+        assertFalse(testSquare.isIdentityHidden());
+    }
+
+    @Test
+    public void flagSquareTest(){
+        assertFalse(testSquare.isFlagged());
+        testSquare.changeFlag();
+        assertTrue(testSquare.isFlagged());
+    }
+
+    @Test
+    public void unflagSquareTest(){
+        testSquare.changeFlag();
+        assertTrue(testSquare.isFlagged());
+        testSquare.changeFlag();
+        assertFalse(testSquare.isFlagged());
     }
 }
