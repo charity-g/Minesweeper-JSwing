@@ -59,7 +59,7 @@ public class Square {
     //MODIFIES: this for all setters
     //SETTERS
 
-
+    //MODIFIES: this
     //EFFECTS: shows square, returns false if already shown
     public boolean showSquare() {
         if (this.isIdentityHidden()) {
@@ -69,6 +69,7 @@ public class Square {
         return false;
     }
 
+    //MODIFIES: this
     //EFFECTS: flags the square if it is not, or takes away flag if it is
     public void changeFlag() {
         this.isFlagged = !this.isFlagged;
