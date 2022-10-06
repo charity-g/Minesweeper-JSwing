@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Board {
 
     private int boardLength;
-    private ArrayList<Position> bombs;
-    private ArrayList<Square> grid; // TODO: unpack this guy
+    private ArrayList<Square> bombs;
+    private ArrayList<Square> allSquaresOnBoard; // TODO: unpack this guy
 
     //TODO add comments for all methods
 
@@ -34,8 +34,8 @@ public class Board {
 
     public void handleBomb(){}
 
-    //find a square with pos position
-    public Square findSquare(Position pos) {
+    //find a square with position of row and column
+    public Square findSquare(int row, int column) {
         return null;
     }
 
