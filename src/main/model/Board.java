@@ -35,21 +35,21 @@ public class Board {
     }
 
     //HELPERS ======================================
-    //REQUIRES: should only be called by Constructor
+    //REQUIRES: should only be called by Constructor, would've been private but for the tests we wanted to test this
     //MODIFIES: this
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
     //         the chosen position the user clicked on
     public void setBombs(int number, int chosenRow, int chosenColumn) {
     }
 
-    //REQUIRES: should only be called by Constructor
+    //REQUIRES: should only be called by Constructor, would've been private but for the tests we wanted to test this
     //MODIFIES: this
     //EFFECTS: creates squares and identities of the whole board based on the bombs around them
     public void initializeAllSquaresOnBoard() {
     }
 
     //EFFECTS: returns true if the given list can be considered a set, else false
-    public boolean doesNotRepeat(ArrayList<> list){
+    public boolean doesNotRepeat(ArrayList<> list) {
         return false;
     }
 
@@ -70,12 +70,12 @@ public class Board {
     }
 
     //EFFECTS: returns the bombs
-    public ArrayList<Square> getBombs(){
+    public ArrayList<Square> getBombs() {
 
     }
 
     //EFFECTS: returns the bombs
-    public ArrayList<Square> getAllSquares(){
+    public ArrayList<Square> getAllSquares() {
 
     }
 }

@@ -16,7 +16,8 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 
 ### **Task 3** - User Stories
 
-- As a user, I want to be able to start a new blank game
+- As a user, I want to be able to start a new blank game and thus add multiple squares that are bombs to a 
+  list of squares
 - As a user, I want to be able to flag a tile
 - As a user, I want to be able to unearth a tile(multiple) and see what state it is below
 - As a user, I want to be able to unearth a whole bunch of tiles if the tile I have pressed is blank
