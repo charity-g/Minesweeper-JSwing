@@ -15,13 +15,15 @@ public class GameInterface {
     public void setBoard() {
     }
 
-    public boolean hasGameBeenWon() {
-        return false;
-    }
-
     public void gameWon() {
     }
 
     public void gameLost() {
+    }
+
+    public void loadBoard() {
+    }
+
+    public void saveBoard() {
     }
 }

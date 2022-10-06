@@ -12,13 +12,36 @@ public class Board {
 
     //Places bombs and hides all squares
     //Create all the squares all at once + the identities of the squares
-
     //purpose: create a board of length x and thus a grid of x by x
     //  final field Grid length
     //  final positions of bombs
-    // sets all the
-    public Board(){}
+    public Board() {
+    }
 
-    //makes the bombs and sets their positions
-    private void setBombs(){}
+    //Unearth square
+    //If square is already visible, return false and do nothing
+    // else return true and one of the following
+    // if bomb = game over
+    // if number, show number
+    // if blank, unearth multiple
+    public boolean unearthSquare() {
+        return false;
+    }
+
+    public boolean hasGameBeenWon() {
+        return false;
+    }
+
+    public void handleBomb(){}
+
+    //find a square with pos position
+    public Square findSquare(Position pos) {
+        return null;
+    }
+
+
+    //makes the bombs and sets their position
+    //should only be called once
+    private void setBombs() {
+    }
 }

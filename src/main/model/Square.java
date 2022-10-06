@@ -2,20 +2,22 @@ package model;
 
 public class Square {
 
-    public final int SQUARE_LENGTH = 2;
+    static final int SQUARE_LENGTH = 2;
 
-    private int identity;
+    //TODO: eventually turn into enum because flag, bomb and number and blank must all be accounted for
+    private final Identity identity;
     private boolean identityHidden;
-    private Position position;
+    private final Position position;
 
     //TODO add comments for all methods
 
-    // finalizes the identity of the square (the number or bomb) should be final
-    // has isVisible = false
-    // sets position
-    public Square() {
+    //CONSTRUCTOR
+    //EFFECTS: hides Identity, sets identity and position to one given
+    public Square(Identity identity, Position pos) {
+        this.identityHidden = true;
+        this.identity = identity;
+        this.position = pos;
     }
-
 
     //GETTERS
     //returns whether this square is supposed to be visible or not
@@ -23,8 +25,14 @@ public class Square {
         return this.identityHidden;
     }
 
-    public int getIdentity() {
+    //returns identity of the square
+    public Identity getIdentity() {
         return this.identity;
+    }
+
+    //returns position of the square
+    public Position getPosition() {
+        return this.position;
     }
 
     //SETTERS

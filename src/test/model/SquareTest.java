@@ -1,5 +1,12 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
+
 class SquareTest {
-    // delete or rename this class!
+    Square testBlankSquare;
+    Position startPos = new Position(0,0);
+
+    @BeforeEach
+    public void setup(){
+    }
 }
