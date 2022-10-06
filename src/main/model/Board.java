@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-//TODO 2
+//TODO 2 - implement
 public class Board {
 
     private final int boardLength;
@@ -35,7 +35,6 @@ public class Board {
     }
 
     //HELPERS ======================================
-
     //REQUIRES: should only be called by Constructor
     //MODIFIES: this
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
@@ -47,6 +46,11 @@ public class Board {
     //MODIFIES: this
     //EFFECTS: creates squares and identities of the whole board based on the bombs around them
     public void initializeAllSquaresOnBoard() {
+    }
+
+    //EFFECTS: returns true if the given list can be considered a set, else false
+    public boolean doesNotRepeat(ArrayList<> list){
+        return false;
     }
 
     // GETTERS
@@ -63,5 +67,15 @@ public class Board {
     //EFFECTS: returns the square with position of row and column, or null if the square is off the board
     public Square getSquare(int row, int column) {
         return null;
+    }
+
+    //EFFECTS: returns the bombs
+    public ArrayList<Square> getBombs(){
+
+    }
+
+    //EFFECTS: returns the bombs
+    public ArrayList<Square> getAllSquares(){
+
     }
 }
