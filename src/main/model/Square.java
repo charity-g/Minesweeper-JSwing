@@ -5,6 +5,8 @@ public class Square {
     static final int SQUARE_LENGTH = 2;
 
     private final int gridLength;
+    // rowPosition = positionInGrid % gridLength
+    // columnPosition = positionInGrid / gridLength
     private final int rowPosition;
     private final int columnPosition;
     private final int positionInGrid;
@@ -26,7 +28,7 @@ public class Square {
         this.positionInGrid = rowPos + (gridLength * columnPos);
     }
 
-    //GETTERS
+    //GETTERS =====================================================
     //EFFECTS: returns whether this square is supposed to be visible or not
     public boolean isIdentityHidden() {
         return this.identityHidden;
@@ -57,7 +59,7 @@ public class Square {
     }
 
     //MODIFIES: this for all setters
-    //SETTERS
+    //SETTERS =====================================================
 
     //MODIFIES: this
     //EFFECTS: shows square, returns false if already shown

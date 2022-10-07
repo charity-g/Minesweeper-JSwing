@@ -6,6 +6,7 @@ public class GameInterface {
     public GameInterface() {
     }
 
+    //ask for beginner, medium, or advanced
     public void startGame() {
     }
 
