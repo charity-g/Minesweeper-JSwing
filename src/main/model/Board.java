@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 //TODO 2 - implement
 public class Board {
@@ -9,14 +10,21 @@ public class Board {
     private GameStatus gameStatus;
     private final ArrayList<Square> bombs;
     private final ArrayList<Square> allSquaresOnBoard;
+    private final Random random = new Random();
 
     //CONSTRUCTOR
     //REQUIRES: bombNumber < (boardLength^2 / 2), boardLength > 3
     //EFFECTS: Places all the bombs in positions that aren't the user's choice, sets the identities,
     //         sets gameWonYet to false
     public Board(int boardLength, int bombNumber, int rowPosition, int columnPosition) {
+        this.boardLength = boardLength;
+        this.gameStatus = GameStatus.IN_PROGRESS;
+        this.bombs = new ArrayList<Square>();
+        this.allSquaresOnBoard = new ArrayList<Square>();
+        setBombs(bombNumber, rowPosition, columnPosition);
+        initializeAllSquaresOnBoard();
     }
-    
+
     //REQUIRES: chosen position to exist on board
     //MODIFIES: this, and Square at chosen position
     //EFFECTS: If square is already visible, return false and do nothing,
@@ -26,12 +34,15 @@ public class Board {
     //     if identity of square = blank, unearth all squares around it, and if there is a neighboring blank square
     //        around it, keep unearthing until the blank squares  unearthed is surrounded by numbers shown
     public boolean unearthSquare(int position) {
+
+        //TODO
         return false;
         //USE unearthBlank()
     }
 
-    // EFFECTS: flags the Square at position position if it is unflagged, if it is flagged, unflag it
+    // EFFECTS: flags the Square at the given position if it is unflagged, if it is flagged, unflag it
     public void changeSquareFlag(int position) {
+        this.allSquaresOnBoard.get(position).changeFlag();
     }
 
     //HELPERS ======================================
@@ -40,6 +51,19 @@ public class Board {
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
     //         the chosen position the user clicked on
     private void setBombs(int number, int rowPosition, int columnPosition) {
+        int bombsMade = 0;
+        while (bombsMade < number) {
+            int potentialRowPos = random.nextInt(boardLength);
+            int potentialColPos = random.nextInt(boardLength);
+            Square potentialBomb = new Square(Identity.BOMB, potentialRowPos, potentialColPos, boardLength);
+            boolean notUserChosenSquare = (potentialRowPos != rowPosition
+                    && potentialColPos != columnPosition);
+            if ((doesNotRepeatSquare(potentialBomb, this.bombs))
+                    && notUserChosenSquare) {
+                this.bombs.add(potentialBomb);
+                bombsMade++;
+            }
+        }
     }
 
     //REQUIRES: should only be called by Constructor
@@ -56,8 +80,30 @@ public class Board {
     }
 
     //EFFECTS: returns true if the given list can be considered a set, else false
-    public boolean doesNotRepeat(ArrayList list) {
+    public boolean listDoesNotRepeat(ArrayList list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (doesNotRepeatInList(list.get(i), list.remove(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //EFFECTS:
+    public boolean doesNotRepeatInList(Object o, ArrayList<Object> listOfO) {
+        //TODO: make this
         return false;
+    }
+
+    //EFFECTS: returns true if the given object does not repeat in the list of objects
+    public boolean doesNotRepeatSquare(Square givenSquare, ArrayList<Square> listOfSq) {
+        for (Square sq : listOfSq) {
+            if (sq.getColumnPosition() == givenSquare.getColumnPosition() &&
+                    sq.getRowPosition() == givenSquare.getRowPosition()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // GETTERS =====================================================
