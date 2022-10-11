@@ -140,7 +140,7 @@ public class BoardTest {
         }
     }
 
-    @Test
+    @Test //TODO
     public void initializeAllSquaresTinySeed() {
         assertTrue(false);
     }
@@ -266,7 +266,7 @@ public class BoardTest {
     static boolean checkBombsAroundSquare(ArrayList<Square> allSquaresOnBoard,
                                           int position, int boardLength) {
         Square chosenSquare = allSquaresOnBoard.get(position);
-        int numberOfBombs;
+        int numberOfBombs = 0;
         switch (chosenSquare.getIdentity()) {
             case ONE:
                 numberOfBombs = 1;
@@ -296,14 +296,45 @@ public class BoardTest {
             case BLANK:
                 return true;
         }
-        return numberOfBombsAround(allSquaresOnBoard, position, numberOfBombs);
+        return numberOfBombsAroundMatchesExpected(allSquaresOnBoard, position, numberOfBombs, boardLength);
     }
 
 
     //EFFECTS: returns true if there are exactly the same number of bombs near the position chosen, false if not
-    static boolean numberOfBombsAround(ArrayList<Square> allSquaresOnBoard, int position, int numberOfBombs){
-        return false;
+    static boolean numberOfBombsAroundMatchesExpected(ArrayList<Square> allSquaresOnBoard, int position,
+                                                      int numberOfBombs, int boardLength) {
+        int numberOfBombsFound = findNumberOfBombs(allSquaresOnBoard, position, boardLength);
+        if (numberOfBombsFound == numberOfBombs) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //EFFECTS: returns the number of bombs found in the square position's immediate neighbors(so in the 3x3 matrix
+    //         around the chosen position)
+    static int findNumberOfBombs(ArrayList<Square> allSquaresOnBoard, int position,
+                                 int boardLength) {
         //TODO
+        int numberOfBombsFound = 0;
+        int boardSize = (boardLength * boardLength);
+        ArrayList<Integer> neighbors = new ArrayList<Integer>();
+        neighbors.add(position - 1); // to the Left
+        neighbors.add(position + 1); // to the right
+        neighbors.add(position - boardLength); //directly above
+        neighbors.add(position - boardLength - 1); //top left
+        neighbors.add(position - boardLength + 1); //top right
+        neighbors.add(position + boardLength); //directly below
+        neighbors.add(position + boardLength - 1); //bot left
+        neighbors.add(position + boardLength + 1); //bot right
+        for (int i : neighbors) {
+            if (i >= 0 && i < boardSize) {
+                if (allSquaresOnBoard.get(i).getIdentity() == BOMB) {
+                    numberOfBombsFound++;
+                }
+            }
+        }
+        return numberOfBombsFound;
     }
 
     //EFFECTS: returns true if each square in list has position on board and not off board, else false
