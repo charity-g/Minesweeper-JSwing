@@ -1,9 +1,14 @@
 package ui;
 
-public class GameInterface {
+import model.Board;
+
+public class Game {
+    Board boardInProgress;
 
     //TODO add comments for all methods
-    public GameInterface() {
+    //EFFECTS: Creates a new game
+    public Game() {
+
     }
 
     //ask for beginner, medium, or advanced

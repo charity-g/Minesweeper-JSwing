@@ -6,6 +6,7 @@ import java.util.Random;
 import static model.Identity.*;
 
 public class Board {
+    //TODO: out of bound square helper
 
     private final int boardLength;
     private final int boardSize;
@@ -27,10 +28,10 @@ public class Board {
         this.gameStatus = GameStatus.IN_PROGRESS;
         this.bombs = new ArrayList<Square>();
         this.listOfBombPos = new ArrayList<Integer>();
+        setBombs(bombNumber, rowPosition, columnPosition);
         initializeAllBombPos();
         this.allSquaresMatrix = new ArrayList<Integer>();
         this.allSquaresOnBoard = new ArrayList<Square>();
-        setBombs(bombNumber, rowPosition, columnPosition);
         initializeAllSquaresOnBoard();
     }
 
@@ -43,10 +44,18 @@ public class Board {
     //     if identity of square = blank, unearth all squares around it, and if there is a neighboring blank square
     //        around it, keep unearthing until the blank squares  unearthed is surrounded by numbers shown
     public boolean unearthSquare(int position) {
-
-        //TODO
-        return false;
-        //USE unearthBlank()
+        Square clickedSq = this.allSquaresOnBoard.get(position);
+        Identity clickedSqID = clickedSq.getIdentity();
+        if (!clickedSq.isIdentityHidden()) {
+            return false;
+        } else if (clickedSqID == BOMB) {
+            gameStatus = GameStatus.LOST;
+        } else if (clickedSqID == BLANK) {
+            unearthBlank(position);
+        } else {
+            clickedSq.showSquare();
+        }
+        return true;
     }
 
     // EFFECTS: flags the Square at the given position if it is unflagged, if it is flagged, unflag it
@@ -79,7 +88,6 @@ public class Board {
     //MODIFIES: this
     //EFFECTS: creates squares and identities of the whole board based on the bombs around them
     private void initializeAllSquaresOnBoard() {
-        //TODO
         //transfers the matrix version into the square version
         initializeAllSquaresOnBoardMatrix();
         for (int i = 0; i < allSquaresMatrix.size(); i++) {
@@ -133,7 +141,11 @@ public class Board {
     //MODIFIES: this and the squares in the given position and the immediate neighboring positions around it
     //EFFECTS:
     private void unearthBlank(int position) {
-
+        ArrayList<Integer> listOfPositionsToUnearth = new ArrayList<Integer>();
+        //adds neighbors to listOfPosTU
+        //removes the neighbors that are out of bounds
+        //
+        // TODO
     }
 
     //REQUIRES: Only called by initializeAllSquaresOnBoard
@@ -178,9 +190,36 @@ public class Board {
         for (int n : neighbors) {
             if (n >= 0 && n < this.boardSize) {
                 int oldBombNumber = allSquaresMatrix.get(n);
-                allSquaresMatrix.set(n, oldBombNumber++);
+                if (oldBombNumber != -1) {
+                    allSquaresMatrix.set(n, oldBombNumber++);
+                }
             }
         }
+    }
+
+    //EFFECTS: returns the number of bombs found in the square position's immediate neighbors(so in the 3x3 matrix
+    //         around the chosen position)
+    public int findNumberOfBombs(int position,
+                                 int boardLength) {
+        int numberOfBombsFound = 0;
+        int boardSize = (boardLength * boardLength);
+        ArrayList<Integer> neighbors = new ArrayList<Integer>();
+        neighbors.add(position - 1); // to the Left
+        neighbors.add(position + 1); // to the right
+        neighbors.add(position - boardLength); //directly above
+        neighbors.add(position - boardLength - 1); //top left
+        neighbors.add(position - boardLength + 1); //top right
+        neighbors.add(position + boardLength); //directly below
+        neighbors.add(position + boardLength - 1); //bot left
+        neighbors.add(position + boardLength + 1); //bot right
+        for (int i : neighbors) {
+            if (i >= 0 && i < boardSize) {
+                if (this.allSquaresOnBoard.get(i).getIdentity() == BOMB) {
+                    numberOfBombsFound++;
+                }
+            }
+        }
+        return numberOfBombsFound;
     }
 
     //EFFECTS: returns true if the given list can be considered a set, else false
