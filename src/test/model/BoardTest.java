@@ -1,5 +1,6 @@
 package model;
 
+import static model.Identity.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -78,9 +79,32 @@ public class BoardTest {
         assertSquaresAreWithinBoard(bombs, 8);
     }
 
+    static void verifyBomb(Square bomb, int rowPos, int colPos) {
+        assertTrue(bomb.getIdentity() == BOMB);
+        assertTrue(bomb.getRowPosition() == rowPos);
+        assertTrue(bomb.getColumnPosition() == colPos);
+    }
+
     @Test
-    public void setBombsTestSeed(){
-        //TODO
+    public void setBombsTinyTestSeed() {
+        for (Square s : testBoardTiny.getBombs()) {
+            verifyBomb(s, 2, 2);
+        }
+    }
+
+    @Test
+    public void setBombsStandardTestSeed() {
+        ArrayList<Square> bombs = testBoardStandard.getBombs();
+        verifyBomb(bombs.get(0), 0, 5);
+        verifyBomb(bombs.get(1), 3, 4);
+        verifyBomb(bombs.get(2), 5, 5);
+        verifyBomb(bombs.get(3), 2, 2);
+        verifyBomb(bombs.get(4), 0, 4);
+        verifyBomb(bombs.get(5), 3, 6);
+        verifyBomb(bombs.get(6), 3, 52);
+        verifyBomb(bombs.get(7), 0, 7);
+        verifyBomb(bombs.get(8), 7, 6);
+        verifyBomb(bombs.get(9), 1, 4);
     }
 
     @Test
@@ -98,7 +122,8 @@ public class BoardTest {
         assertSquarePositionsInOrder(allSquaresOnBoard, 3);
         //test to see the positions of squares match up with supposed identity
         for (Square square : allSquaresOnBoard) {
-            assertTrue(checkBombsAroundSquare(allSquaresOnBoard, square.getRowPosition(), square.getColumnPosition()));
+            assertTrue(checkBombsAroundSquare(allSquaresOnBoard,
+                    square.getPosition(), testBoardTiny.getBoardLength()));
         }
     }
 
@@ -110,8 +135,19 @@ public class BoardTest {
         assertSquarePositionsInOrder(allSquaresOnBoard, 8);
         //test to see the positions of squares match up with supposed identity
         for (Square square : allSquaresOnBoard) {
-            assertTrue(checkBombsAroundSquare(allSquaresOnBoard, square.getRowPosition(), square.getColumnPosition()));
+            assertTrue(checkBombsAroundSquare(allSquaresOnBoard,
+                    square.getPosition(), testBoardStandard.getBoardLength()));
         }
+    }
+
+    @Test
+    public void initializeAllSquaresTinySeed() {
+        assertTrue(false);
+    }
+
+    @Test
+    public void initializeAllSquaresStandaradSeed() {
+        assertTrue(false);
     }
 
     //NON-CONSTRUCTOR METHODS TEST
@@ -141,7 +177,7 @@ public class BoardTest {
 
     @Test
     public void unearthSquareTestNumber() {
-        Square normalSquare = findSquare(testBoardTiny, Identity.ONE);
+        Square normalSquare = findSquare(testBoardTiny, ONE);
         int pos = normalSquare.getPosition();
         assertTrue(normalSquare != null);
         assertTrue(normalSquare.isIdentityHidden());
@@ -155,14 +191,14 @@ public class BoardTest {
 
     @Test
     public void unearthSquareTestBlank() {
-        Square blankSquare = findSquare(testBoardStandard, Identity.BLANK);
+        Square blankSquare = findSquare(testBoardStandard, BLANK);
         assertTrue(blankSquare != null);
         //TODO  LONG LOL
     }
 
     @Test
     public void TestGameLost() {
-        Square bombSquare = findSquare(testBoardTiny, Identity.BOMB);
+        Square bombSquare = findSquare(testBoardTiny, BOMB);
         int position = bombSquare.getPosition();
         assertTrue(bombSquare != null);
         assertTrue(testBoardTiny.unearthSquare(position));
@@ -172,7 +208,7 @@ public class BoardTest {
     @Test
     public void isGameWonTestYes() {
         for (Square square : testBoardTiny.getAllSquares()) {
-            if (square.getIdentity() != Identity.BOMB) {
+            if (square.getIdentity() != BOMB) {
                 testBoardTiny.unearthSquare(square.getPosition());
             }
         }
@@ -199,17 +235,17 @@ public class BoardTest {
     //STATIC HELPERS
     static ArrayList<Square> setupTestSquareList() {
         ArrayList<Square> list = new ArrayList<Square>();
-        list.add(new Square(Identity.BLANK, 0, 0, 3));
-        list.add(new Square(Identity.BLANK, 1, 0, 3));
-        list.add(new Square(Identity.BLANK, 2, 0, 3));
+        list.add(new Square(BLANK, 0, 0, 3));
+        list.add(new Square(BLANK, 1, 0, 3));
+        list.add(new Square(BLANK, 2, 0, 3));
 
-        list.add(new Square(Identity.BLANK, 0, 1, 3));
-        list.add(new Square(Identity.BLANK, 1, 1, 3));
-        list.add(new Square(Identity.BLANK, 2, 1, 3));
+        list.add(new Square(BLANK, 0, 1, 3));
+        list.add(new Square(BLANK, 1, 1, 3));
+        list.add(new Square(BLANK, 2, 1, 3));
 
-        list.add(new Square(Identity.BLANK, 0, 2, 3));
-        list.add(new Square(Identity.BLANK, 1, 2, 3));
-        list.add(new Square(Identity.BLANK, 2, 2, 3));
+        list.add(new Square(BLANK, 0, 2, 3));
+        list.add(new Square(BLANK, 1, 2, 3));
+        list.add(new Square(BLANK, 2, 2, 3));
 
         return list;
     }
@@ -217,7 +253,7 @@ public class BoardTest {
     //EFFECTS: returns true if the positions of the squares in order of the arrayList correspond well to the
     //         boardLength and have the correct rowPosition and columnPosition
     static void assertSquarePositionsInOrder(ArrayList<Square> allSquaresOnBoard, int boardLength) {
-        for(int i = 0; i < allSquaresOnBoard.size(); i++){
+        for (int i = 0; i < allSquaresOnBoard.size(); i++) {
             Square square = allSquaresOnBoard.get(i);
             assertTrue(i == square.getPosition());
             assertTrue(i % boardLength == square.getRowPosition());
@@ -227,13 +263,52 @@ public class BoardTest {
 
     //EFFECTS: depending on identity of the square, checks the positions in the neighbors around it to see if the
     // number of bombs around this square is correct
-    static boolean checkBombsAroundSquare(ArrayList<Square> allSquaresOnBoard, int chosenRow, int chosenColumn) {
+    static boolean checkBombsAroundSquare(ArrayList<Square> allSquaresOnBoard,
+                                          int position, int boardLength) {
+        Square chosenSquare = allSquaresOnBoard.get(position);
+        int numberOfBombs;
+        switch (chosenSquare.getIdentity()) {
+            case ONE:
+                numberOfBombs = 1;
+                break;
+            case TWO:
+                numberOfBombs = 2;
+                break;
+            case THREE:
+                numberOfBombs = 3;
+                break;
+            case FOUR:
+                numberOfBombs = 4;
+                break;
+            case FIVE:
+                numberOfBombs = 5;
+                break;
+            case SIX:
+                numberOfBombs = 6;
+                break;
+            case SEVEN:
+                numberOfBombs = 7;
+                break;
+            case EIGHT:
+                numberOfBombs = 8;
+                break;
+            case BOMB:
+            case BLANK:
+                return true;
+        }
+        return numberOfBombsAround(allSquaresOnBoard, position, numberOfBombs);
+    }
+
+
+    //EFFECTS: returns true if there are exactly the same number of bombs near the position chosen, false if not
+    static boolean numberOfBombsAround(ArrayList<Square> allSquaresOnBoard, int position, int numberOfBombs){
         return false;
+        //TODO
     }
 
     //EFFECTS: returns true if each square in list has position on board and not off board, else false
     static void assertSquaresAreWithinBoard(ArrayList<Square> squares, int boardLength) {
-        for(Square square : squares){
+        for (Square square : squares) {
             assertSquareIsWithinBoard(square, boardLength);
         }
     }
@@ -248,7 +323,7 @@ public class BoardTest {
     //EFFECTS: return first square on the board that has the identity, else null if no square exists with that identity
     static Square findSquare(Board board, Identity id) {
         ArrayList<Square> squares = board.getAllSquares();
-        for(int i = 0; i < squares.size(); i++){
+        for (int i = 0; i < squares.size(); i++) {
             Square sq = squares.get(i);
             if (sq.getIdentity() == id) {
                 return sq;

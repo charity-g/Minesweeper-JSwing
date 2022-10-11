@@ -80,19 +80,30 @@ public class Board {
     }
 
     //EFFECTS: returns true if the given list can be considered a set, else false
-    public boolean listDoesNotRepeat(ArrayList list) {
+    public boolean listDoesNotRepeat(ArrayList<Integer> list) {
         for (int i = 0; i < list.size(); i++) {
-            if (doesNotRepeatInList(list.get(i), list.remove(i))) {
+            int integerToCheckRepeat = list.get(i);
+            if (!doesNotAppearMoreThanOnceInList(integerToCheckRepeat, list)) {
                 return false;
             }
         }
         return true;
     }
 
-    //EFFECTS:
-    public boolean doesNotRepeatInList(Object o, ArrayList<Object> listOfO) {
-        //TODO: make this
-        return false;
+    //REQUIRES: the given number to appear at least once in the list
+    //EFFECTS: returns true if the given number is only found once in the list,
+    public boolean doesNotAppearMoreThanOnceInList(int number, ArrayList<Integer> listOfInt) {
+        int timesAppeared = 0;
+        for (int i = 0; i < listOfInt.size(); i++) {
+            if (listOfInt.get(i) == number) {
+                timesAppeared++;
+            }
+        }
+        if (timesAppeared == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //EFFECTS: returns true if the given object does not repeat in the list of objects
@@ -119,6 +130,11 @@ public class Board {
 
     //EFFECTS: returns the square with position of row and column, or null if the square is off the board
     public Square getSquare(int rowPosition, int columnPosition) {
+        for (Square s : this.allSquaresOnBoard) {
+            if (s.getRowPosition() == rowPosition && s.getColumnPosition() == columnPosition) {
+                return s;
+            }
+        }
         return null;
     }
 
