@@ -1,7 +1,6 @@
 package model;
 
 import static model.Identity.*;
-import model.TestUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,196 +8,82 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-//TODO 3 - ask lab TA about test redundancy?? my two cases are very small vs very big
 public class BoardTest {
-    Board testBoardTiny;
-    Board testBoardStandard;
-    TestUtils util = new TestUtils();
+    Board testBoardSeed;
+    private final int BOARD_WIDTH = 3;
+    private final int BOARD_HEIGHT = 4;
+    private final int BOARD_SIZE = BOARD_HEIGHT * BOARD_WIDTH;
+    Utils util = new Utils();
+    protected long seed = 24;
 
     @BeforeEach
     public void setup() {
-        testBoardTiny = new Board(3, 1, 0, 0);
-        testBoardStandard = new Board(8, 10, 6, 3);
+        testBoardSeed = new Board(BOARD_WIDTH, BOARD_HEIGHT, 1, seed);
     }
 
     //CONSTRUCTOR TESTS
     @Test
-    public void BoardConstructorTest() {
-        assertEquals(testBoardTiny.getBoardLength(), 3);
-        assertEquals(testBoardStandard.getBoardLength(), 8);
+    //to be overridden
+    public void constructorTest() {
+        assertEquals(testBoardSeed.getBoardWidth(), this.BOARD_WIDTH);
+        assertEquals(testBoardSeed.getBoardHeight(), this.BOARD_HEIGHT);
+        assertEquals(testBoardSeed.getBoardSize(), this.BOARD_SIZE);
+        assertEquals(testBoardSeed.getBombNumber(), 1);
 
-        assertEquals(testBoardTiny.getGameStatus(), GameStatus.IN_PROGRESS);
-        assertEquals(testBoardStandard.getGameStatus(), GameStatus.IN_PROGRESS);
+        assertEquals(testBoardSeed.getGameStatus(), GameStatus.IN_PROGRESS);
     }
 
     @Test
-    public void doesNotRepeatTestConsecutive() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        assertTrue(testBoardStandard.listDoesNotRepeat(list));
-        list.add(1);
-        list.add(2);
-        assertTrue(testBoardStandard.listDoesNotRepeat(list));
-        list.add(2);
-        assertFalse(testBoardStandard.listDoesNotRepeat(list));
+    //to be overridden + override should add that the bombs do not repeat
+    public void constructorSetBombsTest() {
+        ArrayList<Integer> bombsPos = testBoardSeed.getListOfBombPos();
+        assertEquals(bombsPos.size(), 1);
+        ArrayList<Integer> filteredBombs = testBoardSeed.filterOutOfBounds(bombsPos);
+        assertEquals(filteredBombs.size(), 1);
+        assertEquals(bombsPos.get(0), filteredBombs.get(0));
     }
 
     @Test
-    public void doesNotRepeatTestNonConsecutive() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        list.add(2);
-        list.add(3);
-        list.add(9);
-        assertTrue(testBoardStandard.listDoesNotRepeat(list));
-        list.add(2);
-        assertFalse(testBoardStandard.listDoesNotRepeat(list));
+    //to be overridden depending on seed
+    public void setBombsTestSeed() {
+        //TODO requires set seed to confirm positions
     }
 
     @Test
-    public void setBombsTestTiny() {
-        Square bomb = testBoardTiny.getBombs().get(0);
-        assertEquals(testBoardTiny.getBombs().size(), 1);
-        assertFalse(bomb.getRowPosition() == 0);
-        assertFalse(bomb.getColumnPosition() == 0);
-
-        assertSquaresAreWithinBoard(testBoardTiny.getBombs(), 3);
-    }
-
-    @Test
-    public void setBombsTestStandard() {
-        ArrayList<Square> bombs = testBoardStandard.getBombs();
-        assertEquals(bombs.size(), 10);
-        ArrayList<Integer> positions = new ArrayList<Integer>();
-        positions.add((3 * 8) + 6);
-        for (Square bomb : bombs) {
-            positions.add(bomb.getPosition());
-        }
-        assertTrue(testBoardStandard.listDoesNotRepeat(positions));
-        assertSquaresAreWithinBoard(bombs, 8);
-    }
-
-    static void verifyBomb(Square bomb, int rowPos, int colPos) {
-        assertTrue(bomb.getIdentity() == BOMB);
-        assertTrue(bomb.getRowPosition() == rowPos);
-        assertTrue(bomb.getColumnPosition() == colPos);
-    }
-
-    @Test
-    public void setBombsTinyTestSeed() {
-        for (Square s : testBoardTiny.getBombs()) {
-            verifyBomb(s, 2, 1);
-        }
-    }
-
-    @Test
-    public void setBombsStandardTestSeed() {
-        ArrayList<Square> bombs = testBoardStandard.getBombs();
-        verifyBomb(bombs.get(0), 2, 2);
-        verifyBomb(bombs.get(1), 7, 7);
-        verifyBomb(bombs.get(2), 4, 0);
-        verifyBomb(bombs.get(3), 3, 5);
-        verifyBomb(bombs.get(4), 2, 1);
-        verifyBomb(bombs.get(5), 0, 7);
-        verifyBomb(bombs.get(6), 1, 2);
-        verifyBomb(bombs.get(7), 7, 5);
-        verifyBomb(bombs.get(8), 5, 7);
-        verifyBomb(bombs.get(9), 3, 4);
-    }
-
-    @Test
-    public void checkSquarePositionsInOrderTestTiny() {
-        ArrayList<Square> testSquareList = setupTestSquareList();
-        assertSquarePositionsInOrder(testSquareList, 3);
-    }
-
-    @Test
-    public void initializeAllSquaresOnBoardTestTiny() {
-        ArrayList<Square> allSquaresOnBoard = testBoardTiny.getAllSquares();
+    public void constructorInitializeAllSquaresTest() {
+        ArrayList<Square> allSquaresOnBoard = testBoardSeed.getAllSquares();
         //test to see correct number of squares have been made
-        assertEquals(allSquaresOnBoard.size(), 9);
+        assertEquals(allSquaresOnBoard.size(), BOARD_SIZE);
         //test to see the positions of squares are correct
-        assertSquarePositionsInOrder(allSquaresOnBoard, 3);
+        util.assertSquarePositionsInOrder(allSquaresOnBoard);
         //test to see the positions of squares match up with supposed identity
         for (Square square : allSquaresOnBoard) {
-            assertTrue(checkBombsAroundSquare(testBoardTiny,
-                    square.getPosition(), testBoardTiny.getBoardLength()));
+            assertTrue(util.checkBombsAroundSquare(testBoardSeed,
+                    square.getPosition()));
         }
     }
 
-    @Test
-    public void initializeAllSquaresOnBoardTestStandard() {
-        ArrayList<Square> allSquaresOnBoard = testBoardStandard.getAllSquares();
-        assertEquals(allSquaresOnBoard.size(), 64);
-        //test to see the positions of squares are correct
-        assertSquarePositionsInOrder(allSquaresOnBoard, 8);
-        //test to see the positions of squares match up with supposed identity
-        for (Square square : allSquaresOnBoard) {
-            assertTrue(checkBombsAroundSquare(testBoardStandard,
-                    square.getPosition(), testBoardStandard.getBoardLength()));
-        }
-    }
-
-    @Test
-    public void findNumberOfBombsTest() {
-        //TODO
-        //Depends on set seed
-        assertTrue(false);
-    }
-
-    @Test //TODO
-    public void initializeAllSquaresTinySeed() {
-        assertTrue(false);
-        //Depends on set seed
-    }
-
-    @Test
-    public void initializeAllSquaresStandaradSeed() {
-        assertTrue(false);
-        //Depends on set seed
-    }
-
-    //NON-CONSTRUCTOR METHODS TEST
-    @Test
-    public void getSquareTestFirst() {
-        Identity testSquareID = testBoardStandard.getAllSquares().get(0).getIdentity();
-        Square gotSquare = testBoardStandard.getSquare(0, 0);
-        assertEquals(testSquareID, gotSquare.getIdentity());
-        assertEquals(0, gotSquare.getPosition());
-    }
-
-    @Test
-    public void getSquareTest() {
-        Identity testSquareID = testBoardStandard.getAllSquares().get(9).getIdentity();
-        Square gotSquare = testBoardStandard.getSquare(9 % 8, 9 / 8);
-        assertEquals(testSquareID, gotSquare.getIdentity());
-        assertEquals(9, gotSquare.getPosition());
-    }
-
-    @Test
-    public void getSquareTestLast() {
-        Identity testSquareID = testBoardStandard.getAllSquares().get(63).getIdentity();
-        Square gotSquare = testBoardStandard.getSquare(7, 7);
-        assertEquals(testSquareID, gotSquare.getIdentity());
-        assertEquals(63, gotSquare.getPosition());
-    }
+    //NON-CONSTRUCTOR BASED TESTS
 
     @Test
     public void unearthSquareTestNumber() {
-        Square normalSquare = util.findSquare(testBoardTiny, ONE);
+        Square normalSquare = util.findSquare(testBoardSeed, ONE);
         if (normalSquare != null) {
             int pos = normalSquare.getPosition();
             assertTrue(normalSquare.isIdentityHidden());
 
-            assertTrue(testBoardTiny.unearthSquare(pos));
+            assertTrue(testBoardSeed.unearthSquare(pos));
             assertFalse(normalSquare.isIdentityHidden());
 
-            assertFalse(testBoardTiny.unearthSquare(pos));
+            assertFalse(testBoardSeed.unearthSquare(pos));
             assertFalse(normalSquare.isIdentityHidden());
         }
     }
 
     @Test
+    //probably test multiple versions of this
     public void unearthSquareTestBlank() {
-        Square blankSquare = util.findSquare(testBoardStandard, BLANK);
+        Square blankSquare = util.findSquare(testBoardSeed, BLANK);
         assertTrue(blankSquare != null);
         //TODO  LONG LOL
         // req set seed
@@ -206,112 +91,211 @@ public class BoardTest {
     }
 
     @Test
-    public void changeSquareFlagTestUnflagged() {
-        Square square = testBoardTiny.getAllSquares().get(0);
-        assertFalse(square.isFlagged());
-        testBoardTiny.changeSquareFlag(0);
-        assertTrue(square.isFlagged());
+    public void unearthSquareTestBomb() {}
+
+    @Test
+    //filterOutOfBounds(ArrayList<Integer> allPositions)
+    public void filterOutOfBoundsTestNone() {
+        ArrayList<Integer> positions = new ArrayList<Integer>();
+        //adding positions
+        for (int i = 0; i < (BOARD_WIDTH * BOARD_HEIGHT); i++) {
+            positions.add(i);
+        }
+        ArrayList<Integer> filteredPositions = testBoardSeed.filterOutOfBounds(positions);
+        assertEquals(positions, filteredPositions);
+
     }
 
     @Test
-    public void changeSquareFlagTestAlreadyFlagged() {
-        Square square = testBoardTiny.getAllSquares().get(2);
-        testBoardTiny.changeSquareFlag(2);
-        assertTrue(square.isFlagged());
-        testBoardTiny.changeSquareFlag(2);
-        assertFalse(square.isFlagged());
+    //filterOutOfBounds(ArrayList<Integer> allPositions)
+    public void filterOutOfBoundsTestOne() {
+        ArrayList<Integer> positions = new ArrayList<Integer>();
+        //adding positions
+        for (int i = 0; i <= (BOARD_WIDTH * BOARD_HEIGHT); i++) {
+            positions.add(i);
+        }
+        ArrayList<Integer> filteredPositions = testBoardSeed.filterOutOfBounds(positions);
+        assertFalse(positions == filteredPositions);
+        assertEquals(filteredPositions.size(), (BOARD_SIZE) - 1);
+        assertFalse(filteredPositions.contains(BOARD_SIZE));
+
     }
 
-    //STATIC HELPERS
-    static ArrayList<Square> setupTestSquareList() {
-        ArrayList<Square> list = new ArrayList<Square>();
-        list.add(new Square(BLANK, 0, 0, 3));
-        list.add(new Square(BLANK, 1, 0, 3));
-        list.add(new Square(BLANK, 2, 0, 3));
-
-        list.add(new Square(BLANK, 0, 1, 3));
-        list.add(new Square(BLANK, 1, 1, 3));
-        list.add(new Square(BLANK, 2, 1, 3));
-
-        list.add(new Square(BLANK, 0, 2, 3));
-        list.add(new Square(BLANK, 1, 2, 3));
-        list.add(new Square(BLANK, 2, 2, 3));
-
-        return list;
+    @Test
+    //filterOutOfBounds(ArrayList<Integer> allPositions)
+    public void filterOutOfBoundsTestMultiple() {
+        ArrayList<Integer> positions = new ArrayList<Integer>();
+        //adding positions
+        for (int i = -5; i <= (BOARD_WIDTH * BOARD_HEIGHT) + 1; i += 2) {
+            positions.add(i);
+        }
+        ArrayList<Integer> filteredPositions = testBoardSeed.filterOutOfBounds(positions);
+        assertFalse(positions == filteredPositions);
+        assertFalse(filteredPositions.contains(-5));
+        assertFalse(filteredPositions.contains(-3));
+        assertFalse(filteredPositions.contains(-1));
+        assertFalse(filteredPositions.contains(BOARD_WIDTH * BOARD_HEIGHT));
+        assertFalse(filteredPositions.contains((BOARD_WIDTH * BOARD_HEIGHT) + 1));
     }
 
-    //EFFECTS: returns true if the positions of the squares in order of the arrayList correspond well to the
-    //         boardLength and have the correct rowPosition and columnPosition
-    static void assertSquarePositionsInOrder(ArrayList<Square> allSquaresOnBoard, int boardLength) {
-        for (int i = 0; i < allSquaresOnBoard.size(); i++) {
-            Square square = allSquaresOnBoard.get(i);
-            assertTrue(i == square.getPosition());
-            assertTrue(i % boardLength == square.getRowPosition());
-            assertTrue(i / boardLength == square.getColumnPosition());
+    @Test
+    //Testing getNeighbors(int position) four corners
+    public void getNeighborsTopLeftCornerTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions(0);
+        assertEquals(neighborPos.size(), 3);
+        assertTrue(neighborPos.contains(1));
+        assertTrue(neighborPos.contains(BOARD_WIDTH));
+        assertTrue(neighborPos.contains(BOARD_WIDTH + 1));
+        assertFalse(neighborPos.contains(BOARD_WIDTH - 1));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) four corners
+    public void getNeighborsTopRightCornerTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions(BOARD_WIDTH - 1);
+        assertEquals(neighborPos.size(), 3);
+        assertTrue(neighborPos.contains(BOARD_WIDTH - 2));
+        assertFalse(neighborPos.contains(BOARD_WIDTH));
+        assertTrue(neighborPos.contains((2 * BOARD_WIDTH) - 1));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) four corners
+    public void getNeighborsBotLeftCornerTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions(BOARD_WIDTH * (BOARD_HEIGHT - 1));
+        assertEquals(neighborPos.size(), 3);
+        assertTrue(neighborPos.contains(BOARD_WIDTH * (BOARD_HEIGHT - 2)));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * (BOARD_HEIGHT - 2)) + 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * (BOARD_HEIGHT - 1)) + 1));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) four corners
+    public void getNeighborsBotRightCornerTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions((BOARD_WIDTH * BOARD_HEIGHT) - 1);
+        assertEquals(neighborPos.size(), 3);
+        assertTrue(neighborPos.contains((BOARD_WIDTH * BOARD_HEIGHT) - 2));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * (BOARD_HEIGHT - 1)) - 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * (BOARD_HEIGHT - 1)) - 2));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) left side
+    //        which is any position with the formula position = n * BOARD_WIDTH for any integer n
+    public void getNeighborsLeftSideTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions(BOARD_WIDTH);
+        assertEquals(neighborPos.size(), 5);
+        assertTrue(neighborPos.contains(0));
+        assertTrue(neighborPos.contains(1));
+        assertTrue(neighborPos.contains(BOARD_WIDTH + 1));
+        assertTrue(neighborPos.contains(BOARD_WIDTH * 2));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) + 1));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) right side
+    //        which is any position with the formula pos = (n * BOARD_WIDTH) - 1 for any integer n and pos >= 0
+    public void getNeighborsRightSideTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions((BOARD_WIDTH * 3) - 1);
+        assertEquals(neighborPos.size(), 5);
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) - 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) - 2));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 3) - 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 4) - 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 4) - 2));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) top side
+    //  which is any position from 0 - (BOARD_WIDTH - 2)
+    public void getNeighborsTopSideTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions(BOARD_WIDTH - 2);
+        assertEquals(neighborPos.size(), 5);
+        assertTrue(neighborPos.contains(BOARD_WIDTH - 3));
+        assertTrue(neighborPos.contains(BOARD_WIDTH + 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) - 3));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) - 2));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) - 1));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) bot side
+    //  which is any position from (BOARD_WIDTH * (BOARD_HEIGHT - 1)) to (BOARD_SIZE - 2)
+    public void getNeighborsBotSideTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions(BOARD_SIZE - 2);
+        assertEquals(neighborPos.size(), 5);
+        assertTrue(neighborPos.contains(BOARD_SIZE - 3));
+        assertTrue(neighborPos.contains(BOARD_SIZE - 1));
+        assertTrue(neighborPos.contains((BOARD_HEIGHT * (BOARD_WIDTH - 1)) - 3));
+        assertTrue(neighborPos.contains((BOARD_HEIGHT * (BOARD_WIDTH - 1)) - 2));
+        assertTrue(neighborPos.contains((BOARD_HEIGHT * (BOARD_WIDTH - 1)) - 1));
+    }
+
+    @Test
+    //Testing getNeighbors(int position) middle
+    public void getNeighborsMiddleTest() {
+        ArrayList<Integer> neighborPos = testBoardSeed.getNeighborPositions(BOARD_WIDTH + 1);
+        assertEquals(neighborPos.size(), 8);
+        assertTrue(neighborPos.contains(0));
+        assertTrue(neighborPos.contains(1));
+        assertTrue(neighborPos.contains(2));
+        assertTrue(neighborPos.contains(BOARD_WIDTH));
+        assertTrue(neighborPos.contains(BOARD_WIDTH + 1));
+        assertTrue(neighborPos.contains(BOARD_WIDTH * 2));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) + 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 2) + 2));
+    }
+
+    @Test
+    //changeSquareFlag(int position) for
+    public void changeSquareFlagTest() {
+        assertFalse(testBoardSeed.getSquare(5).isFlagged());
+        //flag
+        testBoardSeed.changeSquareFlag(5);
+        assertTrue(testBoardSeed.getSquare(5).isFlagged());
+        //un-flag
+        testBoardSeed.changeSquareFlag(BOARD_WIDTH);
+        assertFalse(testBoardSeed.getSquare(5).isFlagged());
+    }
+
+    @Test
+    //doesNotContainBombInPosAlready(int position) bomb in position already
+    //TODO requires set seed to verify where bombs are
+    public void doesNotContainBombInPosAlreadyAlreadyThereTest() {
+
+    }
+
+    @Test
+    //doesNotContainBombInPosAlready(int position) bomb not in position already
+    //TODO requires set seed to verify where bombs are
+    public void doesNotContainBombInPosAlreadyNotThereTest() {
+
+    }
+
+    @Test
+    //Testing getSquare(int position)
+    public void testGetSquarePos() {
+        //TODO requires set seed to verify identity
+    }
+
+    @Test
+    //Testing getSquare(int col, int row) // one for BOMB, BLANK, NUMBER
+    public void testGetSquareRowCol() {
+        //TODO requires set seed to verify identity
+    }
+
+
+    @Test
+    //Testing getListOfBombPos()
+    public void testGetListOfBombPos() {
+        ArrayList<Integer> listOfBombPos = testBoardSeed.getListOfBombPos();
+
+        for (int position : listOfBombPos) {
+            assertEquals(testBoardSeed.getSquare(position).getIdentity(), BOMB);
         }
     }
 
-    //EFFECTS: depending on identity of the square, checks the positions in the neighbors around it to see if the
-    // number of bombs around this square is correct
-    static boolean checkBombsAroundSquare(Board b,
-                                          int position, int boardLength) {
-        Square chosenSquare = b.getAllSquares().get(position);
-        int numberOfBombs = 0;
-        switch (chosenSquare.getIdentity()) {
-            case ONE:
-                numberOfBombs = 1;
-                break;
-            case TWO:
-                numberOfBombs = 2;
-                break;
-            case THREE:
-                numberOfBombs = 3;
-                break;
-            case FOUR:
-                numberOfBombs = 4;
-                break;
-            case FIVE:
-                numberOfBombs = 5;
-                break;
-            case SIX:
-                numberOfBombs = 6;
-                break;
-            case SEVEN:
-                numberOfBombs = 7;
-                break;
-            case EIGHT:
-                numberOfBombs = 8;
-                break;
-            case BOMB:
-            case BLANK:
-                return true;
-        }
-        return numberOfBombsAroundMatchesExpected(b, position, numberOfBombs, boardLength);
-    }
 
-
-    //EFFECTS: returns true if there are exactly the same number of bombs near the position chosen, false if not
-    static boolean numberOfBombsAroundMatchesExpected(Board b, int position,
-                                                      int numberOfBombs, int boardLength) {
-        int numberOfBombsFound = b.findNumberOfBombs(position, boardLength);
-        if (numberOfBombsFound == numberOfBombs) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //EFFECTS: returns true if each square in list has position on board and not off board, else false
-    static void assertSquaresAreWithinBoard(ArrayList<Square> squares, int boardLength) {
-        for (Square square : squares) {
-            assertSquareIsWithinBoard(square, boardLength);
-        }
-    }
-
-    //EFFECTS: return true if given square's rowPosition and columnPosition is on board, and position is on board
-    static void assertSquareIsWithinBoard(Square sq, int boardLength) {
-        assertTrue(sq.getPosition() < (boardLength * boardLength));
-        assertTrue(sq.getRowPosition() < boardLength);
-        assertTrue(sq.getColumnPosition() < boardLength);
-    }
 }
+
+

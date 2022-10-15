@@ -12,9 +12,9 @@ class SquareTest {
 
     @BeforeEach
     public void setup() {
-        testBlankSquare = new Square(Identity.BLANK, 0, 0, 8);
-        testSquare = new Square(Identity.BOMB, 2, 4, 10);
-        testLastSquare = new Square(Identity.EIGHT, 7, 7, 8);
+        testBlankSquare = new Square(Identity.BLANK, 0, 0, 8, 8);
+        testSquare = new Square(Identity.BOMB, 2, 4, 10, 10);
+        testLastSquare = new Square(Identity.EIGHT, 7, 7, 8, 8);
     }
 
     @Test
@@ -31,12 +31,12 @@ class SquareTest {
         assertEquals(testSquare.getIdentity(), Identity.BOMB);
         assertEquals(testLastSquare.getIdentity(), Identity.EIGHT);
 
-        assertEquals(testBlankSquare.getRowPosition(), 0);
-        assertEquals(testBlankSquare.getColumnPosition(), 0);
-        assertEquals(testSquare.getRowPosition(), 2);
-        assertEquals(testSquare.getColumnPosition(), 4);
-        assertEquals(testLastSquare.getRowPosition(), 7);
-        assertEquals(testLastSquare.getColumnPosition(), 7);
+        assertEquals(testBlankSquare.getColumn(), 0);
+        assertEquals(testBlankSquare.getRow(), 0);
+        assertEquals(testSquare.getColumn(), 2);
+        assertEquals(testSquare.getRow(), 4);
+        assertEquals(testLastSquare.getColumn(), 7);
+        assertEquals(testLastSquare.getRow(), 7);
 
         assertEquals(testBlankSquare.getPosition(), 0);
         assertEquals(testSquare.getPosition(), 42);
