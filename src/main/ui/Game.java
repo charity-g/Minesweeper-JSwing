@@ -2,7 +2,7 @@ package ui;
 
 
 import model.Square;
-import model.boards.*;
+import model.Board;
 
 import java.util.Random;
 import java.util.Scanner;
