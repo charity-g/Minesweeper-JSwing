@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static model.GameStatus.*;
 import static model.Identity.*;
 
 public class Board {
@@ -198,8 +199,28 @@ public class Board {
     //     if identity of square = blank, unearth all squares around it, and if there is a neighboring blank square
     //        around it, keep unearthing until the blank squares  unearthed is surrounded by numbers shown
     public boolean unearthSquare(int position) {
-        return false;
-    } //TODO
+        Square square = getSquare(position);
+        boolean wasHidden = square.showSquare();
+        if (!wasHidden) {
+            return false;
+        } else if (square.getIdentity() == BOMB) {
+            this.gameStatus = LOST;
+            return true;
+        } else if (square.getIdentity() == BLANK) {
+            unearthNeighborsOfBlankSquare(position);
+            return true;
+        } else {
+            return true;
+        }
+    }
+
+    //EFFECTS: unearths the neighbors around this position
+    private void unearthNeighborsOfBlankSquare(int position) {
+        ArrayList<Integer> neighbors = getNeighborPositions(position);
+        for (int pos : neighbors) {
+            unearthSquare(pos);
+        }
+    }
 
     //EFFECTS: returns all the valid neighboring positions on the board around the given position
     public ArrayList<Integer> getNeighborPositions(int position) {

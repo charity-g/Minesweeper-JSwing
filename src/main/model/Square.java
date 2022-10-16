@@ -99,7 +99,7 @@ public class Square {
     //SETTERS =====================================================
 
     //MODIFIES: this
-    //EFFECTS: shows square, returns false if already shown
+    //EFFECTS: shows square and returns false, returns false if already not hidden
     public boolean showSquare() {
         if (this.isIdentityHidden()) {
             this.identityHidden = false;
