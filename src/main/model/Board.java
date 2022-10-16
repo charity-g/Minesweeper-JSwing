@@ -1,7 +1,5 @@
 package model;
 
-import model.*;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,6 +17,8 @@ public class Board {
     protected final ArrayList<Square> allSquaresOnBoard;
 
     protected GameStatus gameStatus;
+
+    private ArrayList<Integer> allSquaresMatrix;
 
 
     //CONSTRUCTOR
@@ -57,7 +57,12 @@ public class Board {
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
     //         the chosen position the user clicked on
     protected void setBombs() {
-
+        int bombsMade = 0;
+        while (bombsMade < this.bombNumber) {
+            if (makeBomb()) {
+                bombsMade++;
+            }
+        }
     }
 
     //REQUIRES: should only be called by Constructor and in tests
@@ -81,7 +86,7 @@ public class Board {
     private boolean makeBomb() {
         int potentialCol = random.nextInt(boardWidth);
         int potentialRow = random.nextInt(boardHeight);
-        if (doesNotContainBombInPosAlready(potentialCol, potentialRow)) {
+        if (givenPositionIsNotAlreadyABomb(potentialCol, potentialRow)) {
             Square potentialBomb = new Square(BOMB, potentialCol, potentialRow,
                     this.boardWidth, this.boardHeight);
             this.bombs.add(potentialBomb);
@@ -94,18 +99,18 @@ public class Board {
     //REQUIRES: should only be called by Constructor
     //EFFECTS:
     public void initializeAllSquaresOnBoard() {
-        ArrayList<Integer> allSquaresMatrix = addAllSquareIdentities(makeAllSquaresMatrixBlank());
-        convertMatrixIntoSquares(allSquaresMatrix);
+        addAllSquareNumericalIdentities(makeAllSquaresMatrixBlank());
+        convertMatrixIntoSquares();
     }
 
     //REQUIRES: should only be called by Constructor
     //EFFECTS:
-    private void convertMatrixIntoSquares(ArrayList<Integer> allSquaresMatrix) {
-        for (int index = 0; index < allSquaresMatrix.size(); index++) {
-            Identity identity = convertToIdentity(allSquaresMatrix.get(index));
+    private void convertMatrixIntoSquares() {
+        for (int index = 0; index < this.allSquaresMatrix.size(); index++) {
+            Identity identityAtIndex = convertToIdentity(this.allSquaresMatrix.get(index));
             int col = index % this.boardWidth;
             int row = index / this.boardWidth;
-            this.allSquaresOnBoard.add(new Square(identity, col, row, this.boardWidth, this.boardHeight));
+            this.allSquaresOnBoard.add(new Square(identityAtIndex, col, row, this.boardWidth, this.boardHeight));
         }
     }
 
@@ -151,24 +156,37 @@ public class Board {
 
     //REQUIRES: should only be called by Constructor
     //EFFECTS: for each square on the matrix, adds the number of neighboring bombs around
-    private ArrayList<Integer> addAllSquareIdentities(ArrayList<Integer> allSquaresMatrixBlank) {
-        ArrayList<Integer> listOfBombPos = getListOfBombPos();
-        for (int i = 0; i < listOfBombPos.size(); i++) {
-            addBombCountToPositionAroundBomb(listOfBombPos.get(i), allSquaresMatrixBlank);
-        }
-        return allSquaresMatrixBlank;
+    private ArrayList<Integer> addAllSquareNumericalIdentities(ArrayList<Integer> allSquaresMatrixBlank) {
+        ArrayList<Integer> neighborsOfAllBombs = getNeighborsOfAllBombs();
+        ArrayList<Integer> allSquareMatrixFilled = addBombCountToPositionsAroundBombs(allSquaresMatrixBlank,
+                neighborsOfAllBombs);
+        return allSquareMatrixFilled;
     }
 
-    //REQUIRES: should only be called by Constructor, must be given a position that is of a bomb
-    //EFFECTS: the bomb in the given position, adds 1 to the bombCount of the neighbors
-    private void addBombCountToPositionAroundBomb(Integer bombPos, ArrayList<Integer> allSquaresMatrix) {
-        ArrayList<Integer> bombPosNeighbors = getNeighborPositions(bombPos);
-
-        for (int index : bombPosNeighbors) {
-            int oldBombCount = allSquaresMatrix.get(index);
-            allSquaresMatrix.set(index, oldBombCount++);
+    //EFFECTS: for each position that is a neighbor to a bomb, adds one to the bomb count at that position
+    private ArrayList<Integer> addBombCountToPositionsAroundBombs(ArrayList<Integer> allSquaresMatrix,
+                                                                  ArrayList<Integer> neighborsOfAllBombs) {
+        this.allSquaresMatrix = allSquaresMatrix;
+        for (int positionToAddBombCountTo : neighborsOfAllBombs) {
+            int oldBombCount = this.allSquaresMatrix.get(positionToAddBombCountTo);
+            int newBombCount = oldBombCount + 1;
+            this.allSquaresMatrix.set(positionToAddBombCountTo, newBombCount);
         }
+        return this.allSquaresMatrix;
     }
+
+
+    //REQUIRES: should only be called by addAllSquareIdentities
+    //EFFECTS: returns the list of every single square's position if they are a neighbor to a bomb.
+    //         Positions in the list can and should repeat if two bombs have the same neighbor
+    private ArrayList<Integer> getNeighborsOfAllBombs() {
+        ArrayList<Integer> neighborsOfAllBombs = new ArrayList<Integer>();
+        for (int bombPos : getListOfBombPos()) {
+            neighborsOfAllBombs.addAll(getNeighborPositions(bombPos));
+        }
+        return neighborsOfAllBombs;
+    }
+
 
     //NON-CONSTRUCTOR METHODS ========================================================================
     //REQUIRES: chosen position to exist on board
@@ -181,7 +199,7 @@ public class Board {
     //        around it, keep unearthing until the blank squares  unearthed is surrounded by numbers shown
     public boolean unearthSquare(int position) {
         return false;
-    }
+    } //TODO
 
     //EFFECTS: returns all the valid neighboring positions on the board around the given position
     public ArrayList<Integer> getNeighborPositions(int position) {
@@ -243,7 +261,6 @@ public class Board {
     private ArrayList<Integer> getRightSidePositions(int rightColPos) {
         ArrayList<Integer> neighbors = new ArrayList<>();
         neighbors.add(rightColPos - this.boardWidth);
-        neighbors.add(rightColPos - this.boardWidth);
         neighbors.add(rightColPos - this.boardWidth - 1);
         neighbors.add(rightColPos - 1);
         neighbors.add(rightColPos + this.boardWidth);
@@ -266,12 +283,13 @@ public class Board {
     //REQUIRES: assumes the list of positions given is supposed to be on a board of this.boardSize
     //EFFECTS: returns the list of positions with the positions that are negative,
     public ArrayList<Integer> filterOutOfBounds(ArrayList<Integer> allPositions) {
+        ArrayList<Integer> positionsToBeKept = new ArrayList<>();
         for (int position : allPositions) {
-            if (position < 0 || position >= this.boardSize) {
-                allPositions.remove(position);
+            if (position >= 0 && position < this.boardSize) {
+                positionsToBeKept.add(position);
             }
         }
-        return allPositions;
+        return positionsToBeKept;
     }
 
     //EFFECTS: returns the positions of all the possible neighbors of the given position, even if the neighbor is off
@@ -295,9 +313,14 @@ public class Board {
         this.allSquaresOnBoard.get(position).changeFlag();
     }
 
-    //EFFECTS: returns true if the given object does not repeat in the list of objects
-    public boolean doesNotContainBombInPosAlready(int col, int row) {
-        return false; //TODO
+    //EFFECTS: returns true if the given position is not a position of a previously made bomb, else return false
+    public boolean givenPositionIsNotAlreadyABomb(int col, int row) {
+        int positionOfPotentialBomb = (this.boardWidth * row) + col;
+        if (getListOfBombPos().contains(positionOfPotentialBomb)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // GETTERS =====================================================

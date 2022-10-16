@@ -55,11 +55,11 @@ public class BoardTest {
         //test to see correct number of squares have been made
         assertEquals(allSquaresOnBoard.size(), BOARD_SIZE);
         //test to see the positions of squares are correct
-        util.assertSquarePositionsInOrder(allSquaresOnBoard);
+        assertTrue(util.areSquarePositionsInOrder(allSquaresOnBoard));
         //test to see the positions of squares match up with supposed identity
         for (Square square : allSquaresOnBoard) {
             assertTrue(util.checkBombsAroundSquare(testBoardSeed,
-                    square.getPosition()));
+                    square));
         }
     }
 
@@ -67,31 +67,72 @@ public class BoardTest {
 
     @Test
     public void unearthSquareTestNumber() {
-        Square normalSquare = util.findSquare(testBoardSeed, ONE);
-        if (normalSquare != null) {
-            int pos = normalSquare.getPosition();
-            assertTrue(normalSquare.isIdentityHidden());
+        int pos = 4;
+        Square normalSquare = testBoardSeed.getSquare(4);
+        assertTrue(normalSquare.isIdentityHidden());
 
-            assertTrue(testBoardSeed.unearthSquare(pos));
-            assertFalse(normalSquare.isIdentityHidden());
+        assertTrue(testBoardSeed.unearthSquare(pos));
+        assertFalse(normalSquare.isIdentityHidden());
 
-            assertFalse(testBoardSeed.unearthSquare(pos));
-            assertFalse(normalSquare.isIdentityHidden());
-        }
+        assertFalse(testBoardSeed.unearthSquare(pos));
+        assertFalse(normalSquare.isIdentityHidden());
+
     }
 
     @Test
-    //probably test multiple versions of this
-    public void unearthSquareTestBlank() {
-        Square blankSquare = util.findSquare(testBoardSeed, BLANK);
-        assertTrue(blankSquare != null);
-        //TODO  LONG LOL
-        // req set seed
-        assertTrue(false);
+    //testing click top left blank
+    public void unearthSquareTestBlankTopLeft() {
+        testBoardSeed.unearthSquare(0);
+        ArrayList<Square> allSquaresOnBoard = testBoardSeed.getAllSquares();
+        assertFalse(allSquaresOnBoard.get(0).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(1).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(2).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(3).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(4).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(5).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(6).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(7).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(8).isIdentityHidden());
     }
 
     @Test
-    public void unearthSquareTestBomb() {}
+    //testing click top mid blank
+    public void unearthSquareTestBlankTop() {
+        testBoardSeed.unearthSquare(1);
+        ArrayList<Square> allSquaresOnBoard = testBoardSeed.getAllSquares();
+        assertFalse(allSquaresOnBoard.get(0).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(1).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(2).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(3).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(4).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(5).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(6).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(7).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(8).isIdentityHidden());
+    }
+
+    @Test
+    //testing click top right blank
+    public void unearthSquareTestBlankTopRight() {
+        testBoardSeed.unearthSquare(2);
+        ArrayList<Square> allSquaresOnBoard = testBoardSeed.getAllSquares();
+        assertFalse(allSquaresOnBoard.get(0).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(1).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(2).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(3).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(4).isIdentityHidden());
+        assertFalse(allSquaresOnBoard.get(5).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(6).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(7).isIdentityHidden());
+        assertTrue(allSquaresOnBoard.get(8).isIdentityHidden());
+    }
+
+    @Test
+    public void unearthSquareTestBomb() {
+        testBoardSeed.unearthSquare(7);
+        assertFalse(testBoardSeed.getSquare(7).isIdentityHidden());
+        assertTrue(testBoardSeed.getGameStatus() == GameStatus.LOST);
+    }
 
     @Test
     //filterOutOfBounds(ArrayList<Integer> allPositions)
@@ -109,14 +150,14 @@ public class BoardTest {
     @Test
     //filterOutOfBounds(ArrayList<Integer> allPositions)
     public void filterOutOfBoundsTestOne() {
-        ArrayList<Integer> positions = new ArrayList<Integer>();
+        ArrayList<Integer> positions = new ArrayList<>();
         //adding positions
-        for (int i = 0; i <= (BOARD_WIDTH * BOARD_HEIGHT); i++) {
+        for (int i = 0; i <= BOARD_SIZE; i++) {
             positions.add(i);
         }
         ArrayList<Integer> filteredPositions = testBoardSeed.filterOutOfBounds(positions);
         assertFalse(positions == filteredPositions);
-        assertEquals(filteredPositions.size(), (BOARD_SIZE) - 1);
+        assertEquals(filteredPositions.size(), BOARD_SIZE);
         assertFalse(filteredPositions.contains(BOARD_SIZE));
 
     }
@@ -200,7 +241,7 @@ public class BoardTest {
         assertEquals(neighborPos.size(), 5);
         assertTrue(neighborPos.contains((BOARD_WIDTH * 2) - 1));
         assertTrue(neighborPos.contains((BOARD_WIDTH * 2) - 2));
-        assertTrue(neighborPos.contains((BOARD_WIDTH * 3) - 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * 3) - 2));
         assertTrue(neighborPos.contains((BOARD_WIDTH * 4) - 1));
         assertTrue(neighborPos.contains((BOARD_WIDTH * 4) - 2));
     }
@@ -226,9 +267,9 @@ public class BoardTest {
         assertEquals(neighborPos.size(), 5);
         assertTrue(neighborPos.contains(BOARD_SIZE - 3));
         assertTrue(neighborPos.contains(BOARD_SIZE - 1));
-        assertTrue(neighborPos.contains((BOARD_HEIGHT * (BOARD_WIDTH - 1)) - 3));
-        assertTrue(neighborPos.contains((BOARD_HEIGHT * (BOARD_WIDTH - 1)) - 2));
-        assertTrue(neighborPos.contains((BOARD_HEIGHT * (BOARD_WIDTH - 1)) - 1));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * (BOARD_HEIGHT - 1)) - 3));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * (BOARD_HEIGHT - 1)) - 2));
+        assertTrue(neighborPos.contains((BOARD_WIDTH * (BOARD_HEIGHT - 1)) - 1));
     }
 
     @Test
@@ -240,7 +281,7 @@ public class BoardTest {
         assertTrue(neighborPos.contains(1));
         assertTrue(neighborPos.contains(2));
         assertTrue(neighborPos.contains(BOARD_WIDTH));
-        assertTrue(neighborPos.contains(BOARD_WIDTH + 1));
+        assertTrue(neighborPos.contains(BOARD_WIDTH + 2));
         assertTrue(neighborPos.contains(BOARD_WIDTH * 2));
         assertTrue(neighborPos.contains((BOARD_WIDTH * 2) + 1));
         assertTrue(neighborPos.contains((BOARD_WIDTH * 2) + 2));
@@ -253,8 +294,12 @@ public class BoardTest {
         //flag
         testBoardSeed.changeSquareFlag(5);
         assertTrue(testBoardSeed.getSquare(5).isFlagged());
-        //un-flag
+        //flag something else
         testBoardSeed.changeSquareFlag(BOARD_WIDTH);
+        assertTrue(testBoardSeed.getSquare(5).isFlagged());
+        assertTrue(testBoardSeed.getSquare(BOARD_WIDTH).isFlagged());
+        //un-flag
+        testBoardSeed.changeSquareFlag(5);
         assertFalse(testBoardSeed.getSquare(5).isFlagged());
     }
 
