@@ -46,7 +46,7 @@ public class BoardTest {
     @Test
     //to be overridden depending on seed
     public void setBombsTestSeed() {
-        //TODO requires set seed to confirm positions
+        assertTrue(testBoardSeed.getSquare(7).getIdentity() == BOMB);
     }
 
     @Test
@@ -305,28 +305,33 @@ public class BoardTest {
 
     @Test
     //doesNotContainBombInPosAlready(int position) bomb in position already
-    //TODO requires set seed to verify where bombs are
     public void doesNotContainBombInPosAlreadyAlreadyThereTest() {
-
+        assertFalse(testBoardSeed.givenPositionIsNotAlreadyABomb(7 % BOARD_WIDTH, 7 / BOARD_WIDTH));
     }
 
     @Test
     //doesNotContainBombInPosAlready(int position) bomb not in position already
-    //TODO requires set seed to verify where bombs are
     public void doesNotContainBombInPosAlreadyNotThereTest() {
-
+        assertTrue(testBoardSeed.givenPositionIsNotAlreadyABomb(6 % BOARD_WIDTH, 6 / BOARD_WIDTH));
+        assertTrue(testBoardSeed.givenPositionIsNotAlreadyABomb(8 % BOARD_WIDTH, 8 / BOARD_WIDTH));
+        assertTrue(testBoardSeed.givenPositionIsNotAlreadyABomb(4 % BOARD_WIDTH, 4 / BOARD_WIDTH));
+        assertTrue(testBoardSeed.givenPositionIsNotAlreadyABomb(10 % BOARD_WIDTH, 10 / BOARD_WIDTH));
     }
 
     @Test
     //Testing getSquare(int position)
     public void testGetSquarePos() {
-        //TODO requires set seed to verify identity
+        assertEquals(testBoardSeed.getSquare(7).getIdentity(), BOMB);
+        assertEquals(testBoardSeed.getSquare(5).getIdentity(), ONE);
+        assertEquals(testBoardSeed.getSquare(2).getIdentity(), BLANK);
     }
 
     @Test
     //Testing getSquare(int col, int row) // one for BOMB, BLANK, NUMBER
     public void testGetSquareRowCol() {
-        //TODO requires set seed to verify identity
+        assertEquals(testBoardSeed.getSquare(2, 1).getIdentity(), BOMB);
+        assertEquals(testBoardSeed.getSquare(3,1).getIdentity(), ONE);
+        assertEquals(testBoardSeed.getSquare(0,2).getIdentity(), BLANK);
     }
 
 

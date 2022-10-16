@@ -344,6 +344,11 @@ public class Board {
         }
     }
 
+    //EFFECTS:
+    public void setGameWon() {
+        this.gameStatus = WON;
+    }
+
     // GETTERS =====================================================
 
     //REQUIRES: for bombs to be initialized by set bombs
@@ -357,9 +362,9 @@ public class Board {
     }
 
     //EFFECTS: returns the square with position of row and column, or null if the square is off the board
-    public Square getSquare(int rowPosition, int columnPosition) {
+    public Square getSquare(int row, int column) {
         for (Square s : this.allSquaresOnBoard) {
-            if (s.getColumn() == rowPosition && s.getRow() == columnPosition) {
+            if (s.getColumn() == column && s.getRow() == row) {
                 return s;
             }
         }
@@ -406,6 +411,7 @@ public class Board {
         return this.allSquaresOnBoard;
     }
 
+    //EFFECTS: returns bomb number
     public int getBombNumber() {
         return this.bombNumber;
     }
