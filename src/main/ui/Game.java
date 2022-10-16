@@ -196,6 +196,7 @@ public class Game {
     public void endGame() {
         GameStatus endGameStatus = this.boardInProgress.getGameStatus();
         printBoardSolutions();
+        System.out.println("");
         if (endGameStatus == WON) {
             System.out.println("WOO! Congratulations on your win!");
         } else {
