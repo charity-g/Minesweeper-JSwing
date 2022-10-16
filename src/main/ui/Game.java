@@ -1,6 +1,7 @@
 package ui;
 
 
+import model.GameStatus;
 import model.Identity;
 import model.Square;
 import model.Board;
@@ -193,14 +194,21 @@ public class Game {
 
     //EFFECTS: prints out the solution and where the bombs were and congratulatory message
     public void endGame() {
+        GameStatus endGameStatus = this.boardInProgress.getGameStatus();
         printBoardSolutions();
-        //TODO
+        if (endGameStatus == WON) {
+            System.out.println("WOO! Congratulations on your win!");
+        } else {
+            System.out.println("So close! Better luck next time.");
+        }
     }
 
-    //EFFECTS: prints out the bombs and actual values
+    //EFFECTS: prints out the board solution
     private void printBoardSolutions() {
-        //TODO
-        // turn all squares to shown and the print board
+        for (Square square : this.boardInProgress.getAllSquares()) {
+            square.showSquare();
+        }
+        printBoard();
     }
 
     //MODIFIES: this.boardInProgress
