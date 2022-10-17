@@ -23,3 +23,5 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 - As a user, I want to be able to unearth a whole bunch of tiles if the tile I have pressed is blank
 - As a user, I want to be able to have the ability to click on a bomb and end game
 - As a user, I want to be able to win the game once I have unearthed all the non-bomb tiles
+- As a user, I want to be able to save the game I am playing down to the state of each square on the board 
+- As a user, I want to be able to load a game exactly where I left it off, and continue making moves.
