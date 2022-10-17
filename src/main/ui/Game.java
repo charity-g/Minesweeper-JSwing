@@ -63,7 +63,7 @@ public class Game {
     //EFFECTS: flags or unflag the square at position picked
     private void flagPlayerChosenSquare() {
         int positionPicked = getChosenSquarePosition();
-        Square squareToFlag = this.boardInProgress.getAllSquares().get(positionPicked);
+        Square squareToFlag = this.boardInProgress.getSquare(positionPicked);
         squareToFlag.changeFlag();
     }
 
@@ -71,11 +71,7 @@ public class Game {
     private void unearthPlayerChosenSquare() {
         int positionPicked = getChosenSquarePosition();
         if (this.boardInProgress.getSquare(positionPicked).isFlagged()) {
-            System.out.println("This square is currently flagged! Are you sure you want to unearth this? yes/no");
-            String userChoice = scan.nextLine();
-            if (userChoice != "yes") {
-                return;
-            }
+            System.out.println("This square is currently flagged! Please unflag it.");
         }
         boolean flipped = this.boardInProgress.unearthSquare(positionPicked);
         if (!flipped) {
@@ -86,13 +82,13 @@ public class Game {
 
     private int getChosenSquarePosition() {
         int boardLength = this.boardInProgress.getBoardWidth();
-        System.out.println("Choose the row of the square you want to flip over.");
+        System.out.println("Choose the row of the square you want to do the action to.");
         int rowPicked = scan.nextInt();
-        if (rowPicked < 0 || rowPicked >= boardLength) {
+        if (rowPicked < 0 || rowPicked >= this.boardInProgress.getBoardHeight()) {
             System.out.println("Not a valid row");
             return getChosenSquarePosition();
         }
-        System.out.println("Choose the column of the square you want to flip over.");
+        System.out.println("Choose the column of the square you want to do the action to.");
         int columnPicked = scan.nextInt();
         if (columnPicked < 0 || columnPicked >= boardLength) {
             System.out.println("Not a valid column");
@@ -165,7 +161,7 @@ public class Game {
     //          in the first column
     //EFFECTS: prints the square at the next position in the row
     private void printSameLine(Square sq) {
-        if (sq.isFlagged()) {
+        if (sq.isFlagged() && sq.isIdentityHidden()) {
             System.out.print("P  ");
         } else if (sq.isIdentityHidden()) {
             System.out.print("?  ");
@@ -206,12 +202,13 @@ public class Game {
     //EFFECTS: prints out the solution and where the bombs were and congratulatory message
     public void endGame() {
         GameStatus endGameStatus = this.boardInProgress.getGameStatus();
+        System.out.println(" SOLUTION :");
         printBoardSolutions();
-        System.out.println("");
+        System.out.println(" ");
         if (endGameStatus == WON) {
             System.out.println("WOO! Congratulations on your win!");
         } else {
-            System.out.println("So close! Better luck next time.");
+            System.out.println("You hit a mine! So close, better luck next time.");
         }
     }
 

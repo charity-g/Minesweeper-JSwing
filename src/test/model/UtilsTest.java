@@ -21,7 +21,7 @@ public class UtilsTest {
     }
 
     @Test
-    public void assertSquarePositionsInOrderTrue(){
+    public void assertSquarePositionsInOrderTrueTest(){
         ArrayList<Square> testList = new ArrayList<Square>();
         testList.add(new Square(BOMB, 0,0, 3, 3));
         testList.add(new Square(Identity.ONE, 1,0, 3, 3));
@@ -38,7 +38,7 @@ public class UtilsTest {
     }
 
     @Test
-    public void assertSquarePositionsInOrderFalse(){
+    public void assertSquarePositionsInOrderFalseTest(){
         ArrayList<Square> testList = new ArrayList<Square>();
         testList.add(new Square(BOMB, 0,0, 3, 3));
         testList.add(new Square(Identity.ONE, 1,1, 3, 3));
