@@ -21,11 +21,6 @@ public class BoardTest {
         testBoardSeed = new Board(BOARD_WIDTH, BOARD_HEIGHT, 1, seed);
     }
 
-
-    //TODO check that if you make a square that square is assigned the correct board length
-    //TODO test seed with multiple bombs
-
-
     //CONSTRUCTOR TESTS
     @Test
     //to be overridden
