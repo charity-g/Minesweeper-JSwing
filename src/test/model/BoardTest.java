@@ -21,6 +21,11 @@ public class BoardTest {
         testBoardSeed = new Board(BOARD_WIDTH, BOARD_HEIGHT, 1, seed);
     }
 
+
+    //TODO check that if you make a square that square is assigned the correct board length
+    //TODO test seed with multiple bombs
+
+
     //CONSTRUCTOR TESTS
     @Test
     //to be overridden
@@ -61,6 +66,11 @@ public class BoardTest {
             assertTrue(util.checkBombsAroundSquare(testBoardSeed,
                     square));
         }
+        assertTrue(testBoardSeed.getSquare(3).getBoardWidth() == BOARD_WIDTH);
+        assertTrue(testBoardSeed.getSquare(8).getBoardWidth() == BOARD_WIDTH);
+
+        assertTrue(testBoardSeed.getSquare(2).getBoardHeight() == BOARD_HEIGHT);
+        assertTrue(testBoardSeed.getSquare(BOARD_SIZE-1).getBoardHeight() == BOARD_HEIGHT);
     }
 
     //NON-CONSTRUCTOR BASED TESTS

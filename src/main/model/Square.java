@@ -1,6 +1,9 @@
 package model;
 
-import static model.Identity.*;
+//information represented:
+// a single square on a board in the game of minesweeper.
+//   - what type of square it is- bomb, blank, one...etc
+//   - whether it has been flagged or flipped to be visible to the player
 
 public class Square {
 
@@ -58,10 +61,21 @@ public class Square {
         return row;
     }
 
+    //EFFECTS: returns the width of the board the square is meant to be on
+    public int getBoardWidth() {
+        return this.gridWidth;
+    }
+
+    //EFFECTS: returns the height of the board the square is meant to be on
+    public int getBoardHeight() {
+        return this.gridHeight;
+    }
+
     public int getPosition() {
         return this.positionInGrid;
     }
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public int getIntegerIdentity() {
         switch (this.identity) {
             case BLANK:
@@ -82,16 +96,10 @@ public class Square {
                 return 7;
             case EIGHT:
                 return 8;
+            case BOMB:
+                return -1;
             default:
-                return getBombIdentity();
-        }
-    }
-
-    private int getBombIdentity() {
-        if (this.identity == BOMB) {
-            return -1;
-        } else {
-            return -1000;
+                return -1000;
         }
     }
 

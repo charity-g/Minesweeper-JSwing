@@ -6,6 +6,12 @@ import java.util.Random;
 import static model.GameStatus.*;
 import static model.Identity.*;
 
+
+// The information represents a minesweeper board of boardWidth x boardHeight squares,
+//             and represents the status of the board at a set moment in the game as well
+//    - how many squares a visible to the player
+//    - what types of square each position on the board is -
+//                                  a bomb, having one bomb in its neighbor, having no bombs in its neighbors... etc
 public class Board {
     protected final Random random = new Random();
 

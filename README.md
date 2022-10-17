@@ -22,5 +22,4 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 - As a user, I want to be able to unearth a tile(multiple) and see what state it is below
 - As a user, I want to be able to unearth a whole bunch of tiles if the tile I have pressed is blank
 - As a user, I want to be able to have the ability to click on a bomb and end game
-- As a user, I want to be able to load game, or start new game in the middle
 - As a user, I want to be able to win the game once I have unearthed all the non-bomb tiles

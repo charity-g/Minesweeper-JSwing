@@ -11,7 +11,11 @@ import java.util.Scanner;
 
 import static model.GameStatus.*;
 
-//TODO add if player tries to unearth a flagged square
+//Game represents a minesweeper game
+//   - what board is currently being played
+//   - how the user can interact and take actions to win(or lose!) the game
+// note: unable to be tested due to ui capabilities
+
 public class Game {
     Board boardInProgress;
     Scanner scan;
@@ -66,6 +70,13 @@ public class Game {
     //EFFECTS: takes in the player's move and unearths the necessary square
     private void unearthPlayerChosenSquare() {
         int positionPicked = getChosenSquarePosition();
+        if (this.boardInProgress.getSquare(positionPicked).isFlagged()) {
+            System.out.println("This square is currently flagged! Are you sure you want to unearth this? yes/no");
+            String userChoice = scan.nextLine();
+            if (userChoice != "yes") {
+                return;
+            }
+        }
         boolean flipped = this.boardInProgress.unearthSquare(positionPicked);
         if (!flipped) {
             System.out.println("You picked a square that was already flipped! Please choose another one");
@@ -215,30 +226,28 @@ public class Game {
     //MODIFIES: this.boardInProgress
     //EFFECTS: checks if game won
     private void checkIfGameWon() {
-        if (allBoardFlippedExceptBombs()) {
+        if (isGameWon()) {
             this.boardInProgress.setGameWon();
         }
     }
 
     //EFFECTS: returns true if all squares on the board have been flipped except for the bombs
-    private boolean allBoardFlippedExceptBombs() {
+    private boolean isGameWon() {
         for (Square square : this.boardInProgress.getAllSquares()) {
-            if (square.getIdentity() != Identity.BOMB) {
-                if (square.isIdentityHidden()) {
-                    return false;
-                }
+            if (square.getIdentity() != Identity.BOMB && square.isIdentityHidden()) {
+                return false;
             }
         }
         return true;
     }
 
 
-    //TODO once we get more information
-    public void loadBoard() {
-    }
+    //TODO once we get more information about saving and loading
+    //public void loadBoard() {
+    //}
 
-    public void saveBoard() {
-    }
+    //public void saveBoard() {
+    //}
 
     // PRIVATE METHODS
     //EFFECTS: creates a new beginner board and sets that as the current board
@@ -264,5 +273,9 @@ public class Game {
         } else {
             this.boardInProgress = new Board(30, 16, 99);
         }
+    }
+
+    public Board getBoardInProgress() {
+        return this.boardInProgress;
     }
 }
