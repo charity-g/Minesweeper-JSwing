@@ -353,11 +353,14 @@ public class Board implements Writeable {
         }
     }
 
-    //TODO add comment
+    //EFFECTS: returns the json object with info about seed and dimensions
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("seed", this.seed);
+        json.put("boardWidth", this.boardWidth);
+        json.put("boardHeight", this.boardHeight);
+        json.put("bombNumber", this.bombNumber);
         return json;
     }
 
