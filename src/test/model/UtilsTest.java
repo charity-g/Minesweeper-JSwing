@@ -99,7 +99,7 @@ public class UtilsTest {
     }
 
     @Test
-    public void doesNotRepeatTestConsecutive() {
+    public void doesNotRepeatTestFalseConsecutive() {
         ArrayList<Integer> list = new ArrayList<Integer>();
         assertTrue(testUtil.listDoesNotRepeat(list));
         list.add(1);
@@ -110,7 +110,7 @@ public class UtilsTest {
     }
 
     @Test
-    public void doesNotRepeatTestNonConsecutive() {
+    public void doesNotRepeatTestFalseNonConsecutive() {
         ArrayList<Integer> list = new ArrayList<Integer>();
         list.add(2);
         list.add(3);

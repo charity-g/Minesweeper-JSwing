@@ -34,9 +34,10 @@ public class Utils {
         }
         if (bombsInNeighborsCount == square.getIntegerIdentity()) {
             return true;
-        } else {
-            return false;
-        }
+        } //else {
+        //TODO throw new Exception();
+        // }
+        return false;
     }
 
     //EFFECTS: returns true if the list cannot be considered a set

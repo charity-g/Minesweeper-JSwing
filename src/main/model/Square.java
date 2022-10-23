@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writeable;
+
 //information represented:
 // a single square on a board in the game of minesweeper.
 //   - what type of square it is- bomb, blank, one...etc
 //   - whether it has been flagged or flipped to be visible to the player
 
-public class Square {
+public class Square implements Writeable {
 
     static final int SQUARE_LENGTH = 2;
 
@@ -103,6 +106,17 @@ public class Square {
         }
     }
 
+    //EFFECTS: converts this square into information for a json object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("position", this.positionInGrid);
+        json.put("identity", this.identity);
+        json.put("isHidden",this.isIdentityHidden());
+        json.put("isFlagged", this.isFlagged());
+        return json;
+    }
+
     //MODIFIES: this for all setters
     //SETTERS =====================================================
 
@@ -116,6 +130,7 @@ public class Square {
         return false;
     }
 
+    //REQUIRES: this square is hidden, and you are changing the flag when it is already unhidden
     //MODIFIES: this
     //EFFECTS: flags the square if it is not, or takes away flag if it is
     public void changeFlag() {

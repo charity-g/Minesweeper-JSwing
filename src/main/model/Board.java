@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writeable;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,8 +15,9 @@ import static model.Identity.*;
 //    - how many squares a visible to the player
 //    - what types of square each position on the board is -
 //                                  a bomb, having one bomb in its neighbor, having no bombs in its neighbors... etc
-public class Board {
+public class Board implements Writeable {
     protected final Random random = new Random();
+    protected final long seed;
 
     protected final int boardWidth;
     protected final int boardHeight;
@@ -32,6 +36,7 @@ public class Board {
     //EFFECTS: Places all the bombs in positions that aren't the user's choice, sets the identities,
     //         sets gameWonYet to false
     public Board(int boardWidth, int boardHeight, int bombNumber) {
+        this.seed = random.nextLong();
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.boardSize = boardHeight * boardWidth;
@@ -47,12 +52,13 @@ public class Board {
     //EFFECTS: Places all the bombs in positions that aren't the user's choice, sets the identities,
     //         sets gameWonYet to false
     public Board(int boardWidth, int boardHeight, int bombNumber, long seed) {
+        this.seed = seed;
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.boardSize = boardHeight * boardWidth;
         this.bombNumber = bombNumber;
         this.allBombPositions = new ArrayList<>();
-        setAllBombPositions(seed);
+        setAllBombPositions();
         this.allSquaresOnBoard = new ArrayList<Square>();
         initializeAllSquaresOnBoard();
         this.gameStatus = GameStatus.IN_PROGRESS;
@@ -63,20 +69,7 @@ public class Board {
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
     //         the chosen position the user clicked on
     protected void setAllBombPositions() {
-        int bombsMade = 0;
-        while (bombsMade < this.bombNumber) {
-            if (makeBomb()) {
-                bombsMade++;
-            }
-        }
-    }
-
-    //REQUIRES: should only be called by Constructor and in tests
-    //MODIFIES: this
-    // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
-    //         the chosen position the user clicked on
-    protected void setAllBombPositions(long seed) {
-        random.setSeed(seed);
+        random.setSeed(this.seed);
         int bombsMade = 0;
         while (bombsMade < this.bombNumber) {
             if (makeBomb()) {
@@ -358,6 +351,14 @@ public class Board {
         } else {
             return true;
         }
+    }
+
+    //TODO add comment
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("seed", this.seed);
+        return json;
     }
 
     //EFFECTS:
