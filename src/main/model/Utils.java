@@ -22,7 +22,7 @@ public class Utils {
     //EFFECTS: checks the amount of bombs around the square's position and verifies if it matches up with the
     //         square's identity
     public boolean checkBombsAroundSquare(Board board, Square square) {
-        if (square.getIdentity() == BOMB){
+        if (square.getIdentity() == BOMB) {
             return true;
         }
         ArrayList<Integer> neighborPositions = board.getNeighborPositions(square.getPosition());
@@ -42,7 +42,7 @@ public class Utils {
     //EFFECTS: returns true if the list cannot be considered a set
     public boolean listDoesNotRepeat(ArrayList<Integer> list) {
         for (int element : list) {
-            if (!appearsOnlyOnceInList(element, list)){
+            if (!appearsOnlyOnceInList(element, list)) {
                 return false;
             }
         }
@@ -53,12 +53,12 @@ public class Utils {
     //EFFECTS: returns true if the element appears in the list exactly once, else false
     public boolean appearsOnlyOnceInList(int element, ArrayList<Integer> list) {
         int timesAppeared = 0;
-        for(int i : list) {
+        for (int i : list) {
             if (i == element) {
                 timesAppeared++;
             }
         }
-        if (timesAppeared == 1){
+        if (timesAppeared == 1) {
             return true;
         } else {
             return false;

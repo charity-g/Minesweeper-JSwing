@@ -34,7 +34,6 @@ public class BoardTest {
     }
 
     @Test
-    //to be overridden + override should add that the bombs do not repeat
     public void constructorSetBombsTest() {
         ArrayList<Integer> bombsPos = testBoardSeed.getListOfBombPos();
         assertEquals(bombsPos.size(), 1);
@@ -44,9 +43,23 @@ public class BoardTest {
     }
 
     @Test
-    //to be overridden depending on seed
+    //DO NOT SET SEED SO THAT EVERYTIME WE RUN WE CONFIRM THE LIST OF GENERATED BOMB POS DOES NOT REPEAT
+    public void constructorSetBombsManyTest() {
+        Board testBoardManyBombs = new Board(5, 5, 3);
+        assertTrue(util.listDoesNotRepeat(testBoardManyBombs.getListOfBombPos()));
+        assertEquals(3, testBoardManyBombs.getListOfBombPos().size());
+
+        for (int position : testBoardManyBombs.getListOfBombPos()) {
+            assertEquals(testBoardManyBombs.getSquare(position).getIdentity(), Identity.BOMB);
+        }
+    }
+
+    //@Test
+    //TODO add the tests for 4-8 neighbors of bombs
+
+    @Test
     public void setBombsTestSeed() {
-        assertTrue(testBoardSeed.getSquare(7).getIdentity() == BOMB);
+        assertSame(testBoardSeed.getSquare(7).getIdentity(), BOMB);
     }
 
     @Test
@@ -65,10 +78,17 @@ public class BoardTest {
         assertTrue(testBoardSeed.getSquare(8).getBoardWidth() == BOARD_WIDTH);
 
         assertTrue(testBoardSeed.getSquare(2).getBoardHeight() == BOARD_HEIGHT);
-        assertTrue(testBoardSeed.getSquare(BOARD_SIZE-1).getBoardHeight() == BOARD_HEIGHT);
+        assertTrue(testBoardSeed.getSquare(BOARD_SIZE - 1).getBoardHeight() == BOARD_HEIGHT);
     }
 
     //NON-CONSTRUCTOR BASED TESTS
+    @Test
+    public void setWinTest() {
+        assertEquals(testBoardSeed.getGameStatus(), GameStatus.IN_PROGRESS);
+        testBoardSeed.setGameWon();
+        assertEquals(testBoardSeed.getGameStatus(), GameStatus.WON);
+    }
+
 
     @Test
     public void unearthSquareTestNumber() {
@@ -324,7 +344,7 @@ public class BoardTest {
     }
 
     @Test
-    //Testing getSquare(int position)
+    //Testing getSquare(int position),  // one for BOMB, BLANK, NUMBER
     public void testGetSquarePos() {
         assertEquals(testBoardSeed.getSquare(7).getIdentity(), BOMB);
         assertEquals(testBoardSeed.getSquare(5).getIdentity(), ONE);
@@ -335,10 +355,34 @@ public class BoardTest {
     //Testing getSquare(int col, int row) // one for BOMB, BLANK, NUMBER
     public void testGetSquareRowCol() {
         assertEquals(testBoardSeed.getSquare(2, 1).getIdentity(), BOMB);
-        assertEquals(testBoardSeed.getSquare(3,1).getIdentity(), ONE);
-        assertEquals(testBoardSeed.getSquare(0,2).getIdentity(), BLANK);
+        assertEquals(testBoardSeed.getSquare(3, 1).getIdentity(), ONE);
+        assertEquals(testBoardSeed.getSquare(0, 2).getIdentity(), BLANK);
     }
 
+    @Test
+    public void getSquareTestOffBoardPos() {
+        assertNull(testBoardSeed.getSquare(BOARD_SIZE));
+    }
+
+    @Test
+    public void getSquareTestOffBoardRowCol() {
+        assertNull(testBoardSeed.getSquare(BOARD_HEIGHT, 0));
+        assertNull(testBoardSeed.getSquare(0, BOARD_WIDTH));
+    }
+
+    @Test
+    public void getSquareTestBoundsPosition(){
+        assertEquals(testBoardSeed.getSquare(0).getIdentity(), BLANK);
+        assertEquals(testBoardSeed.getSquare(BOARD_SIZE-1).getIdentity(), ONE);
+    }
+
+    @Test
+    public void getSquareTestBoundsRowCOl(){
+        assertEquals(testBoardSeed.getSquare(0, 0).getIdentity(), BLANK);
+        assertEquals(testBoardSeed.getSquare(0, BOARD_WIDTH-1).getIdentity(), BLANK);
+        assertEquals(testBoardSeed.getSquare(BOARD_HEIGHT-1, 0).getIdentity(), ONE);
+        assertEquals(testBoardSeed.getSquare(BOARD_HEIGHT-1, BOARD_WIDTH-1).getIdentity(), ONE);
+    }
 
     @Test
     //Testing getListOfBombPos()

@@ -164,7 +164,6 @@ public class UtilsTest {
         assertTrue(two.getIdentity() == TWO);
     }
 
-
     @Test
     public void findSquareTestNull(){
         Square notFound = testUtil.findSquare(EIGHT, testBoardForUtils);

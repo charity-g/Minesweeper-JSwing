@@ -41,6 +41,7 @@ public class Game {
         endGame();
     }
 
+    //TODO: catch the case where player tries to flag already flagged square
     //EFFECTS: handles user input for what action they want to take: flagging a square or flipping a square
     private void playerAction() {
         System.out.println("");
@@ -49,7 +50,7 @@ public class Game {
         switch (playerChoice) {
             case "flag":
             case "unflag":
-                flagPlayerChosenSquare();
+                changeFlagPlayerChosenSquare(playerChoice);
                 break;
             case "flip":
                 unearthPlayerChosenSquare();
@@ -61,7 +62,7 @@ public class Game {
     }
 
     //EFFECTS: flags or unflag the square at position picked
-    private void flagPlayerChosenSquare() {
+    private void changeFlagPlayerChosenSquare(String playerChoice) {
         int positionPicked = getChosenSquarePosition();
         Square squareToFlag = this.boardInProgress.getSquare(positionPicked);
         squareToFlag.changeFlag();
@@ -72,11 +73,14 @@ public class Game {
         int positionPicked = getChosenSquarePosition();
         if (this.boardInProgress.getSquare(positionPicked).isFlagged()) {
             System.out.println("This square is currently flagged! Please unflag it.");
-        }
-        boolean flipped = this.boardInProgress.unearthSquare(positionPicked);
-        if (!flipped) {
-            System.out.println("You picked a square that was already flipped! Please choose another one");
-            unearthPlayerChosenSquare();
+        } else {
+            if (!this.boardInProgress.getSquare(positionPicked).isIdentityHidden()) {
+                System.out.println("You picked a square that was already flipped! Please choose another one");
+                unearthPlayerChosenSquare();
+            }
+
+            boolean flipped = this.boardInProgress.unearthSquare(positionPicked);
+            assert (flipped == true);
         }
     }
 
@@ -143,16 +147,20 @@ public class Game {
                 System.out.print(" " + rowNumber + "  | P  ");
             } else if (sq.isIdentityHidden()) {
                 System.out.print(" " + rowNumber + "  | ?  ");
-            } else {
+            } else if (sq.getIntegerIdentity() != -1) {
                 System.out.print(" " + rowNumber + "  | " + sq.getIntegerIdentity() + "  ");
+            } else {
+                System.out.print(" " + rowNumber + "  | X  ");
             }
         } else {
             if (sq.isFlagged() && sq.isIdentityHidden()) {
                 System.out.print(" " + rowNumber + " | P  ");
             } else if (sq.isIdentityHidden()) {
                 System.out.print(" " + rowNumber + " | ?  ");
-            } else {
+            } else if (sq.getIntegerIdentity() != -1) {
                 System.out.print(" " + rowNumber + " | " + sq.getIntegerIdentity() + "  ");
+            } else {
+                System.out.println(" " + rowNumber + " | X  ");
             }
         }
     }
@@ -217,6 +225,7 @@ public class Game {
         for (Square square : this.boardInProgress.getAllSquares()) {
             square.showSquare();
         }
+        System.out.println("");
         printBoard();
     }
 

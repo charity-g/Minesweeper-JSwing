@@ -20,7 +20,7 @@ public class Board {
     protected final int boardSize;
     protected final int bombNumber;
 
-    protected final ArrayList<Square> bombs;
+    protected final ArrayList<Integer> allBombPositions;
     protected final ArrayList<Square> allSquaresOnBoard;
 
     protected GameStatus gameStatus;
@@ -36,10 +36,9 @@ public class Board {
         this.boardHeight = boardHeight;
         this.boardSize = boardHeight * boardWidth;
         this.bombNumber = bombNumber;
-
-        this.bombs = new ArrayList<Square>();
-        setBombs();
-        this.allSquaresOnBoard = new ArrayList<Square>();
+        allBombPositions = new ArrayList<>();
+        setAllBombPositions();
+        this.allSquaresOnBoard = new ArrayList<>();
         initializeAllSquaresOnBoard();
         this.gameStatus = GameStatus.IN_PROGRESS;
     }
@@ -52,8 +51,8 @@ public class Board {
         this.boardHeight = boardHeight;
         this.boardSize = boardHeight * boardWidth;
         this.bombNumber = bombNumber;
-        this.bombs = new ArrayList<Square>();
-        setBombs(seed);
+        this.allBombPositions = new ArrayList<>();
+        setAllBombPositions(seed);
         this.allSquaresOnBoard = new ArrayList<Square>();
         initializeAllSquaresOnBoard();
         this.gameStatus = GameStatus.IN_PROGRESS;
@@ -63,7 +62,7 @@ public class Board {
     //MODIFIES: this
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
     //         the chosen position the user clicked on
-    protected void setBombs() {
+    protected void setAllBombPositions() {
         int bombsMade = 0;
         while (bombsMade < this.bombNumber) {
             if (makeBomb()) {
@@ -76,7 +75,7 @@ public class Board {
     //MODIFIES: this
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
     //         the chosen position the user clicked on
-    protected void setBombs(long seed) {
+    protected void setAllBombPositions(long seed) {
         random.setSeed(seed);
         int bombsMade = 0;
         while (bombsMade < this.bombNumber) {
@@ -94,9 +93,7 @@ public class Board {
         int potentialCol = random.nextInt(boardWidth);
         int potentialRow = random.nextInt(boardHeight);
         if (givenPositionIsNotAlreadyABomb(potentialCol, potentialRow)) {
-            Square potentialBomb = new Square(BOMB, potentialCol, potentialRow,
-                    this.boardWidth, this.boardHeight);
-            this.bombs.add(potentialBomb);
+            this.allBombPositions.add(potentialCol + (potentialRow * this.boardWidth));
             return true;
         } else {
             return false;
@@ -187,11 +184,24 @@ public class Board {
     //EFFECTS: returns the list of every single square's position if they are a neighbor to a bomb.
     //         Positions in the list can and should repeat if two bombs have the same neighbor
     private ArrayList<Integer> getNeighborsOfAllBombs() {
-        ArrayList<Integer> neighborsOfAllBombs = new ArrayList<Integer>();
+        ArrayList<Integer> neighborsOfAllBombs = new ArrayList<>();
         for (int bombPos : getListOfBombPos()) {
-            neighborsOfAllBombs.addAll(getNeighborPositions(bombPos));
+            ArrayList<Integer> neighborsOfBomb = filterOutBombs(getNeighborPositions(bombPos));
+            neighborsOfAllBombs.addAll(neighborsOfBomb);
         }
         return neighborsOfAllBombs;
+    }
+
+    //EFFECTS: returns the list of positions that is not a bomb
+    private ArrayList<Integer> filterOutBombs(ArrayList<Integer> positions) {
+        ArrayList<Integer> newPositions = new ArrayList<>();
+        for (int i = 0; i < positions.size(); i++) {
+            int position = positions.get(i);
+            if (!this.allBombPositions.contains(position)) {
+                newPositions.add(position);
+            }
+        }
+        return newPositions;
     }
 
 
@@ -360,11 +370,7 @@ public class Board {
     //REQUIRES: for bombs to be initialized by set bombs
     //EFFECTS: to create the list of all bomb positions after having the bombs set up
     public ArrayList<Integer> getListOfBombPos() {
-        ArrayList<Integer> listOfBombPos = new ArrayList<Integer>();
-        for (Square s : this.bombs) {
-            listOfBombPos.add(s.getPosition());
-        }
-        return listOfBombPos;
+        return this.allBombPositions;
     }
 
     //EFFECTS: returns the square with position of row and column, or null if the square is off the board
@@ -405,11 +411,6 @@ public class Board {
     //EFFECTS: return the status of the game
     public GameStatus getGameStatus() {
         return this.gameStatus;
-    }
-
-    //EFFECTS: returns the bombs
-    public ArrayList<Square> getBombs() {
-        return this.bombs;
     }
 
     //EFFECTS: returns the bombs
