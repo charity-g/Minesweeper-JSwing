@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writeable;
 
@@ -353,7 +354,7 @@ public class Board implements Writeable {
         }
     }
 
-    //EFFECTS: returns the json object with info about seed and dimensions
+    //EFFECTS: returns the json object with info about seed and dimensions, as well as the
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -361,7 +362,17 @@ public class Board implements Writeable {
         json.put("boardWidth", this.boardWidth);
         json.put("boardHeight", this.boardHeight);
         json.put("bombNumber", this.bombNumber);
+        json.put("allSquares", allSquaresToJson());
         return json;
+    }
+
+    //EFFECTS: returns the json array of all the squares as json objects
+    private JSONArray allSquaresToJson() {
+        JSONArray allSquaresOnBoard = new JSONArray();
+        for (Square sq : this.allSquaresOnBoard) {
+            allSquaresOnBoard.put(sq.toJson());
+        }
+        return allSquaresOnBoard;
     }
 
     //EFFECTS:

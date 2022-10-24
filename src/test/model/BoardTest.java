@@ -3,6 +3,8 @@ package model;
 import static model.Identity.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -371,17 +373,17 @@ public class BoardTest {
     }
 
     @Test
-    public void getSquareTestBoundsPosition(){
+    public void getSquareTestBoundsPosition() {
         assertEquals(testBoardSeed.getSquare(0).getIdentity(), BLANK);
-        assertEquals(testBoardSeed.getSquare(BOARD_SIZE-1).getIdentity(), ONE);
+        assertEquals(testBoardSeed.getSquare(BOARD_SIZE - 1).getIdentity(), ONE);
     }
 
     @Test
-    public void getSquareTestBoundsRowCOl(){
+    public void getSquareTestBoundsRowCOl() {
         assertEquals(testBoardSeed.getSquare(0, 0).getIdentity(), BLANK);
-        assertEquals(testBoardSeed.getSquare(0, BOARD_WIDTH-1).getIdentity(), BLANK);
-        assertEquals(testBoardSeed.getSquare(BOARD_HEIGHT-1, 0).getIdentity(), ONE);
-        assertEquals(testBoardSeed.getSquare(BOARD_HEIGHT-1, BOARD_WIDTH-1).getIdentity(), ONE);
+        assertEquals(testBoardSeed.getSquare(0, BOARD_WIDTH - 1).getIdentity(), BLANK);
+        assertEquals(testBoardSeed.getSquare(BOARD_HEIGHT - 1, 0).getIdentity(), ONE);
+        assertEquals(testBoardSeed.getSquare(BOARD_HEIGHT - 1, BOARD_WIDTH - 1).getIdentity(), ONE);
     }
 
     @Test
@@ -394,6 +396,33 @@ public class BoardTest {
         }
     }
 
+    @Test
+    public void toJsonTest() {
+        JSONObject boardJsonInfo = testBoardSeed.toJson();
+        assertEquals(boardJsonInfo.get("seed"), this.seed);
+        assertEquals(boardJsonInfo.get("boardWidth"), this.BOARD_WIDTH);
+        assertEquals(boardJsonInfo.get("boardHeight"), this.BOARD_HEIGHT);
+        assertEquals(boardJsonInfo.get("bombNumber"), 1);
+
+        JSONArray allJsonSquares = boardJsonInfo.getJSONArray("allSquares");
+        int numOfSquaresSaved = allJsonSquares.length();
+        assertEquals(numOfSquaresSaved, BOARD_SIZE);
+
+        for (int i = 0; i < numOfSquaresSaved; i++) {
+            JSONObject jsonSquare = allJsonSquares.getJSONObject(i);
+            int position = jsonSquare.getInt("position");
+            assertEquals(jsonSquare.get("identity"), testBoardSeed.getSquare(position).getIdentity());
+            assertEquals(jsonSquare.get("isHidden"), true);
+        }
+    }
+
+    @Test
+    public void toJsonTestSimilar() {
+        JSONObject boardJsonInfo1 = testBoardSeed.toJson();
+        JSONObject boardJsonInfo2 = testBoardSeed.toJson();
+
+        assertTrue(boardJsonInfo1.similar(boardJsonInfo2));
+    }
 
 }
 

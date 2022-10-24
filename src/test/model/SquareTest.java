@@ -2,6 +2,8 @@ package model;
 
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +20,7 @@ class SquareTest {
     }
 
     @Test
-    public void SquareConstructorTest(){
+    public void SquareConstructorTest() {
         assertTrue(testBlankSquare.isIdentityHidden());
         assertTrue(testSquare.isIdentityHidden());
         assertTrue(testLastSquare.isIdentityHidden());
@@ -44,14 +46,14 @@ class SquareTest {
     }
 
     @Test
-    public void showHiddenSquareTest(){
+    public void showHiddenSquareTest() {
         assertTrue(testSquare.isIdentityHidden());
         assertTrue(testSquare.showSquare());
         assertFalse(testSquare.isIdentityHidden());
     }
 
     @Test
-    public void showShownSquareTest(){
+    public void showShownSquareTest() {
         assertTrue(testSquare.showSquare());
         assertFalse(testSquare.isIdentityHidden());
         assertFalse(testSquare.showSquare());
@@ -59,17 +61,34 @@ class SquareTest {
     }
 
     @Test
-    public void flagSquareTest(){
+    public void flagSquareTest() {
         assertFalse(testSquare.isFlagged());
         testSquare.changeFlag();
         assertTrue(testSquare.isFlagged());
     }
 
     @Test
-    public void unflagSquareTest(){
+    public void unflagSquareTest() {
         testSquare.changeFlag();
         assertTrue(testSquare.isFlagged());
         testSquare.changeFlag();
         assertFalse(testSquare.isFlagged());
+    }
+
+    @Test
+    public void toJsonTest() {
+        JSONObject jsonSquareInfo = testSquare.toJson();
+        assertEquals(jsonSquareInfo.get("identity"), Identity.BOMB);
+        assertEquals(jsonSquareInfo.get("position"), 42);
+        assertEquals(jsonSquareInfo.get("isHidden"), true);
+        assertEquals(jsonSquareInfo.get("isFlagged"), false);
+        assertEquals(jsonSquareInfo.length(), 4);
+    }
+
+    @Test
+    public void toJsonTestSame() {
+        JSONObject jsonSquareInfoOld = testSquare.toJson();
+        JSONObject jsonSquareInfoNew = testSquare.toJson();
+        assertTrue(jsonSquareInfoNew.similar(jsonSquareInfoNew));
     }
 }

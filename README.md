@@ -25,3 +25,9 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 - As a user, I want to be able to win the game once I have unearthed all the non-bomb tiles
 - As a user, I want to be able to save the game I am playing down to the state of each square on the board 
 - As a user, I want to be able to load a game exactly where I left it off, and continue making moves.
+
+
+## Credit + References:
+- CPSC 210 curriculum
+- the Json design from the JsonSerializationDemo, link provided here: 
+  - https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
