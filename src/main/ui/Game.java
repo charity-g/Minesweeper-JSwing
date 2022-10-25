@@ -76,7 +76,7 @@ public class Game {
         } else {
             if (!this.boardInProgress.getSquare(positionPicked).isIdentityHidden()) {
                 System.out.println("You picked a square that was already flipped! Please choose another one");
-                unearthPlayerChosenSquare();
+                playerAction();
             }
 
             boolean flipped = this.boardInProgress.unearthSquare(positionPicked);

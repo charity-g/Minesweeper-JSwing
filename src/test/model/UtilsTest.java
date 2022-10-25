@@ -1,7 +1,9 @@
 package model;
 
+import model.exceptions.BoardGeneratedWrongException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 
 import static model.Identity.*;
@@ -15,52 +17,52 @@ public class UtilsTest {
     final int BOMB_NUMBER = 4;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         testUtil = new Utils();
-        testBoardForUtils = new Board(BOARD_LENGTH,BOARD_LENGTH,BOMB_NUMBER, SEED);
+        testBoardForUtils = new Board(BOARD_LENGTH, BOARD_LENGTH, BOMB_NUMBER, SEED);
     }
 
     @Test
-    public void assertSquarePositionsInOrderTrueTest(){
-        ArrayList<Square> testList = new ArrayList<Square>();
-        testList.add(new Square(BOMB, 0,0, 3, 3));
-        testList.add(new Square(Identity.ONE, 1,0, 3, 3));
-        testList.add(new Square(Identity.BLANK, 2,0, 3, 3));
+    public void assertSquarePositionsInOrderTrueTest() {
+        ArrayList<Square> testList = new ArrayList<>();
+        testList.add(new Square(BOMB, 0, 0, 3, 3));
+        testList.add(new Square(Identity.ONE, 1, 0, 3, 3));
+        testList.add(new Square(Identity.BLANK, 2, 0, 3, 3));
 
-        testList.add(new Square(BOMB, 0,1, 3, 3));
-        testList.add(new Square(Identity.ONE, 1,1, 3, 3));
-        testList.add(new Square(Identity.BLANK, 2,1, 3, 3));
+        testList.add(new Square(BOMB, 0, 1, 3, 3));
+        testList.add(new Square(Identity.ONE, 1, 1, 3, 3));
+        testList.add(new Square(Identity.BLANK, 2, 1, 3, 3));
 
-        testList.add(new Square(BOMB, 0,2, 3, 3));
-        testList.add(new Square(Identity.ONE, 1,2, 3, 3));
-        testList.add(new Square(Identity.BLANK, 2,2, 3, 3));
+        testList.add(new Square(BOMB, 0, 2, 3, 3));
+        testList.add(new Square(Identity.ONE, 1, 2, 3, 3));
+        testList.add(new Square(Identity.BLANK, 2, 2, 3, 3));
         assertTrue(testUtil.areSquarePositionsInOrder(testList));
     }
 
     @Test
-    public void assertSquarePositionsInOrderFalseTest(){
-        ArrayList<Square> testList = new ArrayList<Square>();
-        testList.add(new Square(BOMB, 0,0, 3, 3));
-        testList.add(new Square(Identity.ONE, 1,1, 3, 3));
-        testList.add(new Square(Identity.BLANK, 0,2, 3, 3));
+    public void assertSquarePositionsInOrderFalseTest() {
+        ArrayList<Square> testList = new ArrayList<>();
+        testList.add(new Square(BOMB, 0, 0, 3, 3));
+        testList.add(new Square(Identity.ONE, 1, 1, 3, 3));
+        testList.add(new Square(Identity.BLANK, 0, 2, 3, 3));
 
-        testList.add(new Square(BOMB, 1,0, 3, 3));
-        testList.add(new Square(Identity.ONE, 0,1, 3, 3));
-        testList.add(new Square(Identity.BLANK, 1,2, 3, 3));
+        testList.add(new Square(BOMB, 1, 0, 3, 3));
+        testList.add(new Square(Identity.ONE, 0, 1, 3, 3));
+        testList.add(new Square(Identity.BLANK, 1, 2, 3, 3));
 
-        testList.add(new Square(BOMB, 2,0, 3, 3));
-        testList.add(new Square(Identity.ONE, 3,1, 3, 3));
-        testList.add(new Square(Identity.BLANK, 2,2, 3, 3));
+        testList.add(new Square(BOMB, 2, 0, 3, 3));
+        testList.add(new Square(Identity.ONE, 3, 1, 3, 3));
+        testList.add(new Square(Identity.BLANK, 2, 2, 3, 3));
         assertFalse(testUtil.areSquarePositionsInOrder(testList));
     }
 
     @Test
     //requires the seed of the board, and based on the seed, we know what it is.
     // testing that a square with identity 1+ bombs in it's neighbors
-    public void checkBombsAroundSquareTestMultipleBombs(){
+    public void checkBombsAroundSquareTestMultipleBombs() {
         Square position21 = testBoardForUtils.getSquare(21);
-        assertTrue(
-                testUtil.checkBombsAroundSquare(testBoardForUtils, position21));
+        assertTrue(testUtil.checkBombsAroundSquare(testBoardForUtils, position21));
+
         assertTrue(position21.getIdentity() == Identity.THREE);
         assertTrue(position21.getIntegerIdentity() == 3);
     }
@@ -68,7 +70,7 @@ public class UtilsTest {
     @Test
     //requires the seed of the board, and based on the seed, we know what it is.
     // testing that a square with identity 1 bombs in it's neighbors
-    public void checkBombsAroundSquareTestOneBomb(){
+    public void checkBombsAroundSquareTestOneBomb() {
         Square position10 = testBoardForUtils.getSquare(10);
         assertTrue(
                 testUtil.checkBombsAroundSquare(testBoardForUtils, position10));
@@ -79,7 +81,7 @@ public class UtilsTest {
     @Test
     //requires the seed of the board, and based on the seed, we know what it is.
     // testing that a square with identity 0 bombs in it's neighbors
-    public void checkBombsAroundSquareTestNoBombs(){
+    public void checkBombsAroundSquareTestNoBombs() {
         Square position19 = testBoardForUtils.getSquare(19);
         assertTrue(
                 testUtil.checkBombsAroundSquare(testBoardForUtils, position19));
@@ -90,7 +92,7 @@ public class UtilsTest {
     @Test
     //requires the seed of the board, and based on the seed, we know what it is.
     // testing that a square that is a bomb
-    public void checkBombsAroundSquareTestIsBomb(){
+    public void checkBombsAroundSquareTestIsBomb() {
         Square position9 = testBoardForUtils.getSquare(9);
         assertTrue(
                 testUtil.checkBombsAroundSquare(testBoardForUtils, position9));
@@ -144,28 +146,28 @@ public class UtilsTest {
     }
 
     @Test
-    public void findSquareTestBomb(){
+    public void findSquareTestBomb() {
         Square bomb = testUtil.findSquare(BOMB, testBoardForUtils);
         assertTrue(bomb.getIntegerIdentity() == -1);
         assertTrue(bomb.getIdentity() == BOMB);
     }
 
     @Test
-    public void findSquareTestBlank(){
+    public void findSquareTestBlank() {
         Square blank = testUtil.findSquare(BLANK, testBoardForUtils);
         assertTrue(blank.getIntegerIdentity() == 0);
         assertTrue(blank.getIdentity() == BLANK);
     }
 
     @Test
-    public void findSquareTestTwo(){
+    public void findSquareTestTwo() {
         Square two = testUtil.findSquare(TWO, testBoardForUtils);
         assertTrue(two.getIntegerIdentity() == 2);
         assertTrue(two.getIdentity() == TWO);
     }
 
     @Test
-    public void findSquareTestNull(){
+    public void findSquareTestNull() {
         Square notFound = testUtil.findSquare(EIGHT, testBoardForUtils);
         assertNull(notFound);
     }

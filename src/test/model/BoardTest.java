@@ -78,11 +78,11 @@ public class BoardTest {
             assertTrue(util.checkBombsAroundSquare(testBoardSeed,
                     square));
         }
-        assertTrue(testBoardSeed.getSquare(3).getBoardWidth() == BOARD_WIDTH);
-        assertTrue(testBoardSeed.getSquare(8).getBoardWidth() == BOARD_WIDTH);
+        assertEquals(BOARD_WIDTH, testBoardSeed.getSquare(3).getBoardWidth());
+        assertEquals(BOARD_WIDTH, testBoardSeed.getSquare(8).getBoardWidth());
 
-        assertTrue(testBoardSeed.getSquare(2).getBoardHeight() == BOARD_HEIGHT);
-        assertTrue(testBoardSeed.getSquare(BOARD_SIZE - 1).getBoardHeight() == BOARD_HEIGHT);
+        assertEquals(BOARD_HEIGHT, testBoardSeed.getSquare(2).getBoardHeight());
+        assertEquals(BOARD_HEIGHT, testBoardSeed.getSquare(BOARD_SIZE - 1).getBoardHeight());
     }
 
     //NON-CONSTRUCTOR BASED TESTS
@@ -160,7 +160,7 @@ public class BoardTest {
     public void unearthSquareTestBomb() {
         testBoardSeed.unearthSquare(7);
         assertFalse(testBoardSeed.getSquare(7).isIdentityHidden());
-        assertTrue(testBoardSeed.getGameStatus() == GameStatus.LOST);
+        assertSame(testBoardSeed.getGameStatus(), GameStatus.LOST);
     }
 
     @Test

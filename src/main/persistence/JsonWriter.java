@@ -9,12 +9,12 @@ import java.io.PrintWriter;
 
 import static java.awt.Event.TAB;
 
-//TODO describe class
+//writes Boards into json data at a specific file
 public class JsonWriter {
     String filePath;
     PrintWriter printWriter;
 
-    //TODO to write
+    //EFFECTS: sets the path for the file to be written in
     public JsonWriter(String filePath) {
         this.filePath = filePath;
     }

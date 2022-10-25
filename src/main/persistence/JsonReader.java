@@ -13,11 +13,11 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+//reads a file with Board json data
 public class JsonReader {
-    // TODO: needs to be able to read a file
     final String filePath;
 
-    //EFFECTS:
+    //EFFECTS: sets the path for file to be read
     JsonReader(String filePath) {
         this.filePath = filePath;
     }

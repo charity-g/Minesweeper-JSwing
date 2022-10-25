@@ -1,5 +1,6 @@
 package model;
 
+
 import java.util.ArrayList;
 
 import static model.Identity.BOMB;
@@ -32,12 +33,8 @@ public class Utils {
                 bombsInNeighborsCount++;
             }
         }
-        if (bombsInNeighborsCount == square.getIntegerIdentity()) {
-            return true;
-        } //else {
-        //TODO throw new Exception();
-        // }
-        return false;
+        assert (bombsInNeighborsCount == square.getIntegerIdentity());
+        return true;
     }
 
     //EFFECTS: returns true if the list cannot be considered a set
@@ -59,11 +56,7 @@ public class Utils {
                 timesAppeared++;
             }
         }
-        if (timesAppeared == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return timesAppeared == 1;
     }
 
     //EFFECTS: returns a square that has the given identity, if it cannot find one, returns null

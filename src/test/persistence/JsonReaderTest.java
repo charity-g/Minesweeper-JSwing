@@ -2,6 +2,7 @@ package persistence;
 
 import model.Board;
 import model.GameStatus;
+import model.Identity;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class JsonReaderTest {
             assertEquals(board.getListOfBombPos().size(), 2);
             assertTrue(board.getListOfBombPos().contains(3));
             assertTrue(board.getListOfBombPos().contains(7));
-            //assert things are flagged + unhidden
+            assertEquals(board.getSquare(0).getIdentity(), Identity.ONE);
 
         } catch (Exception e) {
             fail("Should not have thrown exception.");
