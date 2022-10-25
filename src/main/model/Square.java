@@ -130,10 +130,15 @@ public class Square implements Writeable {
         return false;
     }
 
-    //REQUIRES: this square is hidden, and you are changing the flag when it is already unhidden
     //MODIFIES: this
-    //EFFECTS: flags the square if it is not, or takes away flag if it is
-    public void changeFlag() {
-        this.isFlagged = !this.isFlagged;
+    //EFFECTS: flags the square
+    public void flag() {
+        this.isFlagged = true;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: unflags the square
+    public void unflag() {
+        this.isFlagged = false;
     }
 }

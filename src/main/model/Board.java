@@ -339,9 +339,14 @@ public class Board implements Writeable {
         return allNeighbors;
     }
 
-    // EFFECTS: flags the Square at the given position if it is unflagged, if it is flagged, unflag it
-    public void changeSquareFlag(int position) {
-        this.allSquaresOnBoard.get(position).changeFlag();
+    // EFFECTS: flags the Square at the given position, regardless if it has been previously flagged or not
+    public void flagSquare(int position) {
+        this.allSquaresOnBoard.get(position).flag();
+    }
+
+    // EFFECTS: unflags the Square at the given position, regardless if it has been previously flagged or not
+    public void unflagSquare(int position) {
+        this.allSquaresOnBoard.get(position).unflag();
     }
 
     //EFFECTS: returns true if the given position is not a position of a previously made bomb, else return false

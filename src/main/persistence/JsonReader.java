@@ -71,7 +71,7 @@ public class JsonReader {
             } else if (jsonSquare.getBoolean("isFlagged")) {
                 int position = jsonSquare.getInt("position");
                 Square square = board.getSquare(position);
-                square.changeFlag();
+                square.flag();
             }
         }
         return board;

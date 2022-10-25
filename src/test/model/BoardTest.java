@@ -321,15 +321,26 @@ public class BoardTest {
     public void changeSquareFlagTest() {
         assertFalse(testBoardSeed.getSquare(5).isFlagged());
         //flag
-        testBoardSeed.changeSquareFlag(5);
+        testBoardSeed.flagSquare(5);
         assertTrue(testBoardSeed.getSquare(5).isFlagged());
         //flag something else
-        testBoardSeed.changeSquareFlag(BOARD_WIDTH);
+        testBoardSeed.flagSquare(BOARD_WIDTH);
         assertTrue(testBoardSeed.getSquare(5).isFlagged());
         assertTrue(testBoardSeed.getSquare(BOARD_WIDTH).isFlagged());
         //un-flag
-        testBoardSeed.changeSquareFlag(5);
+        testBoardSeed.unflagSquare(5);
         assertFalse(testBoardSeed.getSquare(5).isFlagged());
+    }
+
+    @Test
+    public void flagUnflagSquareMultiple() {
+        assertFalse(testBoardSeed.getSquare(6).isFlagged());
+        testBoardSeed.flagSquare(6);
+        testBoardSeed.flagSquare(6);
+        assertTrue(testBoardSeed.getSquare(6).isFlagged());
+        testBoardSeed.unflagSquare(6);
+        testBoardSeed.unflagSquare(6);
+        assertFalse(testBoardSeed.getSquare(6).isFlagged());
     }
 
     @Test

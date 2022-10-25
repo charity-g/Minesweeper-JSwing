@@ -63,15 +63,17 @@ class SquareTest {
     @Test
     public void flagSquareTest() {
         assertFalse(testSquare.isFlagged());
-        testSquare.changeFlag();
+        testSquare.flag();
+        assertTrue(testSquare.isFlagged());
+        testSquare.flag();
         assertTrue(testSquare.isFlagged());
     }
 
     @Test
     public void unflagSquareTest() {
-        testSquare.changeFlag();
+        testSquare.flag();
         assertTrue(testSquare.isFlagged());
-        testSquare.changeFlag();
+        testSquare.unflag();
         assertFalse(testSquare.isFlagged());
     }
 

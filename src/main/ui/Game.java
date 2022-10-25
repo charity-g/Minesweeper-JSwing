@@ -41,7 +41,6 @@ public class Game {
         endGame();
     }
 
-    //TODO: catch the case where player tries to flag already flagged square
     //EFFECTS: handles user input for what action they want to take: flagging a square or flipping a square
     private void playerAction() {
         System.out.println("");
@@ -49,8 +48,9 @@ public class Game {
         String playerChoice = scan.next();
         switch (playerChoice) {
             case "flag":
+                flagPlayerChoice();
             case "unflag":
-                changeFlagPlayerChosenSquare(playerChoice);
+                unFlagPlayerChoice();
                 break;
             case "flip":
                 unearthPlayerChosenSquare();
@@ -61,11 +61,24 @@ public class Game {
         }
     }
 
-    //EFFECTS: flags or unflag the square at position picked
-    private void changeFlagPlayerChosenSquare(String playerChoice) {
+    //EFFECTS: unflag the square at position picked
+    private void unFlagPlayerChoice() {
         int positionPicked = getChosenSquarePosition();
-        Square squareToFlag = this.boardInProgress.getSquare(positionPicked);
-        squareToFlag.changeFlag();
+        if (boardInProgress.getSquare(positionPicked).isIdentityHidden()) {
+            boardInProgress.unflagSquare(positionPicked);
+        } else {
+            System.out.println("This square has already been flipped! You can't unflag it.");
+        }
+    }
+
+    //EFFECTS: unflag the square at position picked
+    private void flagPlayerChoice() {
+        int positionPicked = getChosenSquarePosition();
+        if (boardInProgress.getSquare(positionPicked).isIdentityHidden()) {
+            boardInProgress.flagSquare(positionPicked);
+        } else {
+            System.out.println("This square has already been flipped! You can't flag it.");
+        }
     }
 
     //EFFECTS: takes in the player's move and unearths the necessary square
@@ -73,15 +86,13 @@ public class Game {
         int positionPicked = getChosenSquarePosition();
         if (this.boardInProgress.getSquare(positionPicked).isFlagged()) {
             System.out.println("This square is currently flagged! Please unflag it.");
+        } else if (!this.boardInProgress.getSquare(positionPicked).isIdentityHidden()) {
+            System.out.println("You picked a square that was already flipped! Please choose another one");
         } else {
-            if (!this.boardInProgress.getSquare(positionPicked).isIdentityHidden()) {
-                System.out.println("You picked a square that was already flipped! Please choose another one");
-                playerAction();
-            }
-
             boolean flipped = this.boardInProgress.unearthSquare(positionPicked);
             assert (flipped == true);
         }
+
     }
 
     private int getChosenSquarePosition() {
