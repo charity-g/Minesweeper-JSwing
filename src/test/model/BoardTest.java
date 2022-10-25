@@ -18,6 +18,7 @@ public class BoardTest {
     Utils util = new Utils();
     protected long seed = 24;
 
+
     @BeforeEach
     public void setup() {
         testBoardSeed = new Board(BOARD_WIDTH, BOARD_HEIGHT, 1, seed);
@@ -33,6 +34,7 @@ public class BoardTest {
         assertEquals(testBoardSeed.getBombNumber(), 1);
 
         assertEquals(testBoardSeed.getGameStatus(), GameStatus.IN_PROGRESS);
+
     }
 
     @Test

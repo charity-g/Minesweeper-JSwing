@@ -368,11 +368,11 @@ public class Board implements Writeable {
 
     //EFFECTS: returns the json array of all the squares as json objects
     private JSONArray allSquaresToJson() {
-        JSONArray allSquaresOnBoard = new JSONArray();
+        JSONArray jsonArrayAllSquares = new JSONArray();
         for (Square sq : this.allSquaresOnBoard) {
-            allSquaresOnBoard.put(sq.toJson());
+            jsonArrayAllSquares.put(sq.toJson());
         }
-        return allSquaresOnBoard;
+        return jsonArrayAllSquares;
     }
 
     //EFFECTS:

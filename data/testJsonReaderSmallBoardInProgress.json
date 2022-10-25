@@ -1,0 +1,62 @@
+{
+  "seed": 0,
+  "boardWidth": 3,
+  "boardHeight": 3,
+  "bombNumber": 2,
+  "allSquares": [
+    {
+      "position": 0,
+      "identity": "ONE",
+      "isHidden": true,
+      "isFlagged": false
+    },
+    {
+      "position": 1,
+      "identity": "ONE",
+      "isHidden": false,
+      "isFlagged": false
+    },
+    {
+      "position": 2,
+      "identity": "ONE",
+      "isHidden": true,
+      "isFlagged": false
+    },
+    {
+      "position": 3,
+      "identity": "BOMB",
+      "isHidden": true,
+      "isFlagged": true
+    },
+    {
+      "position": 4,
+      "identity": "TWO",
+      "isHidden": true,
+      "isFlagged": false
+    },
+    {
+      "position": 5,
+      "identity": "ONE",
+      "isHidden": true,
+      "isFlagged": false
+    },
+    {
+      "position": 6,
+      "identity": "TWO",
+      "isHidden": false,
+      "isFlagged": false
+    },
+    {
+      "position": 7,
+      "identity": "BOMB",
+      "isHidden": true,
+      "isFlagged": false
+    },
+    {
+      "position": 8,
+      "identity": "ONE",
+      "isHidden": true,
+      "isFlagged": false
+    }
+  ]
+}
