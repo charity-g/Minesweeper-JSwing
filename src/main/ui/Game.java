@@ -5,7 +5,11 @@ import model.GameStatus;
 import model.Identity;
 import model.Square;
 import model.Board;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -30,7 +34,7 @@ public class Game {
 
     //EFFECTS: creates a new board and executes each player action and handles effects until game ends
     public void playGame() {
-        createNewBoard();
+        startGameMenu();
         printBoard();
         while (boardInProgress.getGameStatus() == IN_PROGRESS) {
             playerAction();
@@ -41,19 +45,38 @@ public class Game {
         endGame();
     }
 
+    //MODIFIES: this
+    //EFFECTS: asks the user to begin new game or load old game
+    private void startGameMenu() {
+        System.out.println("Would you like to load your saved board or start a new game? (Enter load or start)");
+        String startingBoard = scan.nextLine();
+        if (startingBoard.equals("load")) {
+            loadBoard();
+        } else if (startingBoard.equals("start")) {
+            createNewBoard();
+        } else {
+            System.out.println("That's not an option. Please try again");
+            startGameMenu();
+        }
+    }
+
     //EFFECTS: handles user input for what action they want to take: flagging a square or flipping a square
     private void playerAction() {
         System.out.println("");
-        System.out.println("Flag, unflag, or flip a square? ");
+        System.out.println("Choose one of the following actions: Flag, unflag, or flip a square; or save your board. ");
         String playerChoice = scan.next();
         switch (playerChoice) {
             case "flag":
                 flagPlayerChoice();
+                break;
             case "unflag":
                 unFlagPlayerChoice();
                 break;
             case "flip":
                 unearthPlayerChosenSquare();
+                break;
+            case "save":
+                saveBoard();
                 break;
             default:
                 System.out.println("Sorry, that wasn't a valid choice of action, please try again.");
@@ -96,23 +119,42 @@ public class Game {
     }
 
     private int getChosenSquarePosition() {
-        int boardLength = this.boardInProgress.getBoardWidth();
         System.out.println("Choose the row of the square you want to do the action to.");
-        int rowPicked = scan.nextInt();
+        int rowPicked;
+        int columnPicked;
+        try {
+            rowPicked = scan.nextInt();
+        } catch (Exception e) {
+            rowPicked = -1;
+        }
+
+        System.out.println("Choose the column of the square you want to do the action to.");
+        try {
+            columnPicked = scan.nextInt();
+        } catch (Exception e) {
+            columnPicked = -1;
+        }
+
+        if (invalidPosition(rowPicked, columnPicked)) {
+            return getChosenSquarePosition();
+        }
+
+        return (rowPicked * this.boardInProgress.getBoardWidth()) + columnPicked;
+    }
+
+    //EFFECTS: returns true if the position is NOT on the board, else returns false
+    private boolean invalidPosition(int rowPicked, int columnPicked) {
         if (rowPicked < 0 || rowPicked >= this.boardInProgress.getBoardHeight()) {
             System.out.println("Not a valid row");
-            return getChosenSquarePosition();
+            return true;
         }
-        System.out.println("Choose the column of the square you want to do the action to.");
-        int columnPicked = scan.nextInt();
-        if (columnPicked < 0 || columnPicked >= boardLength) {
+        if (columnPicked < 0 || columnPicked >= this.boardInProgress.getBoardWidth()) {
             System.out.println("Not a valid column");
-            return getChosenSquarePosition();
+            return true;
         }
-        int positionPicked = (rowPicked * boardLength) + columnPicked;
-
-        return positionPicked;
+        return false;
     }
+
 
     //EFFECT: prints out the board with current status of the game( which squares a hidden or shown and what knowledge
     //        is known)
@@ -171,7 +213,7 @@ public class Game {
             } else if (sq.getIntegerIdentity() != -1) {
                 System.out.print(" " + rowNumber + " | " + sq.getIntegerIdentity() + "  ");
             } else {
-                System.out.println(" " + rowNumber + " | X  ");
+                System.out.print(" " + rowNumber + " | X  ");
             }
         }
     }
@@ -258,13 +300,26 @@ public class Game {
         return true;
     }
 
+    //MODIFIES: this
+    //EFFECTS: reads the saved json board data and sets the board in progress to be the saved data
+    public void loadBoard() {
+        JsonReader reader = new JsonReader("./data/savedBoardInProgress.json");
+        try {
+            this.boardInProgress = reader.read();
+        } catch (IOException e) {
+            System.out.println("The file you are trying to read either does not exist or has the wrong content. ");
+        }
+    }
 
-    //TODO once we get more information about saving and loading
-    //public void loadBoard() {
-    //}
-
-    //public void saveBoard() {
-    //}
+    //EFFECTS: saves this board into json data into the file
+    public void saveBoard() {
+        JsonWriter writer = new JsonWriter("./data/savedBoardInProgress.json");
+        try {
+            writer.write(this.boardInProgress);
+        } catch (FileNotFoundException e) {
+            System.out.println("The file you are trying to save this board to does not exist.");
+        }
+    }
 
     // PRIVATE METHODS
     //EFFECTS: creates a new beginner board and sets that as the current board

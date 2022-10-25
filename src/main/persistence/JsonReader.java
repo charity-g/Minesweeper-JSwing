@@ -18,7 +18,7 @@ public class JsonReader {
     final String filePath;
 
     //EFFECTS: sets the path for file to be read
-    JsonReader(String filePath) {
+    public JsonReader(String filePath) {
         this.filePath = filePath;
     }
 
