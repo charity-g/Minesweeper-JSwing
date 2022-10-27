@@ -29,5 +29,10 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 
 ## Credit + References:
 - CPSC 210 curriculum
-- the Json design from the JsonSerializationDemo, link provided here: 
+- the Json read and write design from the JsonSerializationDemo, link provided here: 
   - https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+   Classes adapted: 
+    - JsonWriter
+    - JsonReader
+   Methods adapted
+    - toJson in my Board and Square classes
