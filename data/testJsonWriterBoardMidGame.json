@@ -1,0 +1,392 @@
+{
+         "boardWidth": 8,
+         "bombNumber": 10,
+         "seed": 24,
+         "boardHeight": 8,
+         "allSquares": [
+                  {
+                           "identity": "BLANK",
+                           "position": 0,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 1,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 2,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 3,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 4,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 5,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "THREE",
+                           "position": 6,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 7,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 8,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 9,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 10,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 11,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 12,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 13,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 14,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 15,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 16,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 17,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 18,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 19,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 20,
+                           "isHidden": false,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 21,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "THREE",
+                           "position": 22,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 23,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 24,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 25,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 26,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 27,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 28,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 29,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 30,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 31,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 32,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 33,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 34,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 35,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 36,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 37,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 38,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 39,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 40,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 41,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 42,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 43,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 44,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 45,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 46,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 47,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 48,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 49,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 50,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 51,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 52,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 53,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 54,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 55,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 56,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 57,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 58,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 59,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 60,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 61,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 62,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 63,
+                           "isHidden": true,
+                           "isFlagged": false
+                  }
+         ]
+}

@@ -81,8 +81,6 @@ public class Square implements Writeable {
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public int getIntegerIdentity() {
         switch (this.identity) {
-            case BLANK:
-                return 0;
             case ONE:
                 return 1;
             case TWO:
@@ -102,7 +100,7 @@ public class Square implements Writeable {
             case BOMB:
                 return -1;
             default:
-                return -1000;
+                return 0;
         }
     }
 
