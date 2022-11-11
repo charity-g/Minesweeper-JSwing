@@ -33,7 +33,7 @@ public class BoardTest {
         assertEquals(testBoardSeed.getBoardSize(), this.BOARD_SIZE);
         assertEquals(testBoardSeed.getBombNumber(), 1);
 
-        assertEquals(testBoardSeed.getGameStatus(), GameStatus.IN_PROGRESS);
+        assertEquals(testBoardSeed.getBoardStatus(), BoardStatus.IN_PROGRESS);
 
     }
 
@@ -88,9 +88,9 @@ public class BoardTest {
     //NON-CONSTRUCTOR BASED TESTS
     @Test
     public void setWinTest() {
-        assertEquals(testBoardSeed.getGameStatus(), GameStatus.IN_PROGRESS);
+        assertEquals(testBoardSeed.getBoardStatus(), BoardStatus.IN_PROGRESS);
         testBoardSeed.setGameWon();
-        assertEquals(testBoardSeed.getGameStatus(), GameStatus.WON);
+        assertEquals(testBoardSeed.getBoardStatus(), BoardStatus.WON);
     }
 
 
@@ -160,7 +160,7 @@ public class BoardTest {
     public void unearthSquareTestBomb() {
         testBoardSeed.unearthSquare(7);
         assertFalse(testBoardSeed.getSquare(7).isIdentityHidden());
-        assertSame(testBoardSeed.getGameStatus(), GameStatus.LOST);
+        assertSame(testBoardSeed.getBoardStatus(), BoardStatus.LOST);
     }
 
     @Test

@@ -1,7 +1,7 @@
 package ui;
 
 
-import model.GameStatus;
+import model.BoardStatus;
 import model.Identity;
 import model.Square;
 import model.Board;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
-import static model.GameStatus.*;
+import static model.BoardStatus.*;
 
 //Game represents a minesweeper game
 //   - what board is currently being played
@@ -22,21 +22,21 @@ import static model.GameStatus.*;
 
 public class Game {
     Board boardInProgress;
-    Scanner scan;
+    Scanner scan; //TODO to be removed
     Random random;
 
     //EFFECTS: Creates a new game
     public Game() {
         random = new Random();
-        scan = new Scanner(System.in);  // Create a Scanner object
-        playGame();
+        scan = new Scanner(System.in);  // Create a Scanner object TODO to be removed
+        // playGame(); //TODO: method to be removed
     }
 
     //EFFECTS: creates a new board and executes each player action and handles effects until game ends
     public void playGame() {
-        startGameMenu();
+        //startGameMenu();
         printBoard();
-        while (boardInProgress.getGameStatus() == IN_PROGRESS) {
+        while (boardInProgress.getBoardStatus() == IN_PROGRESS) {
             playerAction();
             printBoard();
             checkIfGameWon();
@@ -45,7 +45,7 @@ public class Game {
         endGame();
     }
 
-    //MODIFIES: this
+ /*   //MODIFIES: this //TODO
     //EFFECTS: asks the user to begin new game or load old game
     private void startGameMenu() {
         System.out.println("Would you like to load your saved board or start a new game? (Enter load or start)");
@@ -58,7 +58,7 @@ public class Game {
             System.out.println("That's not an option. Please try again");
             startGameMenu();
         }
-    }
+    }*/
 
     //EFFECTS: handles user input for what action they want to take: flagging a square or flipping a square
     private void playerAction() {
@@ -262,11 +262,11 @@ public class Game {
 
     //EFFECTS: prints out the solution and where the bombs were and congratulatory message
     public void endGame() {
-        GameStatus endGameStatus = this.boardInProgress.getGameStatus();
+        BoardStatus endBoardStatus = this.boardInProgress.getBoardStatus();
         System.out.println(" SOLUTION :");
         printBoardSolutions();
         System.out.println(" ");
-        if (endGameStatus == WON) {
+        if (endBoardStatus == WON) {
             System.out.println("WOO! Congratulations on your win!");
         } else {
             System.out.println("You hit a mine! So close, better luck next time.");
@@ -302,13 +302,9 @@ public class Game {
 
     //MODIFIES: this
     //EFFECTS: reads the saved json board data and sets the board in progress to be the saved data
-    public void loadBoard() {
+    public void loadBoard() throws IOException {
         JsonReader reader = new JsonReader("./data/savedBoardInProgress.json");
-        try {
-            this.boardInProgress = reader.read();
-        } catch (IOException e) {
-            System.out.println("The file you are trying to read either does not exist or has the wrong content. ");
-        }
+        this.boardInProgress = reader.read();
     }
 
     //EFFECTS: saves this board into json data into the file
@@ -349,5 +345,9 @@ public class Game {
 
     public Board getBoardInProgress() {
         return this.boardInProgress;
+    }
+
+    public void setBoardInProgress(Board newBoard) {
+        this.boardInProgress = newBoard;
     }
 }

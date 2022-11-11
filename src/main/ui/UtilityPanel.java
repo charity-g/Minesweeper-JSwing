@@ -1,33 +1,49 @@
 package ui;
 
-import ui.buttons.*;
+
+import ui.buttons.LoadButton;
+import ui.buttons.NewGameButton;
+import ui.buttons.SaveButton;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static ui.GameFrame.INTERFACE_HEIGHT;
+import static ui.GameFrame.INTERFACE_WIDTH;
 
 /*
 Represents the outer border of the board, as well as in charge of keeping track of the board in progress
  and creating a new board
  */
 public class UtilityPanel extends JPanel {
-    static final int INTERFACE_HEIGHT = 600;
-    static final int INTERFACE_WIDTH = 1000;
 
-    public UtilityPanel() {
+    GameFrame gameFramework;
+    JButton saveButton;
+    JButton loadButton;
+    JButton newButton;
+
+    //EFFECTS: Initializes the 3 utility buttons that the user can interact with, setting the saveButton to unenabled
+    // at the moment as there is no Board in progress
+    public UtilityPanel(GameFrame gameFramework) {
+        this.gameFramework = gameFramework;
+
         setPreferredSize(new Dimension(INTERFACE_WIDTH, INTERFACE_HEIGHT));
         setBackground(Color.lightGray);
 
-        //TODO: implement button functionality
-        JButton saveButton = new SaveButton("save game");
-        add(saveButton);
-        saveButton.setEnabled(true);
+        addUtilityButtons();
+    }
 
-        JButton loadButton = new LoadButton("load game");
-        add(loadButton);
-        loadButton.setEnabled(true);
 
-        JButton newButton = new NewGameButton("new game");
-        add(newButton);
-        newButton.setEnabled(true);
+    //EFFECTS: initializes buttons in utility menu
+    private void addUtilityButtons() {
+        saveButton = new SaveButton("save game", gameFramework);
+        this.add(saveButton);
+        saveButton.setEnabled(false);
+
+        loadButton = new LoadButton("load game", gameFramework);
+        this.add(loadButton);
+
+        newButton = new NewGameButton("new game", gameFramework);
+        this.add(newButton);
     }
 }

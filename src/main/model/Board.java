@@ -7,7 +7,7 @@ import persistence.Writeable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static model.GameStatus.*;
+import static model.BoardStatus.*;
 import static model.Identity.*;
 
 
@@ -28,7 +28,7 @@ public class Board implements Writeable {
     protected final ArrayList<Integer> allBombPositions;
     protected final ArrayList<Square> allSquaresOnBoard;
 
-    protected GameStatus gameStatus;
+    protected BoardStatus boardStatus;
 
     private ArrayList<Integer> allSquaresMatrix;
 
@@ -46,7 +46,7 @@ public class Board implements Writeable {
         setAllBombPositions();
         this.allSquaresOnBoard = new ArrayList<>();
         initializeAllSquaresOnBoard();
-        this.gameStatus = GameStatus.IN_PROGRESS;
+        this.boardStatus = BoardStatus.IN_PROGRESS;
     }
 
     //REQUIRES: only called during testing for a seed
@@ -62,7 +62,7 @@ public class Board implements Writeable {
         setAllBombPositions();
         this.allSquaresOnBoard = new ArrayList<Square>();
         initializeAllSquaresOnBoard();
-        this.gameStatus = GameStatus.IN_PROGRESS;
+        this.boardStatus = BoardStatus.IN_PROGRESS;
     }
 
     //REQUIRES: should only be called by Constructor
@@ -214,7 +214,7 @@ public class Board implements Writeable {
         if (!wasHidden) {
             return false;
         } else if (square.getIdentity() == BOMB) {
-            this.gameStatus = LOST;
+            this.boardStatus = LOST;
             return true;
         } else if (square.getIdentity() == BLANK) {
             unearthNeighborsOfBlankSquare(position);
@@ -382,7 +382,7 @@ public class Board implements Writeable {
 
     //EFFECTS:
     public void setGameWon() {
-        this.gameStatus = WON;
+        this.boardStatus = WON;
     }
 
     // GETTERS =====================================================
@@ -429,8 +429,8 @@ public class Board implements Writeable {
     }
 
     //EFFECTS: return the status of the game
-    public GameStatus getGameStatus() {
-        return this.gameStatus;
+    public BoardStatus getBoardStatus() {
+        return this.boardStatus;
     }
 
     //EFFECTS: returns the bombs

@@ -3,6 +3,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writeable;
 
+import java.util.Objects;
+
 //information represented:
 // a single square on a board in the game of minesweeper.
 //   - what type of square it is- bomb, blank, one...etc
