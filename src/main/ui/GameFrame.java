@@ -31,11 +31,9 @@ public class GameFrame extends JFrame {
 
         bkgLayer = new UtilityPanel(this);
         add(bkgLayer, layout.NORTH);
-        bkgLayer.setOpaque(true);
 
         long seed = 24;
-        activeBoardPanel = new BoardPanel(new Board(3, 3, 2, seed), this);
-        activeBoardPanel.setOpaque(true);
+        activeBoardPanel = new BoardPanel(new Board(1, 1, 0, seed), this);
         add(activeBoardPanel);
 
         this.setTitle("Minesweeper");
@@ -44,18 +42,6 @@ public class GameFrame extends JFrame {
         this.pack();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-    }
-
-    public BoardPanel getActiveBoardPanel() {
-        return this.activeBoardPanel;
-    }
-
-    public Board getBoardInProgress() {
-        return this.activeBoardPanel.getBoardInProgress();
-    }
-
-    public void setBoardInProgress(Board newBoard) {
-        this.activeBoardPanel.setBoardInProgress(newBoard);
     }
 
     //MODIFIES: this
@@ -75,5 +61,12 @@ public class GameFrame extends JFrame {
     //EFFECTS:
     public void loadBoardIntoGame() throws IOException {
         this.game.loadBoard();
+
+        BoardPanel newPanel = new BoardPanel(game.getBoardInProgress(), this);
+
+
+        removeActiveBoard();
+        addActiveBoard(newPanel);
+        revalidate();
     }
 }

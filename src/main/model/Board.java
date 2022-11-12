@@ -385,6 +385,18 @@ public class Board implements Writeable {
         this.boardStatus = WON;
     }
 
+    //TODO write tests
+    //EFFECTS: returns true if all squares on the board have been flipped except for the bombs
+    private boolean isGameWon() {
+        for (Square square : allSquaresOnBoard) {
+            if (square.getIdentity() != Identity.BOMB && square.isIdentityHidden()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     // GETTERS =====================================================
 
     //REQUIRES: for bombs to be initialized by set bombs

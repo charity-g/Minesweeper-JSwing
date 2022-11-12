@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 
 public abstract class UtilityButton extends JButton {
     protected GameFrame gameFramework;
-    protected JTextComponent errorText;
 
     public UtilityButton(String text, GameFrame gameFramework, UtilityPanel listener) {
         super(text);

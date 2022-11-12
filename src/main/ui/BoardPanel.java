@@ -10,6 +10,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static model.BoardStatus.LOST;
 import static ui.GameFrame.*;
@@ -17,10 +18,13 @@ import static ui.GameFrame.*;
 public class BoardPanel extends JPanel implements ActionListener {
     private Board boardInProgress;
     private GameFrame gameFramework;
+    private ArrayList<SquareButton> allSquareButtons;
 
     public BoardPanel(Board boardInProgress, GameFrame gameFramework) {
         this.boardInProgress = boardInProgress;
         this.gameFramework = gameFramework;
+        this.allSquareButtons = new ArrayList<>();
+
         setPreferredSize(new Dimension(INTERFACE_WIDTH - MARGIN, INTERFACE_HEIGHT - MARGIN));
 
         this.setLayout(new GridLayout(boardInProgress.getBoardHeight(), boardInProgress.getBoardWidth()));
@@ -29,8 +33,9 @@ public class BoardPanel extends JPanel implements ActionListener {
 
     private void addSquareButtons() {
         for (Square square : boardInProgress.getAllSquares()) {
-            JButton button = new SquareButton(square);
+            SquareButton button = new SquareButton(square, this);
             this.add(button);
+            allSquareButtons.add(button);
             //TODO
         }
     }
@@ -38,16 +43,27 @@ public class BoardPanel extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-    }
+    } //TODO remove??
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        for (SquareButton squareButton : allSquareButtons) {
+            Square squareObj = squareButton.getSquare();
+            if (!squareObj.isIdentityHidden()) {
+                squareButton.setText("" + squareObj.getIntegerIdentity());
+            }
+        }
+
+        gameFramework.revalidate();
+
         if (boardInProgress.getBoardStatus() == LOST) {
             endGame();
         } else if (isGameWon(boardInProgress)) {
             boardInProgress.setGameWon();
             endGame();
-        } //TODO
+        }
+
     }
 
     //EFFECTS: produces true if all squares are shown on board except bomb
@@ -74,5 +90,11 @@ public class BoardPanel extends JPanel implements ActionListener {
 
     public void setBoardInProgress(Board newBoard) {
         this.boardInProgress = newBoard;
+    }
+
+
+    //EFFECTS:
+    public void flipSquare(int position) {
+        gameFramework.game.unearthPlayerChosenSquare(position);
     }
 }

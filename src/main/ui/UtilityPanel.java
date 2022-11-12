@@ -60,11 +60,6 @@ public class UtilityPanel extends JPanel implements ActionListener {
         if ("load".equals(e.getActionCommand())) {
             try {
                 gameFramework.loadBoardIntoGame();
-                BoardPanel newPanel = new BoardPanel(gameFramework.getBoardInProgress(), gameFramework);
-                gameFramework.removeActiveBoard();
-
-                gameFramework.addActiveBoard(newPanel);
-                gameFramework.revalidate();
             } catch (IOException ex) {
                 errorText.setVisible(true);
                 try {

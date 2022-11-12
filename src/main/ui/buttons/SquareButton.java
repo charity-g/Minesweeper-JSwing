@@ -1,6 +1,8 @@
 package ui.buttons;
 
+import model.Board;
 import model.Square;
+import ui.BoardPanel;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -14,20 +16,27 @@ The gui representation of a square object, with JButton capabilities to respond 
  */
 public class SquareButton extends JButton {
     Square square;
+    BoardPanel boardListener;
 
-    public SquareButton(Square square) {
+    public SquareButton(Square square, BoardPanel boardListener) {
         super("" + square.getPosition());
         setText("?");
         this.square = square;
 
         MouseListener ml = new SquareMouseListener();
         this.addMouseListener(ml);
+
+        addActionListener(boardListener);
+        this.boardListener = boardListener;
+    }
+
+    public Square getSquare() {
+        return square;
     }
 
     //EFFECTS: react to mouse click
     private void handleMouseClick() {
-        square.showSquare();
-        setText("" + square.getIdentity());
+        boardListener.flipSquare(square.getPosition());
     }
 
     /*
