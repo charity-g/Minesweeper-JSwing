@@ -22,43 +22,14 @@ import static model.BoardStatus.*;
 
 public class Game {
     Board boardInProgress;
-    Scanner scan; //TODO to be removed
     Random random;
+    Scanner scan;//TODO tbd
 
     //EFFECTS: Creates a new game
     public Game() {
         random = new Random();
-        scan = new Scanner(System.in);  // Create a Scanner object TODO to be removed
-        // playGame(); //TODO: method to be removed
     }
 
-    //EFFECTS: creates a new board and executes each player action and handles effects until game ends
-    public void playGame() {
-        //startGameMenu();
-        printBoard();
-        while (boardInProgress.getBoardStatus() == IN_PROGRESS) {
-            playerAction();
-            printBoard();
-            checkIfGameWon();
-        }
-
-        endGame();
-    }
-
- /*   //MODIFIES: this //TODO
-    //EFFECTS: asks the user to begin new game or load old game
-    private void startGameMenu() {
-        System.out.println("Would you like to load your saved board or start a new game? (Enter load or start)");
-        String startingBoard = scan.nextLine();
-        if (startingBoard.equals("load")) {
-            loadBoard();
-        } else if (startingBoard.equals("start")) {
-            createNewBoard();
-        } else {
-            System.out.println("That's not an option. Please try again");
-            startGameMenu();
-        }
-    }*/
 
     //EFFECTS: handles user input for what action they want to take: flagging a square or flipping a square
     private void playerAction() {
@@ -304,6 +275,7 @@ public class Game {
     //EFFECTS: reads the saved json board data and sets the board in progress to be the saved data
     public void loadBoard() throws IOException {
         JsonReader reader = new JsonReader("./data/savedBoardInProgress.json");
+
         this.boardInProgress = reader.read();
     }
 

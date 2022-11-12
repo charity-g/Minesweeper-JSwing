@@ -4,8 +4,6 @@ import model.Board;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /*
@@ -15,27 +13,30 @@ Represents the Frame the gui(board and utility buttons) are to be presented in, 
 public class GameFrame extends JFrame {
     static final int INTERFACE_HEIGHT = 600;
     static final int INTERFACE_WIDTH = 1000;
+    static final int MARGIN = 100;
+    private static final int ORIGIN_X = INTERFACE_WIDTH / 2;
+    private static final int ORIGIN_Y = INTERFACE_HEIGHT / 2;
 
+    Game game;
     JPanel bkgLayer;
     BoardPanel activeBoardPanel;
-    private JLayeredPane layers = new JLayeredPane();
-    Game game;
+    BorderLayout layout;
 
     //EFFECTS: sets up the frame settings and initializes the utilities and beginning choices
     GameFrame() {
         game = new Game();
-        BorderLayout layout = new BorderLayout();
-        add(layers);
-        layers.setLayout(layout);
+
+        layout = new BorderLayout();
+        setLayout(layout);
 
         bkgLayer = new UtilityPanel(this);
-        layers.add(bkgLayer, layout.NORTH);
+        add(bkgLayer, layout.NORTH);
         bkgLayer.setOpaque(true);
 
         long seed = 24;
-        activeBoardPanel = new BoardPanel(new Board(3,3, 2, seed));
-        layers.add(activeBoardPanel, layout.CENTER);
+        activeBoardPanel = new BoardPanel(new Board(3, 3, 2, seed), this);
         activeBoardPanel.setOpaque(true);
+        add(activeBoardPanel);
 
         this.setTitle("Minesweeper");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,18 +46,34 @@ public class GameFrame extends JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public Game getGame() {
-        return this.game;
-    }
-
     public BoardPanel getActiveBoardPanel() {
         return this.activeBoardPanel;
     }
 
-    public void setActiveBoardPanel(BoardPanel boardPanel) {
-        this.activeBoardPanel = boardPanel;
-        activeBoardPanel.setVisible(true);
-//        this.setComponentZOrder(activeBoardPanel, 1);
+    public Board getBoardInProgress() {
+        return this.activeBoardPanel.getBoardInProgress();
     }
 
+    public void setBoardInProgress(Board newBoard) {
+        this.activeBoardPanel.setBoardInProgress(newBoard);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: removes the Board on screen, as well as removing it from the current active board
+    public void removeActiveBoard() {
+        remove(activeBoardPanel);
+        this.activeBoardPanel = null;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: removes the Board on screen, as well as setting it as the current active board
+    public void addActiveBoard(BoardPanel newPanel) {
+        add(newPanel, layout.CENTER, 1);
+        this.activeBoardPanel = newPanel;
+    }
+
+    //EFFECTS:
+    public void loadBoardIntoGame() throws IOException {
+        this.game.loadBoard();
+    }
 }

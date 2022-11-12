@@ -2,6 +2,7 @@ package ui.buttons;
 
 import ui.Game;
 import ui.GameFrame;
+import ui.UtilityPanel;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -13,16 +14,16 @@ public abstract class UtilityButton extends JButton {
     protected GameFrame gameFramework;
     protected JTextComponent errorText;
 
-    public UtilityButton(String text, GameFrame gameFramework) {
+    public UtilityButton(String text, GameFrame gameFramework, UtilityPanel listener) {
         super(text);
         this.gameFramework = gameFramework;
 
-        addMouseListener(new MouseClickListener());
+        addActionListener(listener);
     }
 
 
     //EFFECTS: handles mouse click for this button
-    public abstract void handleMouseClicked(MouseEvent e);
+    //public abstract void handleMouseClicked(MouseEvent e);
 
     /*
     Provides methods for interacting and responding to mouse actions
@@ -32,7 +33,7 @@ public abstract class UtilityButton extends JButton {
         @Override
         // EFFECTS: TODO !!
         public void mouseClicked(MouseEvent e) {
-            handleMouseClicked(e);
+            //handleMouseClicked(e);
         }
 
     }
