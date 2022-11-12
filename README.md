@@ -27,6 +27,17 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 - As a user, I want to be able to load a game exactly where I left it off, and continue making moves.
 
 
+## Instructions for Grader
+
+- You can generate the first required event related to adding bombs to a board by clicking either the "new game"
+or "load game" button when first starting up the program, or anytime during the program's run.
+- You can generate the second required event related adding bombs to a board by **double-clicking** any button on the board when 
+it is loaded into the gui, and it will reveal what is underneath it.
+- You can locate my visual component by clicking on a bomb, or winning a game
+- You can save the state of my application by pressing save game. This button will only be enabled when you have a
+board onscreen
+- You can reload the state of my application by pressing load game.
+
 ## Credit + References:
 - CPSC 210 curriculum
 - the Json read and write design from the JsonSerializationDemo, link provided here: 

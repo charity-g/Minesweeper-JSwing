@@ -6,7 +6,6 @@ import model.Square;
 import ui.buttons.SquareButton;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +23,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         this.boardInProgress = boardInProgress;
         this.gameFramework = gameFramework;
         this.allSquareButtons = new ArrayList<>();
-        gameFramework.enableSave();
+        gameFramework.allowSaving();
 
         setPreferredSize(new Dimension(INTERFACE_WIDTH - MARGIN, INTERFACE_HEIGHT - MARGIN));
 
@@ -57,10 +56,10 @@ public class BoardPanel extends JPanel implements ActionListener {
         }
 
         if (boardInProgress.getBoardStatus() == LOST) {
-            endGame();
-        } else if (isGameWon(boardInProgress)) {
+            gameFramework.loseGameImage();
+        } else if (isGameWon()) {
             boardInProgress.setGameWon();
-            endGame();
+            gameFramework.winGameImage();
         }
 
         this.revalidate();
@@ -69,21 +68,13 @@ public class BoardPanel extends JPanel implements ActionListener {
     }
 
     //EFFECTS: produces true if all squares are shown on board except bomb
-    private boolean isGameWon(Board boardInProgress) {
+    private boolean isGameWon() {
         for (Square square : this.boardInProgress.getAllSquares()) {
             if (square.getIdentity() != Identity.BOMB && square.isIdentityHidden()) {
                 return false;
             }
         }
         return true;
-    }
-
-    //EFFECTS: displays end screen
-    private void endGame() {
-        JTextComponent text = new JTextField();
-        text.setText("GAME ENDED: " + boardInProgress.getBoardStatus());
-        this.add(text);
-        gameFramework.revalidate();
     }
 
     public Board getBoardInProgress() {

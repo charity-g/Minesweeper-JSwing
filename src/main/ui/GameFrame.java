@@ -1,9 +1,10 @@
 package ui;
 
-import model.Board;
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ public class GameFrame extends JFrame {
     UtilityPanel bkgLayer;
     BoardPanel activeBoardPanel;
     BorderLayout layout;
+    JLabel endGameImage;
 
     //EFFECTS: sets up the frame settings and initializes the utilities and beginning choices
     GameFrame() {
@@ -43,7 +45,7 @@ public class GameFrame extends JFrame {
 
     //MODIFIES: this
     //EFFECTS: removes the BoardPanel on screen if it exists, as well as removing it from the current active board
-    public void removeActiveBoard() {
+    private void removeActiveBoard() {
         if (activeBoardPanel != null) {
             remove(activeBoardPanel);
             this.activeBoardPanel = null;
@@ -52,7 +54,7 @@ public class GameFrame extends JFrame {
 
     //MODIFIES: this
     //EFFECTS: removes the Board on screen, as well as setting it as the current active board
-    public void addActiveBoard(BoardPanel newPanel) {
+    private void addActiveBoard(BoardPanel newPanel) {
         add(newPanel, layout.CENTER, 1);
         this.activeBoardPanel = newPanel;
         activeBoardPanel.setVisible(true);
@@ -67,18 +69,20 @@ public class GameFrame extends JFrame {
     }
 
     private void exchangeBoard(BoardPanel newPanel) {
+        if (this.endGameImage != null) {
+            remove(endGameImage);
+        }
         removeActiveBoard();
         addActiveBoard(newPanel);
         pack();
         revalidate();
     }
 
-
     public void saveBoardFromGame() throws FileNotFoundException {
         this.game.saveBoard();
     }
 
-    public void enableSave() {
+    public void allowSaving() {
         bkgLayer.enableSaveButton();
     }
 
@@ -96,5 +100,35 @@ public class GameFrame extends JFrame {
     public void setAdvancedBoard() {
         BoardPanel newPanel = new BoardPanel(game.setupNewAdvancedBoard(), this);
         exchangeBoard(newPanel);
+    }
+
+    //EFFECTS: loads winning image
+    public void winGameImage() {
+        bkgLayer.disableSaveButton();
+        this.activeBoardPanel.setVisible(false);
+        BufferedImage myPicture;
+        try {
+            myPicture = ImageIO.read(new File("./data/images/minesweeper_win.png"));
+            endGameImage = new JLabel(new ImageIcon(myPicture));
+        } catch (IOException e) {
+            endGameImage = new JLabel("YOU WON");
+        }
+        add(endGameImage, layout.SOUTH);
+        revalidate();
+    }
+
+    //EFFECTS: loads losing image
+    public void loseGameImage() {
+        bkgLayer.disableSaveButton();
+        this.activeBoardPanel.setVisible(false);
+        BufferedImage myPicture;
+        try {
+            myPicture = ImageIO.read(new File("./data/images/minesweeper_lose.png"));
+            endGameImage = new JLabel(new ImageIcon(myPicture));
+        } catch (IOException e) {
+            endGameImage = new JLabel("YOU LOST");
+        }
+        add(endGameImage, layout.SOUTH);
+        revalidate();
     }
 }

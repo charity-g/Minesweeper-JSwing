@@ -140,4 +140,8 @@ public class UtilityPanel extends JPanel implements ActionListener {
         this.add(advancedButton);
         revalidate();
     }
+
+    public void disableSaveButton() {
+        saveButton.setEnabled(false);
+    }
 }
