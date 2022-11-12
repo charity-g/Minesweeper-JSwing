@@ -61,10 +61,12 @@ public class GameFrame extends JFrame {
     //EFFECTS:
     public void loadBoardIntoGame() throws IOException {
         this.game.loadBoard();
-
         BoardPanel newPanel = new BoardPanel(game.getBoardInProgress(), this);
 
+        exchangeBoard(newPanel);
+    }
 
+    private void exchangeBoard(BoardPanel newPanel) {
         removeActiveBoard();
         addActiveBoard(newPanel);
         pack();
@@ -80,4 +82,19 @@ public class GameFrame extends JFrame {
         bkgLayer.enableSaveButton();
     }
 
+    public void setBeginnerBoard() {
+        BoardPanel newPanel = new BoardPanel(game.setupNewBeginnerBoard(), this);
+        exchangeBoard(newPanel);
+    }
+
+    public void setIntermediateBoard() {
+
+        BoardPanel newPanel = new BoardPanel(game.setupNewIntermediateBoard(), this);
+        exchangeBoard(newPanel);
+    }
+
+    public void setAdvancedBoard() {
+        BoardPanel newPanel = new BoardPanel(game.setupNewAdvancedBoard(), this);
+        exchangeBoard(newPanel);
+    }
 }

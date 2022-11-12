@@ -115,37 +115,36 @@ public class Game {
         writer.write(this.boardInProgress);
     }
 
-    // PRIVATE METHODS
     //EFFECTS: creates a new beginner board and sets that as the current board
-    private void setupNewBeginnerBoard() {
+    public Board setupNewBeginnerBoard() {
         int boardLength = 8 + random.nextInt(3);
         this.boardInProgress = new Board(boardLength, boardLength, 10);
+        return this.boardInProgress;
     }
 
 
     //EFFECTS: creates a new intermediate board and sets that as the current board
-    private void setupNewIntermediateBoard() {
+    public Board setupNewIntermediateBoard() {
         int boardWidth = 13 + random.nextInt(4);
         int boardHeight = 15 + random.nextInt(2);
         this.boardInProgress = new Board(boardWidth, boardHeight, 40);
+        return this.boardInProgress;
     }
 
 
     //EFFECTS: creates a new advanced board and sets that as the current board
-    private void setupNewAdvancedBoard() {
+    public Board setupNewAdvancedBoard() {
         int choice = random.nextInt(2);
         if (choice == 0) {
             this.boardInProgress = new Board(16, 30, 99);
         } else {
             this.boardInProgress = new Board(30, 16, 99);
         }
+        return this.boardInProgress;
     }
 
     public Board getBoardInProgress() {
         return this.boardInProgress;
     }
 
-    public void setBoardInProgress(Board newBoard) {
-        this.boardInProgress = newBoard;
-    }
 }

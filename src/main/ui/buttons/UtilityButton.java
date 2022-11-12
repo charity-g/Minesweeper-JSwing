@@ -10,7 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public abstract class UtilityButton extends JButton {
+public class UtilityButton extends JButton {
     protected GameFrame gameFramework;
 
     public UtilityButton(String text, GameFrame gameFramework, UtilityPanel listener) {
@@ -30,7 +30,7 @@ public abstract class UtilityButton extends JButton {
     private class MouseClickListener extends MouseAdapter {
 
         @Override
-        // EFFECTS: TODO !!
+        // EFFECTS: TODO tbd!!
         public void mouseClicked(MouseEvent e) {
             //handleMouseClicked(e);
         }

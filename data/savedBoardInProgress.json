@@ -1,53 +1,53 @@
 {
-         "boardWidth": 9,
+         "boardWidth": 10,
          "bombNumber": 10,
-         "seed": -5906194039715420593,
-         "boardHeight": 9,
+         "seed": -305695235526047442,
+         "boardHeight": 10,
          "allSquares": [
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 0,
                            "isHidden": true,
-                           "isFlagged": true
+                           "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 1,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 2,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 3,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 4,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 5,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "BOMB",
+                           "identity": "BLANK",
                            "position": 6,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "ONE",
                            "position": 7,
                            "isHidden": true,
                            "isFlagged": false
@@ -65,43 +65,43 @@
                            "isFlagged": false
                   },
                   {
-                           "identity": "BOMB",
+                           "identity": "BLANK",
                            "position": 10,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 11,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 12,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 13,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "BLANK",
                            "position": 14,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "BLANK",
                            "position": 15,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "BLANK",
                            "position": 16,
                            "isHidden": true,
                            "isFlagged": false
@@ -115,41 +115,41 @@
                   {
                            "identity": "ONE",
                            "position": 18,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "ONE",
-                           "position": 19,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "ONE",
-                           "position": 20,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "BLANK",
-                           "position": 21,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "ONE",
-                           "position": 22,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "BOMB",
-                           "position": 23,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "ONE",
+                           "position": 19,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 20,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 21,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 22,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 23,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
                            "position": 24,
                            "isHidden": true,
                            "isFlagged": false
@@ -169,53 +169,53 @@
                   {
                            "identity": "BLANK",
                            "position": 27,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 28,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 29,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 30,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "ONE",
                            "position": 31,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "BOMB",
                            "position": 32,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "THREE",
+                           "identity": "TWO",
                            "position": 33,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "ONE",
                            "position": 34,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "ONE",
                            "position": 35,
                            "isHidden": true,
                            "isFlagged": false
@@ -223,35 +223,35 @@
                   {
                            "identity": "BLANK",
                            "position": 36,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 37,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 38,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 39,
-                           "isHidden": false,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 40,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "ONE",
-                           "position": 40,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "BOMB",
                            "position": 41,
                            "isHidden": true,
                            "isFlagged": false
@@ -263,7 +263,7 @@
                            "isFlagged": false
                   },
                   {
-                           "identity": "BOMB",
+                           "identity": "THREE",
                            "position": 43,
                            "isHidden": true,
                            "isFlagged": false
@@ -277,95 +277,95 @@
                   {
                            "identity": "ONE",
                            "position": 45,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "ONE",
-                           "position": 46,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "ONE",
-                           "position": 47,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
+                           "position": 46,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 47,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
                            "position": 48,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "ONE",
                            "position": 49,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "BLANK",
                            "position": 50,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "THREE",
+                           "identity": "BLANK",
                            "position": 51,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "THREE",
+                           "identity": "ONE",
                            "position": 52,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "TWO",
+                           "identity": "BOMB",
                            "position": 53,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "TWO",
                            "position": 54,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "BOMB",
+                           "identity": "ONE",
                            "position": 55,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 56,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 57,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "BLANK",
+                           "identity": "TWO",
                            "position": 58,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "ONE",
-                           "position": 59,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BOMB",
+                           "position": 59,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
                            "position": 60,
                            "isHidden": true,
                            "isFlagged": false
@@ -377,105 +377,105 @@
                            "isFlagged": false
                   },
                   {
-                           "identity": "BLANK",
+                           "identity": "TWO",
                            "position": 62,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "TWO",
                            "position": 63,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "ONE",
                            "position": 64,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BLANK",
                            "position": 65,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 66,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 67,
-                           "isHidden": false,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "THREE",
+                           "position": 68,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 69,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "ONE",
-                           "position": 68,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "TWO",
-                           "position": 69,
-                           "isHidden": false,
-                           "isFlagged": false
-                  },
-                  {
-                           "identity": "TWO",
                            "position": 70,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "TWO",
                            "position": 71,
                            "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "BLANK",
+                           "identity": "BOMB",
                            "position": 72,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "BLANK",
+                           "identity": "TWO",
                            "position": 73,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "BLANK",
+                           "identity": "ONE",
                            "position": 74,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 75,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 76,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
                            "identity": "BLANK",
                            "position": 77,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "TWO",
                            "position": 78,
-                           "isHidden": false,
+                           "isHidden": true,
                            "isFlagged": false
                   },
                   {
@@ -485,8 +485,122 @@
                            "isFlagged": false
                   },
                   {
-                           "identity": "ONE",
+                           "identity": "BOMB",
                            "position": 80,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 81,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "TWO",
+                           "position": 82,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BOMB",
+                           "position": 83,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 84,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 85,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 86,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 87,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 88,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 89,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 90,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 91,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 92,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 93,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "ONE",
+                           "position": 94,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 95,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 96,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 97,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 98,
+                           "isHidden": true,
+                           "isFlagged": false
+                  },
+                  {
+                           "identity": "BLANK",
+                           "position": 99,
                            "isHidden": true,
                            "isFlagged": false
                   }

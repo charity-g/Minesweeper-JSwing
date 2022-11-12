@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
 The gui representation of a square object, with JButton capabilities to respond to user interaction
  */
 public class SquareButton extends JButton {
-    private static final int SQUARE_WIDTH = 40;
+    private static final int SQUARE_LENGTH = 40;
 
     Square square;
     BoardPanel boardListener;
@@ -21,7 +21,7 @@ public class SquareButton extends JButton {
     public SquareButton(Square square, BoardPanel boardListener) {
         super("" + square.getPosition());
         this.square = square;
-        setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_WIDTH));
+        setPreferredSize(new Dimension(SQUARE_LENGTH, SQUARE_LENGTH));
         setSquareIdentityShown();
 
         MouseListener ml = new SquareMouseListener();
