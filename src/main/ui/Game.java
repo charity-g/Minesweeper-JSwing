@@ -109,13 +109,10 @@ public class Game {
     }
 
     //EFFECTS: saves this board into json data into the file
-    public void saveBoard() {
+    public void saveBoard() throws FileNotFoundException {
         JsonWriter writer = new JsonWriter("./data/savedBoardInProgress.json");
-        try {
-            writer.write(this.boardInProgress);
-        } catch (FileNotFoundException e) {
-            System.out.println("The file you are trying to save this board to does not exist.");
-        }
+
+        writer.write(this.boardInProgress);
     }
 
     // PRIVATE METHODS

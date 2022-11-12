@@ -4,6 +4,7 @@ import model.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /*
@@ -18,7 +19,7 @@ public class GameFrame extends JFrame {
     private static final int ORIGIN_Y = INTERFACE_HEIGHT / 2;
 
     Game game;
-    JPanel bkgLayer;
+    UtilityPanel bkgLayer;
     BoardPanel activeBoardPanel;
     BorderLayout layout;
 
@@ -32,10 +33,6 @@ public class GameFrame extends JFrame {
         bkgLayer = new UtilityPanel(this);
         add(bkgLayer, layout.NORTH);
 
-        long seed = 24;
-        activeBoardPanel = new BoardPanel(new Board(1, 1, 0, seed), this);
-        add(activeBoardPanel);
-
         this.setTitle("Minesweeper");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -45,10 +42,12 @@ public class GameFrame extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECTS: removes the Board on screen, as well as removing it from the current active board
+    //EFFECTS: removes the BoardPanel on screen if it exists, as well as removing it from the current active board
     public void removeActiveBoard() {
-        remove(activeBoardPanel);
-        this.activeBoardPanel = null;
+        if (activeBoardPanel != null) {
+            remove(activeBoardPanel);
+            this.activeBoardPanel = null;
+        }
     }
 
     //MODIFIES: this
@@ -56,6 +55,7 @@ public class GameFrame extends JFrame {
     public void addActiveBoard(BoardPanel newPanel) {
         add(newPanel, layout.CENTER, 1);
         this.activeBoardPanel = newPanel;
+        activeBoardPanel.setVisible(true);
     }
 
     //EFFECTS:
@@ -67,6 +67,17 @@ public class GameFrame extends JFrame {
 
         removeActiveBoard();
         addActiveBoard(newPanel);
+        pack();
         revalidate();
     }
+
+
+    public void saveBoardFromGame() throws FileNotFoundException {
+        this.game.saveBoard();
+    }
+
+    public void enableSave() {
+        bkgLayer.enableSaveButton();
+    }
+
 }

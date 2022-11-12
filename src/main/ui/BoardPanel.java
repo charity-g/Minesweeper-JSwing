@@ -24,6 +24,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         this.boardInProgress = boardInProgress;
         this.gameFramework = gameFramework;
         this.allSquareButtons = new ArrayList<>();
+        gameFramework.enableSave();
 
         setPreferredSize(new Dimension(INTERFACE_WIDTH - MARGIN, INTERFACE_HEIGHT - MARGIN));
 
@@ -32,7 +33,7 @@ public class BoardPanel extends JPanel implements ActionListener {
     }
 
     private void addSquareButtons() {
-        for (Square square : boardInProgress.getAllSquares()) {
+        for (Square square : this.boardInProgress.getAllSquares()) {
             SquareButton button = new SquareButton(square, this);
             this.add(button);
             allSquareButtons.add(button);
@@ -47,15 +48,13 @@ public class BoardPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         for (SquareButton squareButton : allSquareButtons) {
             Square squareObj = squareButton.getSquare();
             if (!squareObj.isIdentityHidden()) {
                 squareButton.setText("" + squareObj.getIntegerIdentity());
+
             }
         }
-
-        gameFramework.revalidate();
 
         if (boardInProgress.getBoardStatus() == LOST) {
             endGame();
@@ -63,6 +62,9 @@ public class BoardPanel extends JPanel implements ActionListener {
             boardInProgress.setGameWon();
             endGame();
         }
+
+        this.revalidate();
+        gameFramework.revalidate();
 
     }
 

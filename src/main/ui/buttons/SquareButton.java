@@ -1,33 +1,42 @@
 package ui.buttons;
 
-import model.Board;
 import model.Square;
 import ui.BoardPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import static model.Identity.BOMB;
 
 /*
 The gui representation of a square object, with JButton capabilities to respond to user interaction
  */
 public class SquareButton extends JButton {
+    private static final int SQUARE_WIDTH = 40;
+
     Square square;
     BoardPanel boardListener;
 
     public SquareButton(Square square, BoardPanel boardListener) {
         super("" + square.getPosition());
-        setText("?");
         this.square = square;
+        setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_WIDTH));
+        setSquareIdentityShown();
 
         MouseListener ml = new SquareMouseListener();
         this.addMouseListener(ml);
 
         addActionListener(boardListener);
         this.boardListener = boardListener;
+    }
+
+    private void setSquareIdentityShown() {
+        if (square.isIdentityHidden()) {
+            setText("?");
+        } else {
+            setText("" + square.getIntegerIdentity());
+        }
     }
 
     public Square getSquare() {
