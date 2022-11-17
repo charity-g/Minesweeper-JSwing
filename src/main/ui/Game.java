@@ -66,10 +66,6 @@ public class Game {
         return false;
     }
 
-
-
-
-
     //MODIFIES: this
     //EFFECTS: reads the saved json board data and sets the board in progress to be the saved data
     public void loadBoard() throws IOException {
@@ -103,7 +99,7 @@ public class Game {
 
     //EFFECTS: creates a new advanced board and sets that as the current board
     public void setupNewAdvancedBoard() {
-        this.boardInProgress = new Board(30, 16, 99);
+        this.boardInProgress = new Board(26, 16, 95);
     }
 
     public Board getBoardInProgress() {
