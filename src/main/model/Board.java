@@ -7,7 +7,7 @@ import persistence.Writeable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static model.BoardStatus.*;
+import static model.GameStatus.*;
 import static model.Identity.*;
 
 
@@ -28,7 +28,7 @@ public class Board implements Writeable {
     protected final ArrayList<Integer> allBombPositions;
     protected final ArrayList<Square> allSquaresOnBoard;
 
-    protected BoardStatus boardStatus;
+    protected GameStatus gameStatus;
 
     private ArrayList<Integer> allSquaresMatrix;
 
@@ -46,7 +46,7 @@ public class Board implements Writeable {
         setAllBombPositions();
         this.allSquaresOnBoard = new ArrayList<>();
         initializeAllSquaresOnBoard();
-        this.boardStatus = BoardStatus.IN_PROGRESS;
+        this.gameStatus = GameStatus.IN_PROGRESS;
     }
 
     //REQUIRES: only called during testing for a seed
@@ -62,7 +62,7 @@ public class Board implements Writeable {
         setAllBombPositions();
         this.allSquaresOnBoard = new ArrayList<Square>();
         initializeAllSquaresOnBoard();
-        this.boardStatus = BoardStatus.IN_PROGRESS;
+        this.gameStatus = GameStatus.IN_PROGRESS;
     }
 
     //REQUIRES: should only be called by Constructor
@@ -214,7 +214,7 @@ public class Board implements Writeable {
         if (!wasHidden) {
             return false;
         } else if (square.getIdentity() == BOMB) {
-            this.boardStatus = LOST;
+            this.gameStatus = LOST;
             return true;
         } else if (square.getIdentity() == BLANK) {
             unearthNeighborsOfBlankSquare(position);
@@ -401,7 +401,7 @@ public class Board implements Writeable {
 
     //EFFECTS:
     public void setGameWon() {
-        this.boardStatus = WON;
+        this.gameStatus = WON;
     }
 
     //TODO write tests
@@ -460,8 +460,8 @@ public class Board implements Writeable {
     }
 
     //EFFECTS: return the status of the game
-    public BoardStatus getBoardStatus() {
-        return this.boardStatus;
+    public GameStatus getGameStatus() {
+        return this.gameStatus;
     }
 
     //EFFECTS: returns the bombs

@@ -1,7 +1,7 @@
 package persistence;
 
 import model.Board;
-import model.BoardStatus;
+import model.GameStatus;
 import model.Identity;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +57,7 @@ public class JsonReaderTest {
         try {
             Board board = reader.read();
 
-            assertEquals(board.getBoardStatus(), BoardStatus.IN_PROGRESS);
+            assertEquals(board.getGameStatus(), GameStatus.IN_PROGRESS);
             assertEquals(board.getBoardWidth(), 3);
             assertEquals(board.getBoardHeight(), 3);
             assertEquals(board.getListOfBombPos().size(), 2);
