@@ -3,6 +3,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writeable;
 
+import java.util.Objects;
+
 //information represented:
 // a single square on a board in the game of minesweeper.
 //   - what type of square it is- bomb, blank, one...etc
@@ -81,8 +83,6 @@ public class Square implements Writeable {
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public int getIntegerIdentity() {
         switch (this.identity) {
-            case BLANK:
-                return 0;
             case ONE:
                 return 1;
             case TWO:
@@ -102,7 +102,7 @@ public class Square implements Writeable {
             case BOMB:
                 return -1;
             default:
-                return -1000;
+                return 0;
         }
     }
 
