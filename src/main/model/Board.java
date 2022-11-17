@@ -231,6 +231,11 @@ public class Board implements Writeable {
             unearthSquare(pos);
         }
     }
+//
+//    private ArrayList<Integer> getCrossNeighborPositions(int position) {
+//        return null;
+//        //TODO !!!
+//    }
 
     //EFFECTS: returns all the valid neighboring positions on the board around the given position
     public ArrayList<Integer> getNeighborPositions(int position) {
@@ -358,6 +363,20 @@ public class Board implements Writeable {
             return true;
         }
     }
+
+    //MODIFIES: this (maybe)
+    //EFFECTS: returns true if all squares on the board have been flipped except for the bombs, and sets
+    public boolean checkAndSetIfGameWon() {
+        for (Square square : this.allSquaresOnBoard) {
+            if (square.getIdentity() != Identity.BOMB && square.isIdentityHidden()) {
+                return false;
+            }
+        }
+
+        this.gameStatus = WON;
+        return true;
+    }
+
 
     //EFFECTS: returns the json object with info about seed and dimensions, as well as the
     @Override
