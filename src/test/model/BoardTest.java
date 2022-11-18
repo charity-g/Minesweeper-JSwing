@@ -92,8 +92,8 @@ public class BoardTest {
 
     @Test
     public void testEightBombNeighbors() {
-        long seed6 = 227;
-        Board testBoardSeed8 = new Board(3,3,8, seed6);
+        long seed8 = 227;
+        Board testBoardSeed8 = new Board(3,3,8, seed8);
 
         assertEquals(testBoardSeed8.getSquare(4).getIntegerIdentity(), 8);
     }
