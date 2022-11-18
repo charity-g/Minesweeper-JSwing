@@ -146,6 +146,24 @@ public class BoardTest {
     }
 
     @Test
+    public void checkAndSetIfGameWonTestWon() {
+        for (Square square : testBoardSeed.allSquaresOnBoard) {
+            if (square.getIdentity() != BOMB) {
+                square.showSquare();
+            }
+        }
+
+        assertTrue(testBoardSeed.checkAndSetIfGameWon());
+        assertEquals(testBoardSeed.getGameStatus(), GameStatus.WON);
+    }
+
+    @Test
+    public void checkAndSetIfGameWonTestNotWon() {
+        assertFalse(testBoardSeed.checkAndSetIfGameWon());
+        assertNotEquals(testBoardSeed.getGameStatus(), GameStatus.WON);
+    }
+
+    @Test
     //testing click top left blank
     public void unearthSquareTestBlankTopLeft() {
         testBoardSeed.unearthSquare(0);
