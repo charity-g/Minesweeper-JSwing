@@ -49,7 +49,7 @@ public class SquareButton extends JButton {
     private class SquareMouseListener extends MouseAdapter {
 
         @Override
-        // EFFECTS: TODO !!
+        // EFFECTS: Handles mouse click and alerts button
         public void mouseClicked(MouseEvent e) {
             handleMouseClick();
         }

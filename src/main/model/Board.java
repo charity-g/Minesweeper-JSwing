@@ -399,22 +399,11 @@ public class Board implements Writeable {
         return jsonArrayAllSquares;
     }
 
-    //EFFECTS:
+    //MODIFIES: this
+    //EFFECTS: sets this game to winnable
     public void setGameWon() {
         this.gameStatus = WON;
     }
-
-    //TODO write tests
-    //EFFECTS: returns true if all squares on the board have been flipped except for the bombs
-    private boolean isGameWon() {
-        for (Square square : allSquaresOnBoard) {
-            if (square.getIdentity() != Identity.BOMB && square.isIdentityHidden()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 
     // GETTERS =====================================================
 

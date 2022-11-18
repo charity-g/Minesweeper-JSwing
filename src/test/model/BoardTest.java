@@ -58,8 +58,45 @@ public class BoardTest {
         }
     }
 
-    //@Test
-    //TODO add the tests for 4-8 neighbors of bombs
+    @Test
+    public void testFourBombNeighbors() {
+        long seed4 = 10;
+        Board testBoardSeed4 = new Board(3,3,5, seed4);
+
+        assertEquals(testBoardSeed4.getSquare(1).getIntegerIdentity(), 4);
+    }
+
+    @Test
+    public void testFiveBombNeighbors() {
+        long seed5 = 18;
+        Board testBoardSeed5 = new Board(3,3,5, seed5);
+
+        assertEquals(testBoardSeed5.getSquare(4).getIntegerIdentity(), 5);
+    }
+
+    @Test
+    public void testSixBombNeighbors() {
+        long seed6 = 18;
+        Board testBoardSeed6 = new Board(3,4,8, seed6);
+
+        assertEquals(testBoardSeed6.getSquare(4).getIntegerIdentity(), 6);
+    }
+
+    @Test
+    public void testSevenBombNeighbors() {
+        long seed6 = 18;
+        Board testBoardSeed7 = new Board(3,4,9, seed6);
+
+        assertEquals(testBoardSeed7.getSquare(4).getIntegerIdentity(), 7);
+    }
+
+    @Test
+    public void testEightBombNeighbors() {
+        long seed6 = 227;
+        Board testBoardSeed8 = new Board(3,3,8, seed6);
+
+        assertEquals(testBoardSeed8.getSquare(4).getIntegerIdentity(), 8);
+    }
 
     @Test
     public void setBombsTestSeed() {
