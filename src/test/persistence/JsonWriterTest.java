@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 //When testing, please ensure you are going into the files to delete the former data
+/*
+Tests for class JsonWriter
+ */
 public class JsonWriterTest {
     long seed = 24;
     JsonWriter writer;

@@ -25,6 +25,7 @@ public class GameFrame extends JFrame {
     SystemPanel systemPanel;
     private JLabel endGameImage;
 
+    //EFFECTS: creates new JFrame object with necessary panels in order
     public GameFrame() {
         game = new Game();
         layeredPane = new JLayeredPane();

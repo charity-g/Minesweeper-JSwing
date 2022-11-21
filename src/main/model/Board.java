@@ -231,11 +231,6 @@ public class Board implements Writeable {
             unearthSquare(pos);
         }
     }
-//
-//    private ArrayList<Integer> getCrossNeighborPositions(int position) {
-//        return null;
-//        //TODO !!!
-//    }
 
     //EFFECTS: returns all the valid neighboring positions on the board around the given position
     public ArrayList<Integer> getNeighborPositions(int position) {

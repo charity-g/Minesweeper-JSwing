@@ -32,6 +32,7 @@ public class SystemPanel extends JPanel implements ActionListener {
     private JButton intermediateButton;
     private JButton advancedButton;
 
+    //EFFECTS: initializes new System Panel object
     public SystemPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
 
@@ -182,6 +183,8 @@ public class SystemPanel extends JPanel implements ActionListener {
         this.repaint();
     }
 
+    //MODIFIES: this, saveButton
+    //EFFECTS: disables save button from being clicked
     public void disableSaveButton() {
         this.saveButton.setEnabled(false);
     }

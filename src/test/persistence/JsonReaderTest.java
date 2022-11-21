@@ -9,6 +9,9 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+Tests for class JsonReader
+ */
 public class JsonReaderTest {
 
     @Test

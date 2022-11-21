@@ -7,6 +7,9 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/*
+Tests for class Square
+ */
 class SquareTest {
     Square testBlankSquare;
     Square testSquare;

@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/*
+Tests for class Board
+ */
 public class BoardTest {
     Board testBoardSeed;
     private final int BOARD_WIDTH = 3;

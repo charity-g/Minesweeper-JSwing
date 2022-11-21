@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import static model.Identity.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+Tests for class Utils
+ */
 public class UtilsTest {
     Utils testUtil;
     Board testBoardForUtils;
