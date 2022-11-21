@@ -13,6 +13,10 @@ import java.util.List;
 import static model.GameStatus.LOST;
 import static model.GameStatus.WON;
 
+/*
+Represents the panel that presents the boardInProgress as interactable buttons
+ */
+
 public class BoardPanel extends JPanel {
     private Board boardRepresentation;
     private final GameFrame gameFrame;

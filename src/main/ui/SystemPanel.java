@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.util.Calendar;
 
 /*
-Represents an Action Listener that can take in user interaction with the buttons panel and calls appropriate GameFrame
+Represents an Action Listener that can take in user interaction with a buttons panel and calls appropriate GameFrame
+method. These buttons control aspects of the board onscreen, such as saving, loading and creating a new board
  */
 public class SystemPanel extends JPanel implements ActionListener {
     private LayoutManager systemPanelLayout;

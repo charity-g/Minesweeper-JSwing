@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /*
-Represents an interactive button on a board that is a display of an square object
+Represents an interactive button on a board that is a display of a square object
  */
 public class SquareButton extends JButton {
     private final BoardPanel boardPanel;
