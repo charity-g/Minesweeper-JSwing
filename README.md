@@ -31,7 +31,7 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 
 - You can generate the first required event related to adding bombs to a board by clicking either the "new game"
 or "load game" button when first starting up the program, or anytime during the program's run.
-- You can generate the second required event related adding bombs to a board by **double-clicking** any button on the board when 
+- You can generate the second required event related adding bombs to a board by clicking any button on the board when 
 it is loaded into the gui, and it will reveal what is underneath it.
 - You can locate my visual component by clicking on a bomb, or winning a game
 - You can save the state of my application by pressing save game. This button will only be enabled when you have a
