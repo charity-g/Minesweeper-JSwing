@@ -63,3 +63,16 @@ Sat Nov 26 15:16:38 PST 2022: Bomb set at column 8 and row 6
 Sat Nov 26 15:16:38 PST 2022: Bomb set at column 1 and row 4
 Sat Nov 26 15:16:38 PST 2022: All 10 bombs set on board.
 Sat Nov 26 15:16:38 PST 2022: Board created with 9 width, 9 height, and 10 bombs on board.
+
+# Phase 4 - Task 3
+I would definitely change a few design choices I had made.
+
+1. The algorithm that sets bombs on Board is very heavy, I would like to refactor it out of the Board class.
+2. Reduced coupling between Game and Board. Sometimes it is difficult to tell when Board's methods end and Game's 
+begin, so I would like to take time to write down all the methods concerning changing something drastic on the board, 
+such as unearth a bunch of tiles
+3. My GUI is actually the 2nd, refactored version after the brute force which I am pretty pleased with. However, I
+found it difficult to add a button to flag/unflag squares on the board, because of the way I had structured my 
+design, which separated the board modificiation buttons to not have knowledge of the board, but pass information to 
+GameFrame to switch the boards. This proves problematic for a flag/unflag square button, as it would need information 
+about the board directly to flag it, so I will consider refactoring to allow knowledge of a board.
