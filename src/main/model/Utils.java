@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static model.Identity.BOMB;
 
@@ -45,6 +46,11 @@ public class Utils {
             }
         }
         return true;
+    }
+
+    public static long nextLong() {
+        Random random = new Random();
+        return random.nextLong();
     }
 
     //REQUIRES: assumes the given element is in the list at least once

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /*
 Tests for class Board
@@ -42,7 +43,9 @@ public class BoardTest {
 
     @Test
     public void constructorEventsTest() {
-
+        //1 for clear event log, 2 for constructor finish
+        Collection<Event> events = EventLog.getInstance().getEvents();
+        assertEquals(testBoardSeed.getBombNumber() + 3, events.size());
     }
 
     @Test

@@ -17,7 +17,7 @@ import static model.Identity.*;
 //    - what types of square each position on the board is -
 //                                  a bomb, having one bomb in its neighbor, having no bombs in its neighbors... etc
 public class Board implements Writeable {
-    protected final Random random = new Random();
+    protected final Random random;
     protected long seed;
 
     protected int boardWidth;
@@ -37,7 +37,7 @@ public class Board implements Writeable {
     //EFFECTS: Places all the bombs in positions that aren't the user's choice, sets the identities,
     //         sets gameWonYet to false
     public Board(int boardWidth, int boardHeight, int bombNumber) {
-        new Board(boardWidth, boardHeight, bombNumber, random.nextLong());
+        this(boardWidth, boardHeight, bombNumber, Utils.nextLong());
     }
 
     //REQUIRES: only called during testing for a seed
@@ -45,6 +45,7 @@ public class Board implements Writeable {
     //         sets gameWonYet to false
     public Board(int boardWidth, int boardHeight, int bombNumber, long seed) {
         this.seed = seed;
+        this.random = new Random();
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.boardSize = boardHeight * boardWidth;
@@ -58,7 +59,7 @@ public class Board implements Writeable {
                 + boardHeight + " height, and " + bombNumber + " bombs on board."));
     }
 
-    //REQUIRES: should only be called by Constructor
+    //REQUIRES: should only be called by Constructor, and the bombNumber <= Squares on board
     //MODIFIES: this
     // EFFECTS makes number amount of bombs and sets their position to random positions that aren't their own and aren't
     //         the chosen position the user clicked on

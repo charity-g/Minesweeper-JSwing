@@ -47,3 +47,19 @@ board onscreen
     - JsonReader
    Methods adapted
     - toJson in my Board and Square classes
+- StackOverFlow
+
+# Phase 4 - Taks 2
+Sat Nov 26 15:16:38 PST 2022: Saved board loaded.
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 6 and row 2
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 1 and row 7
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 8 and row 0
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 8 and row 3
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 2 and row 2
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 6 and row 6
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 8 and row 1
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 5 and row 5
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 8 and row 6
+Sat Nov 26 15:16:38 PST 2022: Bomb set at column 1 and row 4
+Sat Nov 26 15:16:38 PST 2022: All 10 bombs set on board.
+Sat Nov 26 15:16:38 PST 2022: Board created with 9 width, 9 height, and 10 bombs on board.

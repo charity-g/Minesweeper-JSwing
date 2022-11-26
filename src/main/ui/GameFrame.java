@@ -1,5 +1,7 @@
 package ui;
 
+import ui.buttons.CloseOperationListener;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +44,8 @@ public class GameFrame extends JFrame {
 
         boardPanel = new BoardPanel(this);
         layeredPane.add(boardPanel, 0);
+
+        addWindowListener(new CloseOperationListener(this));
 
         setTitle("Minesweeper");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,4 +153,5 @@ public class GameFrame extends JFrame {
         this.repaint();
         this.revalidate();
     }
+
 }
