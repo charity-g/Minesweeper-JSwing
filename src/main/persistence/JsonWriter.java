@@ -1,6 +1,8 @@
 package persistence;
 
 import model.Board;
+import model.Event;
+import model.EventLog;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -28,6 +30,8 @@ public class JsonWriter {
         saveToFile(jsonBoard.toString(TAB));
 
         printWriter.close();
+
+        EventLog.getInstance().logEvent(new Event("Board saved."));
     }
 
     // MODIFIES: this

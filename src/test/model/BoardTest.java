@@ -24,12 +24,12 @@ public class BoardTest {
 
     @BeforeEach
     public void setup() {
+        EventLog.getInstance().clear();
         testBoardSeed = new Board(BOARD_WIDTH, BOARD_HEIGHT, 1, seed);
     }
 
     //CONSTRUCTOR TESTS
     @Test
-    //to be overridden
     public void constructorTest() {
         assertEquals(testBoardSeed.getBoardWidth(), this.BOARD_WIDTH);
         assertEquals(testBoardSeed.getBoardHeight(), this.BOARD_HEIGHT);
@@ -37,6 +37,11 @@ public class BoardTest {
         assertEquals(testBoardSeed.getBombNumber(), 1);
 
         assertEquals(testBoardSeed.getGameStatus(), GameStatus.IN_PROGRESS);
+
+    }
+
+    @Test
+    public void constructorEventsTest() {
 
     }
 

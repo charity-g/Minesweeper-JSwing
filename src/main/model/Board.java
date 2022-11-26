@@ -18,15 +18,15 @@ import static model.Identity.*;
 //                                  a bomb, having one bomb in its neighbor, having no bombs in its neighbors... etc
 public class Board implements Writeable {
     protected final Random random = new Random();
-    protected final long seed;
+    protected long seed;
 
-    protected final int boardWidth;
-    protected final int boardHeight;
-    protected final int boardSize;
-    protected final int bombNumber;
+    protected int boardWidth;
+    protected int boardHeight;
+    protected int boardSize;
+    protected int bombNumber;
 
-    protected final ArrayList<Integer> allBombPositions;
-    protected final ArrayList<Square> allSquaresOnBoard;
+    protected ArrayList<Integer> allBombPositions;
+    protected ArrayList<Square> allSquaresOnBoard;
 
     protected GameStatus gameStatus;
 
@@ -37,16 +37,7 @@ public class Board implements Writeable {
     //EFFECTS: Places all the bombs in positions that aren't the user's choice, sets the identities,
     //         sets gameWonYet to false
     public Board(int boardWidth, int boardHeight, int bombNumber) {
-        this.seed = random.nextLong();
-        this.boardWidth = boardWidth;
-        this.boardHeight = boardHeight;
-        this.boardSize = boardHeight * boardWidth;
-        this.bombNumber = bombNumber;
-        allBombPositions = new ArrayList<>();
-        setAllBombPositions();
-        this.allSquaresOnBoard = new ArrayList<>();
-        initializeAllSquaresOnBoard();
-        this.gameStatus = GameStatus.IN_PROGRESS;
+        new Board(boardWidth, boardHeight, bombNumber, random.nextLong());
     }
 
     //REQUIRES: only called during testing for a seed
@@ -63,6 +54,8 @@ public class Board implements Writeable {
         this.allSquaresOnBoard = new ArrayList<Square>();
         initializeAllSquaresOnBoard();
         this.gameStatus = GameStatus.IN_PROGRESS;
+        EventLog.getInstance().logEvent(new Event("Board created with " + boardWidth + " width, "
+                + boardHeight + " height, and " + bombNumber + " bombs on board."));
     }
 
     //REQUIRES: should only be called by Constructor
@@ -77,6 +70,7 @@ public class Board implements Writeable {
                 bombsMade++;
             }
         }
+        EventLog.getInstance().logEvent(new Event("All " + bombNumber + " bombs set on board."));
     }
 
     //REQUIRES: should only be called through the constructor
@@ -88,6 +82,8 @@ public class Board implements Writeable {
         int potentialRow = random.nextInt(boardHeight);
         if (givenPositionIsNotAlreadyABomb(potentialCol, potentialRow)) {
             this.allBombPositions.add(potentialCol + (potentialRow * this.boardWidth));
+            EventLog.getInstance().logEvent(new Event("Bomb set at column " + potentialCol
+                    + " and row " + potentialRow));
             return true;
         } else {
             return false;
@@ -140,7 +136,7 @@ public class Board implements Writeable {
     //REQUIRES: should only be called by Constructor
     //EFFECTS: creates a Square object for each square on the whole board, setting bombs to -1 and other squares to 0
     private ArrayList<Integer> makeAllSquaresMatrixBlank() {
-        ArrayList<Integer> allSquaresMatrix = new ArrayList<Integer>();
+        ArrayList<Integer> allSquaresMatrix = new ArrayList<>();
         ArrayList<Integer> listOfBombPos = getListOfBombPos();
         for (int i = 0; i < this.boardSize; i++) {
             if (listOfBombPos.contains(i)) {
@@ -154,11 +150,9 @@ public class Board implements Writeable {
 
     //REQUIRES: should only be called by Constructor
     //EFFECTS: for each square on the matrix, adds the number of neighboring bombs around
-    private ArrayList<Integer> addAllSquareNumericalIdentities(ArrayList<Integer> allSquaresMatrixBlank) {
+    private void addAllSquareNumericalIdentities(ArrayList<Integer> allSquaresMatrixBlank) {
         ArrayList<Integer> neighborsOfAllBombs = getNeighborsOfAllBombs();
-        ArrayList<Integer> allSquareMatrixFilled = addBombCountToPositionsAroundBombs(allSquaresMatrixBlank,
-                neighborsOfAllBombs);
-        return allSquareMatrixFilled;
+        addBombCountToPositionsAroundBombs(allSquaresMatrixBlank, neighborsOfAllBombs);
     }
 
     //EFFECTS: for each position that is a neighbor to a bomb, adds one to the bomb count at that position
@@ -211,10 +205,12 @@ public class Board implements Writeable {
     public boolean unearthSquare(int position) {
         Square square = getSquare(position);
         boolean wasHidden = square.showSquare();
+        EventLog.getInstance().logEvent(new Event("Square at position " + position + " has been flipped"));
         if (!wasHidden) {
             return false;
         } else if (square.getIdentity() == BOMB) {
             this.gameStatus = LOST;
+            EventLog.getInstance().logEvent(new Event("Stepped on a mine. Game over."));
             return true;
         } else if (square.getIdentity() == BLANK) {
             unearthNeighborsOfBlankSquare(position);
@@ -369,6 +365,8 @@ public class Board implements Writeable {
         }
 
         this.gameStatus = WON;
+        EventLog.getInstance().logEvent(new Event("All squares flipped, all bombs avoided."
+                + "Congrats, you won!"));
         return true;
     }
 

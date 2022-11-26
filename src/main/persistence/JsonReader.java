@@ -1,6 +1,8 @@
 package persistence;
 
 import model.Board;
+import model.Event;
+import model.EventLog;
 import model.Square;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,6 +31,7 @@ public class JsonReader {
     public Board read() throws IOException, org.json.JSONException {
         String jsonData = readFile(this.filePath);
         JSONObject jsonBoardObject = new JSONObject(jsonData);
+        EventLog.getInstance().logEvent(new Event("Saved board loaded."));
         return parseBoard(jsonBoardObject);
     }
 
