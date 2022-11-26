@@ -49,7 +49,7 @@ board onscreen
     - toJson in my Board and Square classes
 - StackOverFlow
 
-# Phase 4 - Taks 2
+# Phase 4 - Task 2
 Sat Nov 26 15:16:38 PST 2022: Saved board loaded.
 Sat Nov 26 15:16:38 PST 2022: Bomb set at column 6 and row 2
 Sat Nov 26 15:16:38 PST 2022: Bomb set at column 1 and row 7
