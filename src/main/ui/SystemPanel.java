@@ -22,9 +22,9 @@ public class SystemPanel extends JPanel implements ActionListener {
 
     private GameFrame gameFrame;
 
-    private JButton saveButton;
-    private JButton loadButton;
-    private JButton newButton;
+    private SystemButton saveButton;
+    private SystemButton loadButton;
+    private SystemButton newButton;
     private JTextComponent savingMessage;
     private JTextComponent errorText;
 
