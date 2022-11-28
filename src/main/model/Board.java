@@ -109,6 +109,7 @@ public class Board implements Writeable {
         }
     }
 
+    //EFFECTS returns the ENUM identity for the numerical identity
     private Identity convertToIdentity(Integer numericalIdentity) {
         switch (numericalIdentity) {
             case 1:

@@ -81,6 +81,7 @@ public class Square implements Writeable {
     }
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    //EFFECTS: returns the integer identity associated with the ENUM
     public int getIntegerIdentity() {
         switch (this.identity) {
             case ONE:
