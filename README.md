@@ -27,7 +27,7 @@ your brian into being strategetic and smart about your moves so it has a lot of 
 - As a user, I want to be able to load a game exactly where I left it off, and continue making moves.
 
 
-## Instructions for Grader
+## Instructions for Grader + Player Use
 
 - You can generate the first required event related to adding bombs to a board by clicking either the "new game"
 or "load game" button when first starting up the program, or anytime during the program's run.
